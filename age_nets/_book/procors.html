@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Profile Correlations | A Minimal Book Example</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Profile Correlations | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Profile Correlations | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Yihui Xie" />
+
+
+<meta name="date" content="2019-06-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="communities.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>2</b> Workspace</a><ul>
+<li class="chapter" data-level="2.1" data-path="workspace.html"><a href="workspace.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
+<li class="chapter" data-level="2.2" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>2.2</b> Load and Clean Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>3</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
+<li class="chapter" data-level="3.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>3.1</b> Multi-Trait Networks</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Single Trait Networks</a></li>
+<li class="chapter" data-level="5" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>5</b> Age Differences in Coherence and Differentiation</a><ul>
+<li class="chapter" data-level="5.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>5.1</b> Multi-Trait Coherence and Differentiation</a></li>
+<li class="chapter" data-level="5.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>5.2</b> Single and Mutli-Trait Coherence</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>6</b> Community Structure</a><ul>
+<li class="chapter" data-level="6.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>6.0.1</b> Plots</a></li>
+<li class="chapter" data-level="6.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>6.0.2</b> Matching Across Communities</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>7</b> Profile Correlations</a><ul>
+<li class="chapter" data-level="7.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>7.1</b> Profiles Correlation Plots (Figure 5)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="procors" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Profile Correlations</h1>
+<p>Next, we calculate profile correlations to test the stability of edges across all possible pairwise combinations of ages. A strong parallel correlation indicates that the weight of the edges is associated across two ages. We then map these profile correlations onto a heat map that displays the pairwise profile correlations. We would expect to see the strongest profile correlations cluster on the diagonal of heatmap – that is between ages that are adjacent or near in age.<br />
+## Multi-Trait</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wide_fun &lt;-<span class="st"> </span><span class="cf">function</span>(df){
+  df &lt;-<span class="st"> </span><span class="kw">unclass</span>(df) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>from, <span class="op">-</span>to) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(<span class="dt">key =</span> edge, <span class="dt">value =</span> weight)
+  <span class="kw">rownames</span>(df) &lt;-<span class="st"> </span>df<span class="op">$</span>age
+  df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>age)
+  <span class="kw">return</span>(df)
+  }
+
+<span class="co"># change the direction of the data </span>
+MT_procor &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">unnest</span>(edges.df) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(inventory) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wide =</span> <span class="kw">map</span>(data, wide_fun),
+         <span class="dt">procor =</span> <span class="kw">map</span>(wide, <span class="op">~</span><span class="kw">cor</span>(<span class="kw">t</span>(.), <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)))
+
+<span class="co"># separate out differentiation from coherence</span>
+edges.mat50bw &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">       </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest</span>(edges.df) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">separate</span>(from, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;from_factor&quot;</span>, <span class="st">&quot;from_item&quot;</span>), <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">separate</span>(to, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;to_factor&quot;</span>, <span class="st">&quot;to_item&quot;</span>), <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">filter</span>(from_factor <span class="op">!=</span><span class="st"> </span>to_factor) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">select</span>(age, weight, edge) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">spread</span>(<span class="dt">key =</span> edge, <span class="dt">value =</span> weight) <span class="op">%&gt;%</span>
+<span class="st">       </span>unclass <span class="op">%&gt;%</span><span class="st"> </span>data.frame
+
+<span class="co"># separate out coherence from differentiation </span>
+edges.mat50wi &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">       </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest</span>(edges.df) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">separate</span>(from, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;from_factor&quot;</span>, <span class="st">&quot;from_item&quot;</span>), <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">separate</span>(to, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;to_factor&quot;</span>, <span class="st">&quot;to_item&quot;</span>), <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">filter</span>(from_factor <span class="op">==</span><span class="st"> </span>to_factor) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">select</span>(age, weight, edge) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">spread</span>(<span class="dt">key =</span> edge, <span class="dt">value =</span> weight) <span class="op">%&gt;%</span>
+<span class="st">       </span>unclass <span class="op">%&gt;%</span><span class="st"> </span>data.frame
+       
+<span class="co"># set the rownsames of these to age</span>
+<span class="kw">rownames</span>(edges.mat50bw) &lt;-<span class="st"> </span>edges.mat50bw<span class="op">$</span>age
+<span class="kw">rownames</span>(edges.mat50wi) &lt;-<span class="st"> </span>edges.mat50wi<span class="op">$</span>age
+
+##############################################
+############ Profile Correlations ############
+##############################################
+
+<span class="co"># calculate profile correlations</span>
+procor50bw &lt;-<span class="st"> </span><span class="kw">cor</span>(<span class="kw">t</span>(edges.mat50bw[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)
+procor50wi &lt;-<span class="st"> </span><span class="kw">cor</span>(<span class="kw">t</span>(edges.mat50wi[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)</code></pre></div>
+<div id="Figure5" class="section level2">
+<h2><span class="header-section-number">7.1</span> Profiles Correlation Plots (Figure 5)</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##############################################
+################## PLOTS #####################
+##############################################
+
+procor_plot_fun &lt;-<span class="st"> </span><span class="cf">function</span>(df, inv, leg){
+  df[<span class="kw">upper.tri</span>(df, <span class="dt">diag =</span> T)] &lt;-<span class="st"> </span><span class="ot">NA</span>
+  p &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(df) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">age1 =</span> <span class="kw">colnames</span>(.)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">gather</span>(<span class="dt">key =</span> age2, <span class="dt">value =</span> r, <span class="dv">1</span><span class="op">:</span>(<span class="kw">ncol</span>(.) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(r)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> age2, <span class="dt">y =</span> age1, <span class="dt">fill =</span> r)) <span class="op">+</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> r)) <span class="op">+</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;white&quot;</span>, 
+       <span class="dt">midpoint =</span> .<span class="dv">5</span>, <span class="dt">limit =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">space =</span> <span class="st">&quot;Lab&quot;</span>, 
+       <span class="dt">name=</span><span class="st">&quot;Profile</span><span class="ch">\n</span><span class="st">Correlation&quot;</span>) <span class="op">+</span>
+<span class="st">      </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">title =</span> <span class="kw">sprintf</span>(<span class="st">&quot;Profile Correlations for %s&quot;</span>, inv)) <span class="op">+</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">      </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> leg,
+            <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),
+            <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">size =</span> <span class="kw">rel</span>(.<span class="dv">8</span>)),
+            <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> .<span class="dv">5</span>))
+  <span class="kw">ggsave</span>(p, <span class="dt">file =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%s/SAPA/photos/profile correlations/Big5_%s_profile_cors_heatmap.png&quot;</span>, data_path, inv), <span class="dt">width =</span> <span class="dv">12</span>, <span class="dt">height =</span> <span class="dv">8</span>)
+  p
+}
+
+MT_procor &lt;-<span class="st"> </span>MT_procor <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">plot =</span> <span class="kw">map2</span>(procor, inventory, <span class="op">~</span><span class="kw">procor_plot_fun</span>(.x, .y, <span class="dt">leg =</span> <span class="st">&quot;none&quot;</span>)))
+
+layout &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),
+                <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>))
+p &lt;-<span class="st"> </span>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(
+  MT_procor<span class="op">$</span>plot[[<span class="dv">2</span>]], 
+  <span class="kw">procor_plot_fun</span>(procor50bw, <span class="st">&quot;IPIP50 Cross-Trait Edges&quot;</span>, <span class="dt">leg =</span> <span class="st">&quot;none&quot;</span>), 
+  <span class="kw">procor_plot_fun</span>(procor50wi, <span class="st">&quot;IPIP50 Within-Trait Edges&quot;</span>, <span class="dt">leg =</span> <span class="st">&quot;none&quot;</span>), 
+  <span class="dt">layout_matrix =</span> layout)</code></pre></div>
+<p><img src="age_nets_files/figure-html/mt%20procor%20plots-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(p, <span class="dt">file =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%s/SAPA/photos/profile correlations/Big5_IPIP50_profile_cors_heatmap.png&quot;</span>, data_path),
+       <span class="dt">width =</span> <span class="dv">12</span>, <span class="dt">height =</span> <span class="dv">8</span>)</code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="communities.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["age_nets.pdf", "age_nets.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

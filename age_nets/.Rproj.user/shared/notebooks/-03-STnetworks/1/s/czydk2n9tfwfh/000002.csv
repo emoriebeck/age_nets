@@ -1,0 +1,5 @@
+"0","load(url(sprintf(""%s/results/st_nested_nets.RData"", data_path)))
+"
+"2","Error in load(url(sprintf(""%s/results/st_nested_nets.RData"", data_path))) : 
+  the input does not start with a magic number compatible with loading from a connection
+"

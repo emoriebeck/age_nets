@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1561133320446.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1866415664",
+    "id" : "404A11B9",
+    "lastKnownWriteTime" : 1561153851,
+    "last_content_update" : 1561153851987,
+    "path" : "~/Box/networks/age_nets/06-procors.Rmd",
+    "project_path" : "06-procors.Rmd",
+    "properties" : {
+        "chunk_output_type" : "console",
+        "cursorPosition" : "91,32",
+        "docOutlineVisible" : "0",
+        "scrollLine" : "42"
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1561132040617.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4014095914",
+    "id" : "8994BFA8",
+    "lastKnownWriteTime" : 1561154597,
+    "last_content_update" : 1561154597853,
+    "path" : "~/Box/networks/age_nets/03-STnetworks.Rmd",
+    "project_path" : "03-STnetworks.Rmd",
+    "properties" : {
+        "cursorPosition" : "33,0",
+        "scrollLine" : "20"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

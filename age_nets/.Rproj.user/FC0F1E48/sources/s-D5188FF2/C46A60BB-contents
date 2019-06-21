@@ -1,0 +1,173 @@
+# IPIP 20 and 50 {#ipip2050}
+
+## Data  
+First, we will get the item numbers for the IPIP 20 and IPIP 50.  
+```{r}
+# get item #'s for miniipip20 items
+ipip20_items <- melt(ItemLists) %>%
+  filter(grepl("miniIPIP20", L1) == T & L1 != "miniIPIP20") %>%
+  mutate(value = as.character(value)) %>%
+  arrange(L1) %>%
+  group_by(L1) %>%
+  mutate(name = seq(1,n(),1),
+         name = paste(L1, name, sep = "_")) %>%
+  ungroup()
+
+# get item #'s for the ipip100 items
+ipip100_items <- melt(ItemLists) %>%
+  filter(grepl("IPIP100", L1) == T & L1 != "IPIP100") %>%
+  mutate(value = as.character(value)) %>%
+  rbind(c("q_55", "IPIP100extraversion20")) %>%
+  arrange(L1) %>%
+  group_by(L1) %>%
+  mutate(name = seq(1,n(),1),
+         name = paste(L1, name, sep = "_")) %>%
+  ungroup()
+```
+
+Now, we'll get item info, including the text and names of the scales.  
+```{r}
+#ipip20
+ItemInfo20 <- ItemInfo100 %>%
+  filter(rownames(.) %in% ipip20_items$value) %>%
+  separate(IPIP100, into = c("Inventory", "Factor")) %>%
+  mutate(Factor = factor(Factor, levels = c("A", "C", "ES", "E", "I")),
+         Factor = recode(Factor,`A` = "agreeableness", `E` = "extraversion",
+                        `ES` = "emotionalstability",`I` = "intellect", 
+                        `C` = "conscientiousness")) %>%
+  arrange(Factor)
+
+#ipip100
+ItemInfo100 <- ItemInfo100 %>%
+  filter(rownames(.) %in% ipip100_items$value) %>%
+  separate(IPIP100, into = c("Inventory", "Factor")) %>%
+  mutate(Factor = factor(Factor, levels = c("A", "C", "ES", "E", "I")),
+         Factor = recode(Factor,`A` = "agreeableness", `E` = "extraversion",
+                        `ES` = "emotionalstability",`I` = "intellect", 
+                        `C` = "conscientiousness")) %>%
+  arrange(Factor)
+```
+
+And the column names.  
+```{r}
+# get column names for ipip20 items in IPIP data
+ipip20_cols <- c("RID", "age", "gender", 
+                  ipip20_items$value[ipip20_items$value %in%
+                  colnames(IPIP100items04apr2006thru7feb2017)])
+
+# get column names for ipip100 items in IPIP data
+ipip100_cols <- c("RID", "age", "gender", 
+                  ipip100_items$value[ipip100_items$value %in%
+                  colnames(IPIP100items04apr2006thru7feb2017)])
+```
+
+And subset the data based on those items into new data frames.  
+```{r}
+# subset IPIP50 & IPIP100 SAPA data
+ipip20  <- IPIP100items04apr2006thru7feb2017[, ipip20_cols]
+ipip50  <- IPIP100items04apr2006thru7feb2017[, ipip50_cols]
+```
+
+And then rename the column names of the new data frames using their putative Big 5 Traits. 
+```{r}
+colnames(ipip20)[4:23]   <- ipip20_items$name
+colnames(ipip100)[4:103] <- ipip100_items$name
+```
+
+And create a list of column names for later.  
+```{r}
+all_cols20 <- paste(rep(c("a", "c", "n", "e", "o"), each = 4), c(paste("0", seq(1,4,1), sep = "")), sep = "")
+all_cols100 <- paste(rep(c("a", "c", "n", "e", "o"), each = 20), c(paste("0", seq(1,9,1), sep = ""), seq(10,20,1)), sep = "")
+```
+
+Finally, we need to recode the age categories for later in life with the sample sizes are smaller. The `recode_age()` function can be found in Chapter /@ref(workspace).     
+```{r}
+ipip20  <- recode_age(ipip20)
+ipip100 <- recode_age(ipip100)
+```
+
+## Fit the Networks  
+```{r}
+# create monochromatic purple color theme for node groups
+ipipcolors <- RColorBrewer::brewer.pal(5,"Set3")
+```
+
+Remove unnecessary demographics from data.  
+```{r}
+data20 <- ipip20 %>% select(-RID, -gender) 
+colnames(data20)[2:21] <- all_cols20
+
+data100 <- ipip100 %>% select(-RID, -gender) 
+colnames(data100)[2:101] <- all_cols100
+```
+
+Transform data to list for use in `parLapply()`  
+```{r}
+datalist20 <- dlply(select(data20, -age, -age_groups), .(age2))
+datalist100 <- dlply(select(data100,-age, -age_groups), .(age2))
+
+datalist20gr <- dlply(select(data20, -age, -age2), .(age_groups))
+datalist100gr <- dlply(select(data100,-age, -age2), .(age_groups))
+
+# remove the age group column 
+datalist20gr <- llply(datalist20gr, function(x) x %>% select(-age_groups))
+datalist100gr <- llply(datalist100gr, function(x) x %>% select(-age_groups))
+
+# remove ages with tiny sample sizes
+datalist20gr  <- datalist20gr[!names(datalist20gr) %in% 80:90]
+datalist100gr <- datalist100gr[!names(datalist100gr) %in% 80:90]
+```
+
+Create groups for creating networks and single trait models.  
+```{r}
+ipipgroup20 <- list(a = seq(1,4,1),
+                    c = seq(5,8,1),
+                    n = seq(9,12,1),
+                    e = seq(13,16,1),
+                    o = seq(17,20,1)) 
+
+ipipgroup100 <- list(a = seq(1,20,1),
+                     c = seq(21,40,1),
+                     n = seq(41,60,1),
+                     e = seq(61,80,1),
+                     o = seq(81,100,1))
+```
+
+Run the networks.  
+```{r}
+# Calculate the number of cores
+no_cores <- detectCores() - 1
+
+# Initiate cluster
+cl <- makeCluster(no_cores)
+# import global env variables for parallel computing
+clusterExport(cl, varlist = c("ipipgroup20", "ipipgroup100", 
+                              "ipipcolors",  "ItemInfo100"))
+# # calculate pairwise cors
+allcorsNgraphs50gr  <- parLapply(cl, datalist50gr,   EDBqgraph50n)
+# plot networks
+stopCluster(cl) # end parallel computing session
+
+save(allcorsNgraphs20gr, allcorsNgraphs100gr,
+     allcentrality20, allcentrality100, 
+     file = "~/Box/networks/SAPA/allcors_20_50.RData")
+```
+
+Combine the lists into a nested data frame with list columns. 
+```{r}
+MT_net_nested <- 
+  tibble(inventory = "IPIP20",
+         age = names(allcorsNgraphs20),
+         results = allcorsNgraphs20,
+         centrality = allcentrality20) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols20)) %>%
+  bind_rows(tibble(inventory = "IPIP100",
+         age = names(allcorsNgraphs100),
+         results = allcorsNgraphs100,
+         centrality = allcentrality100) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols100))) %>%
+  mutate(mat = map(results, ~.[[1]]),
+         net = map(results, ~.[[2]]))
+```
+
+

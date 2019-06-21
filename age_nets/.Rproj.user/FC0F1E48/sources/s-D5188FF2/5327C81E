@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1561128977838.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5327C81E",
+    "lastKnownWriteTime" : 1561128751,
+    "last_content_update" : 1561129870593,
+    "path" : "~/Box/networks/SAPA/age_networks6.11.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "chunk_output_type" : "console",
+        "cursorPosition" : "36,43",
+        "docOutlineVisible" : "0",
+        "scrollLine" : "30",
+        "source_window_id" : "w8rcek34s3k4y"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

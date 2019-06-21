@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1561129941764.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2840987282",
+    "id" : "53849455",
+    "lastKnownWriteTime" : 1561154572,
+    "last_content_update" : 1561154572798,
+    "path" : "~/Box/networks/age_nets/02-networks.Rmd",
+    "project_path" : "02-networks.Rmd",
+    "properties" : {
+        "chunk_output_type" : "console",
+        "cursorPosition" : "166,57",
+        "docOutlineVisible" : "1",
+        "scrollLine" : "156"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

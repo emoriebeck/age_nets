@@ -1,0 +1,6 @@
+"0","load(url(sprintf(""%s/data/IPIP100items04apr2006thru7feb2017.rdata?raw=true"", data_path)))
+"
+"2","cannot open URL 'https://github.com/emoriebeck/age_nets/blob/master/data/IPIP100items04apr2006thru7feb2017.rdata?raw=true': HTTP status was '404 Not Found'"
+"2","Error in load(url(sprintf(""%s/data/IPIP100items04apr2006thru7feb2017.rdata?raw=true"",  : 
+  cannot open the connection to 'https://github.com/emoriebeck/age_nets/blob/master/data/IPIP100items04apr2006thru7feb2017.rdata?raw=true'
+"

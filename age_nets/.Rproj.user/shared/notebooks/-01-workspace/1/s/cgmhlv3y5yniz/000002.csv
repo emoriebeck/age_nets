@@ -1,0 +1,4 @@
+"0","# subset IPIP50 & IPIP100 SAPA data"
+"0","ipip20  <- IPIP100items04apr2006thru7feb2017[, ipip20_cols]"
+"0","ipip50  <- IPIP100items04apr2006thru7feb2017[, ipip50_cols]"
+"0","ipip100 <- IPIP100items04apr2006thru7feb2017[, ipip100_cols]"
