@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "1737120648",
     "id" : "503A4F9F",
-    "lastKnownWriteTime" : 1561155566,
-    "last_content_update" : 1561155566303,
+    "lastKnownWriteTime" : 1561155964,
+    "last_content_update" : 1561155964303,
     "path" : "~/Box/networks/age_nets/01-workspace.Rmd",
     "project_path" : "01-workspace.Rmd",
     "properties" : {
-        "cursorPosition" : "24,41",
+        "cursorPosition" : "24,53",
         "scrollLine" : "20"
     },
     "relative_order" : 5,

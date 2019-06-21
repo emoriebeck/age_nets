@@ -5,8 +5,8 @@ account: emorie_beck
 server: bookdown.org
 hostUrl: https://bookdown.org/__api__
 appId: 2688
-bundleId: 10674
+bundleId: 10675
 url: https://bookdown.org/emorie_beck/age_nets/
-when: 1561155467.48678
+when: 1561155700.82475
 asMultiple: FALSE
 asStatic: FALSE

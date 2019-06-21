@@ -22,7 +22,7 @@ First, we will load in two separate data sets from the SAPA project. The first i
 ```{r load data}
 data_path <- "https://github.com/emoriebeck/age_nets/blob/master"
 load(url(sprintf("%s/data/SAPAdata18aug2010thru7feb2017.rdata?raw=true", data_path)))
-load(url(sprintf("%s/data/IPIP100ICAR60items04apr2006thru7feb2017.rdata?raw=true", data_path)))
+load(url(sprintf("%s/data/IPIP100items04apr2006thru7feb2017.rdata?raw=true", data_path)))
 
 # There is one row that is duplicated twice, so we'll remove it
 IPIP100items04apr2006thru7feb2017 <- 
