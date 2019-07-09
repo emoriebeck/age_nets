@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Emorie D Beck" />
+<meta name="author" content="David M Condon" />
+<meta name="author" content="Joshua J Jackson" />
+
+
+<meta name="date" content="2019-07-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="workspace.html">
+<link rel="next" href="STnetworks.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background on the SAPA Project</a><ul>
+<li class="chapter" data-level="2.1" data-path="background.html"><a href="background.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
+<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#methods"><i class="fa fa-check"></i><b>2.2</b> Methods</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="background.html"><a href="background.html#to-2010"><i class="fa fa-check"></i><b>2.2.1</b> 2006 to 2010</a></li>
+<li class="chapter" data-level="2.2.2" data-path="background.html"><a href="background.html#to-2017"><i class="fa fa-check"></i><b>2.2.2</b> 2010 to 2017}</a></li>
+<li class="chapter" data-level="2.2.3" data-path="background.html"><a href="background.html#merge-the-datasets-and-describe"><i class="fa fa-check"></i><b>2.2.3</b> Merge the datasets and Describe}</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>3</b> Workspace</a><ul>
+<li class="chapter" data-level="3.1" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>3.1</b> Load and Clean Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
+<li class="chapter" data-level="4.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>4.1</b> Multi-Trait Networks</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>5</b> Fit the Single Trait Networks</a></li>
+<li class="chapter" data-level="6" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>6</b> Age Differences in Coherence and Differentiation</a><ul>
+<li class="chapter" data-level="6.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>6.1</b> Multi-Trait Coherence and Differentiation</a></li>
+<li class="chapter" data-level="6.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>6.2</b> Single and Mutli-Trait Coherence</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>7</b> Community Structure</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>7.0.1</b> Plots</a></li>
+<li class="chapter" data-level="7.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>7.0.2</b> Matching Across Communities</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>8</b> Profile Correlations</a><ul>
+<li class="chapter" data-level="8.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>8.1</b> Profiles Correlation Plots (Figure 5)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interindividual Age Differences in Personality Structure</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fit-the-multi-trait-networks-mtnetworks" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Fit the Multi-Trait Networks {MTnetworks}</h1>
+<div id="multi-trait-networks" class="section level2">
+<h2><span class="header-section-number">4.1</span> Multi-Trait Networks</h2>
+<p>First, we have to do some prep to get the data into list form to run parLapply on the function to fit the networks.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create monochromatic purple color theme for node groups</span>
+ipipcolors &lt;-<span class="st"> </span>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Set3&quot;</span>)
+
+<span class="co"># remove unnecessary demographics from data</span>
+data20 &lt;-<span class="st"> </span>ipip20 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>RID, <span class="op">-</span>gender) 
+<span class="kw">colnames</span>(data20)[<span class="dv">2</span><span class="op">:</span><span class="dv">21</span>] &lt;-<span class="st"> </span>all_cols20
+
+data50 &lt;-<span class="st"> </span>ipip50 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>RID, <span class="op">-</span>gender) 
+<span class="kw">colnames</span>(data50)[<span class="dv">2</span><span class="op">:</span><span class="dv">51</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(a, c, n, e, o)
+
+data100 &lt;-<span class="st"> </span>ipip100 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>RID, <span class="op">-</span>gender) 
+<span class="kw">colnames</span>(data100)[<span class="dv">2</span><span class="op">:</span><span class="dv">101</span>] &lt;-<span class="st"> </span>all_cols100</code></pre></div>
+<p>Before we can run the networks, we are going to group them in two ways, once by decade and once by year.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># transform data to list for use in parLapply for year by year groups</span>
+datalist20 &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data20, <span class="op">-</span>age, <span class="op">-</span>age_groups), .(age2))
+datalist50 &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data50, <span class="op">-</span>age, <span class="op">-</span>age_groups), .(age2))
+datalist100 &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data100,<span class="op">-</span>age, <span class="op">-</span>age_groups), .(age2))
+
+<span class="co"># transform data to list for use in parLapply for decade groups</span>
+datalist20gr &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data20, <span class="op">-</span>age, <span class="op">-</span>age2), .(age_groups))
+datalist50gr &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data50, <span class="op">-</span>age, <span class="op">-</span>age2), .(age_groups))
+datalist100gr &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data100,<span class="op">-</span>age, <span class="op">-</span>age2), .(age_groups))
+
+<span class="co"># remove the age group column</span>
+datalist20gr &lt;-<span class="st"> </span><span class="kw">llply</span>(datalist20gr, <span class="cf">function</span>(x) x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>age_groups))
+datalist50gr &lt;-<span class="st"> </span><span class="kw">llply</span>(datalist50gr, <span class="cf">function</span>(x) x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>age_groups))
+datalist100gr &lt;-<span class="st"> </span><span class="kw">llply</span>(datalist100gr, <span class="cf">function</span>(x) x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>age_groups))
+
+<span class="co"># remove the later decades with a small sample size</span>
+datalist20gr  &lt;-<span class="st"> </span>datalist20gr[<span class="op">!</span><span class="kw">names</span>(datalist20gr) <span class="op">%in%</span><span class="st"> </span><span class="dv">80</span><span class="op">:</span><span class="dv">90</span>]
+datalist50gr  &lt;-<span class="st"> </span>datalist50gr[<span class="op">!</span><span class="kw">names</span>(datalist50gr) <span class="op">%in%</span><span class="st"> </span><span class="dv">80</span><span class="op">:</span><span class="dv">90</span>]
+datalist100gr &lt;-<span class="st"> </span>datalist100gr[<span class="op">!</span><span class="kw">names</span>(datalist100gr) <span class="op">%in%</span><span class="st"> </span><span class="dv">80</span><span class="op">:</span><span class="dv">90</span>]
+
+<span class="co"># create group membership list based on item codes</span>
+ipipgroup20 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>),
+                    <span class="dt">c =</span> <span class="kw">seq</span>(<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">1</span>),
+                    <span class="dt">n =</span> <span class="kw">seq</span>(<span class="dv">9</span>,<span class="dv">12</span>,<span class="dv">1</span>),
+                    <span class="dt">e =</span> <span class="kw">seq</span>(<span class="dv">13</span>,<span class="dv">16</span>,<span class="dv">1</span>),
+                    <span class="dt">o =</span> <span class="kw">seq</span>(<span class="dv">17</span>,<span class="dv">20</span>,<span class="dv">1</span>)) 
+
+ipipgroup50 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">1</span>),
+                    <span class="dt">c =</span> <span class="kw">seq</span>(<span class="dv">11</span>,<span class="dv">20</span>,<span class="dv">1</span>),
+                    <span class="dt">n =</span> <span class="kw">seq</span>(<span class="dv">21</span>,<span class="dv">30</span>,<span class="dv">1</span>),
+                    <span class="dt">e =</span> <span class="kw">seq</span>(<span class="dv">31</span>,<span class="dv">40</span>,<span class="dv">1</span>),
+                    <span class="dt">o =</span> <span class="kw">seq</span>(<span class="dv">41</span>,<span class="dv">50</span>,<span class="dv">1</span>)) 
+
+ipipgroup100 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">20</span>,<span class="dv">1</span>),
+                     <span class="dt">c =</span> <span class="kw">seq</span>(<span class="dv">21</span>,<span class="dv">40</span>,<span class="dv">1</span>),
+                     <span class="dt">n =</span> <span class="kw">seq</span>(<span class="dv">41</span>,<span class="dv">60</span>,<span class="dv">1</span>),
+                     <span class="dt">e =</span> <span class="kw">seq</span>(<span class="dv">61</span>,<span class="dv">80</span>,<span class="dv">1</span>),
+                     <span class="dt">o =</span> <span class="kw">seq</span>(<span class="dv">81</span>,<span class="dv">100</span>,<span class="dv">1</span>))</code></pre></div>
+<p>Now we can run the networks.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate the number of cores</span>
+no_cores &lt;-<span class="st"> </span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+
+<span class="co"># Initiate cluster</span>
+cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(no_cores)
+<span class="co"># import global env variables for parallel computing</span>
+<span class="kw">clusterExport</span>(cl, <span class="dt">varlist =</span> <span class="kw">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, 
+                              <span class="st">&quot;ipipcolors&quot;</span>, <span class="st">&quot;datalist50&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>,
+                              <span class="st">&quot;ItemInfo20&quot;</span>))
+<span class="co"># # calculate pairwise cors</span>
+<span class="co"># run the by year networks  </span>
+allcorsNgraphs20  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist20,   EDBqgraph20n)
+allcorsNgraphs50  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist50,   EDBqgraph50n)
+allcorsNgraphs100 &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist100, EDBqgraph100n)
+
+<span class="co"># run the by decade networks</span>
+allcorsNgraphs20gr  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist20gr,   EDBqgraph20n)
+allcorsNgraphs50gr  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist50gr,   EDBqgraph50n)
+allcorsNgraphs100gr &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist100gr, EDBqgraph100n)
+
+<span class="co"># run centrality on the networks</span>
+allcentrality20  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="kw">llply</span>(allcorsNgraphs20,  <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>,<span class="dv">2</span>), <span class="cf">function</span>(x) qgraph<span class="op">::</span><span class="kw">centrality_auto</span>(x))
+allcentrality50  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="kw">llply</span>(allcorsNgraphs50,  <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>,<span class="dv">2</span>), <span class="cf">function</span>(x) qgraph<span class="op">::</span><span class="kw">centrality_auto</span>(x))
+allcentrality100 &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="kw">llply</span>(allcorsNgraphs100, <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>,<span class="dv">2</span>), <span class="cf">function</span>(x) qgraph<span class="op">::</span><span class="kw">centrality_auto</span>(x))
+<span class="kw">stopCluster</span>(cl) <span class="co"># end parallel computing session</span>
+
+<span class="co"># save(allcorsNgraphs20, allcorsNgraphs50, allcorsNgraphs100,</span>
+<span class="co">#      allcorsNgraphs20gr, allcorsNgraphs50gr, allcorsNgraphs100gr,</span>
+<span class="co">#      allcentrality20, allcentrality50, allcentrality100, </span>
+<span class="co">#      file = &quot;~/Box/networks/SAPA/allcors.RData&quot;)</span></code></pre></div>
+<p>Now, to avoid redundancy, we will make create a <code>tibble</code> with the networks and centrality stored as list columns, which will make it easier to run functions on them efficiently.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MT_net_nested &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">tibble</span>(<span class="dt">inventory =</span> <span class="st">&quot;IPIP20&quot;</span>,
+         <span class="dt">age =</span> <span class="kw">names</span>(allcorsNgraphs20),
+         <span class="dt">results =</span> allcorsNgraphs20,
+         <span class="dt">centrality =</span> allcentrality20) <span class="op">%&gt;%</span>
+<span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols20)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">inventory =</span> <span class="st">&quot;IPIP50&quot;</span>,
+         <span class="dt">age =</span> <span class="kw">names</span>(allcorsNgraphs50),
+         <span class="dt">results =</span> allcorsNgraphs50,
+         <span class="dt">centrality =</span> allcentrality50) <span class="op">%&gt;%</span>
+<span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols50))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">inventory =</span> <span class="st">&quot;IPIP100&quot;</span>,
+         <span class="dt">age =</span> <span class="kw">names</span>(allcorsNgraphs100),
+         <span class="dt">results =</span> allcorsNgraphs100,
+         <span class="dt">centrality =</span> allcentrality100) <span class="op">%&gt;%</span>
+<span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols100))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mat =</span> <span class="kw">map</span>(results, <span class="op">~</span>.[[<span class="dv">1</span>]]),
+         <span class="dt">net =</span> <span class="kw">map</span>(results, <span class="op">~</span>.[[<span class="dv">2</span>]]))
+
+MT_net_nested_gr &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">age_group =</span> <span class="kw">names</span>(allcorsNgraphs20gr), 
+    <span class="dt">results =</span> allcorsNgraphs20gr,  <span class="dt">cols =</span> <span class="kw">list</span>(all_cols20), <span class="dt">inventory =</span> <span class="st">&quot;IPIP20&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">age_group =</span> <span class="kw">names</span>(allcorsNgraphs50gr), <span class="dt">results =</span> allcorsNgraphs50gr, 
+    <span class="dt">cols =</span> <span class="kw">list</span>(all_cols50), <span class="dt">inventory =</span> <span class="st">&quot;IPIP50&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">age_group =</span> <span class="kw">names</span>(allcorsNgraphs100gr), <span class="dt">results =</span> allcorsNgraphs100gr, 
+    <span class="dt">cols =</span> <span class="kw">list</span>(all_cols100), <span class="dt">inventory =</span> <span class="st">&quot;IPIP100&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mat =</span> <span class="kw">map</span>(results, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),
+         <span class="dt">net =</span> <span class="kw">map</span>(results, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># run correlations and networks for 20&#39;s</span>
+corsNgraphsgr  &lt;-<span class="st"> </span>data50 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">as.numeric</span>(age) <span class="op">&lt;</span><span class="st"> </span><span class="dv">80</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>age2, <span class="op">-</span>age) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(age_groups) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">net =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="kw">EDBqgraphAvLayout</span>(., ItemInfo50, ipipgroup50))) <span class="op">%&gt;%</span>
+<span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols50))
+<span class="co"># save(MT_net_nested, MT_net_nested_gr, file = sprintf(&quot;%s/results/mt_nested_nets.RData&quot;, data_path))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%s/results/mt_nested_nets.RData?raw=true&quot;</span>, data_path)))
+getEdges.df &lt;-<span class="st"> </span><span class="cf">function</span>(x, cols) {
+    y &lt;-<span class="st"> </span>qgraph<span class="op">::</span><span class="kw">getWmat</span>(x)
+    y[<span class="kw">upper.tri</span>(y, <span class="dt">diag =</span> T)] &lt;-<span class="st"> </span><span class="ot">NA</span>
+    <span class="kw">colnames</span>(y) &lt;-<span class="st"> </span>cols; <span class="kw">rownames</span>(y) &lt;-<span class="st"> </span>cols
+    nvar &lt;-<span class="st"> </span><span class="kw">dim</span>(y)[<span class="dv">2</span>]
+    df &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(y) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">from =</span> <span class="kw">row.names</span>(y)) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">gather</span>(<span class="dt">key =</span> to, <span class="dt">value =</span> weight, <span class="dv">1</span><span class="op">:</span>nvar) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">edge =</span> <span class="kw">paste</span>(from, to, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight))
+    <span class="kw">return</span>(df)
+}
+
+MT_net_nested &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">edges.df =</span> <span class="kw">map2</span>(net, cols, getEdges.df),
+         <span class="dt">cors.df =</span> <span class="kw">map2</span>(mat, cols, getEdges.df))
+
+MT_net_nested_gr &lt;-<span class="st"> </span>MT_net_nested_gr <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">edges.df =</span> <span class="kw">map2</span>(net, cols, getEdges.df),
+         <span class="dt">cors.df =</span> <span class="kw">map2</span>(mat, cols, getEdges.df))
+
+ex_fun &lt;-<span class="st"> </span><span class="cf">function</span>(x){x[[<span class="dv">1</span>]]}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corsNgraphsgr &lt;-<span class="st"> </span>corsNgraphsgr <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols50),
+         <span class="dt">mat =</span> <span class="kw">map</span>(net, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),
+         <span class="dt">net =</span> <span class="kw">map</span>(net, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]), 
+         <span class="dt">edges.df =</span> <span class="kw">map2</span>(net, cols, getEdges.df),
+         <span class="dt">cors.df =</span> <span class="kw">map2</span>(mat, cols, getEdges.df))</code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="workspace.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="STnetworks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["age_nets.pdf", "age_nets.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
