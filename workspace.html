@@ -26,7 +26,7 @@
 <meta name="author" content="Joshua J Jackson" />
 
 
-<meta name="date" content="2019-07-09" />
+<meta name="date" content="2019-07-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -290,6 +290,18 @@ ipip50  &lt;-<span class="st"> </span><span class="kw">recode_age</span>(ipip50)
 ipip100 &lt;-<span class="st"> </span><span class="kw">recode_age</span>(ipip100)
 
 <span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>()[<span class="kw">grepl</span>(<span class="st">&quot;^Item&quot;</span>, <span class="kw">ls</span>()) <span class="op">|</span><span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;keys&quot;</span>, <span class="kw">ls</span>())])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ipip50 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(age2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">decade =</span> <span class="kw">substr</span>(<span class="kw">as.numeric</span>(<span class="kw">as.character</span>(age2)), <span class="dv">1</span>, <span class="dv">1</span>),
+         <span class="dt">decade =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%s0 - %s9&quot;</span>, decade, decade)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(decade) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> decade, <span class="dt">y =</span> n)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;gray&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> n), <span class="dt">nudge_y =</span> <span class="dv">4000</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_classic</span>()</code></pre></div>
+<p><img src="age_nets_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 
 </div>
 </div>

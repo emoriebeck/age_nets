@@ -26,7 +26,7 @@
 <meta name="author" content="Joshua J Jackson" />
 
 
-<meta name="date" content="2019-07-09" />
+<meta name="date" content="2019-07-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -552,9 +552,344 @@ state &lt;-<span class="st"> </span><span class="kw">subset</span>(SAPAdata18aug
 </div>
 <div id="merge-the-datasets-and-describe" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Merge the datasets and Describe}</h3>
-Now we will combine both of the samples and describe them with proper tables and figures before converting the demographics into numeric variables.
+<p>Now we will combine both of the samples and describe them with proper tables and figures before converting the demographics into numeric variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fullSample &lt;-<span class="st"> </span>taFinal <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">contains</span>(<span class="st">&quot;iq_&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">full_join</span>(SAPAdata18aug2010thru7feb2017) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">select</span>(RID<span class="op">:</span>education, q_<span class="dv">55</span>, <span class="kw">everything</span>())
 
-<p>\begin{scriptsize}</p>
+<span class="kw">rm</span>(SAPAdata18aug2010thru7feb2017, taFinal)
+<span class="kw">gc</span>()</code></pre></div>
+<pre><code>##             used  (Mb) gc trigger   (Mb) limit (Mb)  max used   (Mb)
+## Ncells   4507029 240.8   10045189  536.5         NA  10045189  536.5
+## Vcells 107160950 817.6  392190552 2992.2      51200 490231665 3740.2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># n is total Ps in the full sample</span>
+n &lt;-<span class="st"> </span><span class="kw">dim</span>(fullSample)[<span class="dv">1</span>]
+ntext &lt;-<span class="st"> </span><span class="kw">prettyNum</span>(n, <span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">scientific =</span> F)
+ntext</code></pre></div>
+<pre><code>## [1] &quot;369,151&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># percent female</span>
+femalePerc &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">round</span>((<span class="kw">table</span>(fullSample<span class="op">$</span>gender)<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(fullSample<span class="op">$</span>gender)))[<span class="st">&quot;female&quot;</span>], 
+    <span class="dv">3</span>)
+femalePerc</code></pre></div>
+<pre><code>## female 
+##   43.3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># describe the age distribution</span>
+(fullSampleAge &lt;-<span class="st"> </span>psych<span class="op">::</span><span class="kw">describe</span>(fullSample[, <span class="st">&quot;age&quot;</span>]))</code></pre></div>
+<pre><code>##    vars      n  mean    sd median trimmed  mad min max range skew kurtosis
+## X1    1 369151 26.36 10.89     22   24.53 7.41  14  90    76 1.48     1.86
+##      se
+## X1 0.02</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(MeanAge &lt;-<span class="st"> </span>fullSampleAge<span class="op">$</span>mean)</code></pre></div>
+<pre><code>## [1] 26.36206</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(SDAge &lt;-<span class="st"> </span>fullSampleAge<span class="op">$</span>sd)</code></pre></div>
+<pre><code>## [1] 10.88535</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(MedianAge &lt;-<span class="st"> </span>fullSampleAge<span class="op">$</span>median)</code></pre></div>
+<pre><code>## [1] 22</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(MinAge &lt;-<span class="st"> </span>fullSampleAge<span class="op">$</span>min)</code></pre></div>
+<pre><code>## [1] 14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(MaxAge &lt;-<span class="st"> </span>fullSampleAge<span class="op">$</span>max)</code></pre></div>
+<pre><code>## [1] 90</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># percent U.S.</span>
+(USperc &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">round</span>((<span class="kw">table</span>(fullSample<span class="op">$</span>country)<span class="op">/</span><span class="kw">sum</span>(<span class="kw">table</span>(fullSample<span class="op">$</span>country)))[<span class="st">&quot;USA&quot;</span>], 
+    <span class="dv">3</span>))</code></pre></div>
+<pre><code>##  USA 
+## 72.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># total U.S.</span>
+(UScounttext &lt;-<span class="st"> </span><span class="kw">prettyNum</span>((<span class="kw">table</span>(fullSample<span class="op">$</span>country))[<span class="st">&quot;USA&quot;</span>], <span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>, 
+    <span class="dt">scientific =</span> F))</code></pre></div>
+<pre><code>##       USA 
+## &quot;251,926&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number of countries with P&gt;0</span>
+countryTable &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">table</span>(fullSample<span class="op">$</span>country), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
+countryCount &lt;-<span class="st"> </span><span class="kw">length</span>(countryTable)
+
+<span class="co"># number of countries with P&gt;199</span>
+countryCount200 &lt;-<span class="st"> </span><span class="kw">subset</span>(countryTable, countryTable <span class="op">&gt;</span><span class="st"> </span><span class="dv">199</span>)
+<span class="kw">length</span>(countryCount200)</code></pre></div>
+<pre><code>## [1] 67</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># show the top 25 countries</span>
+<span class="kw">sort</span>(<span class="kw">table</span>(fullSample<span class="op">$</span>country), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">25</span>]</code></pre></div>
+<pre><code>## 
+##    USA    CAN    GBR    AUS    IND    SWE    MYS    PHL    DEU    CHN 
+## 251926  16242  11239   8437   4577   2999   2995   2995   2974   2086 
+##    SGP    NLD    MEX    NOR    NZL    ZAF    FRA    BRA    POL    IRL 
+##   1886   1754   1540   1484   1431   1191   1148   1147   1114   1090 
+##    FIN    ROU    HKG    IDN    ITA 
+##    963    924    919    847    783</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(countrytext &lt;-<span class="st"> </span><span class="kw">prettyNum</span>(<span class="kw">sum</span>(<span class="kw">table</span>(fullSample<span class="op">$</span>country)), <span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">scientific =</span> F))</code></pre></div>
+<pre><code>## [1] &quot;347,672&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># show the US states, in order</span>
+state &lt;-<span class="st"> </span><span class="kw">subset</span>(fullSample, country <span class="op">==</span><span class="st"> &quot;USA&quot;</span>)
+<span class="kw">sort</span>(<span class="kw">table</span>(state<span class="op">$</span>state), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">51</span>]</code></pre></div>
+<pre><code>## 
+##           California             Illinois                Texas 
+##                27771                17131                15029 
+##             New York         Pennsylvania              Florida 
+##                13824                12677                10990 
+##             Michigan                 Ohio             Virginia 
+##                10209                 9813                 8550 
+##              Georgia           Washington            Minnesota 
+##                 7722                 6495                 6194 
+##           New Jersey            Wisconsin        Massachusetts 
+##                 5785                 5771                 5082 
+##       North Carolina              Indiana            Louisiana 
+##                 5061                 4645                 4517 
+##             Maryland             Missouri       South Carolina 
+##                 4461                 4178                 3489 
+##           New Mexico               Oregon              Arizona 
+##                 3422                 3416                 3361 
+##            Tennessee             Colorado             Kentucky 
+##                 3268                 2913                 2577 
+##             Delaware              Alabama                 Iowa 
+##                 2521                 2508                 2423 
+##             Oklahoma          Connecticut               Kansas 
+##                 2414                 2341                 1973 
+##             Nebraska                 Utah          Mississippi 
+##                 1928                 1796                 1582 
+##             Arkansas         Rhode Island               Alaska 
+##                 1502                 1247                 1133 
+##               Nevada                Idaho        New Hampshire 
+##                 1037                 1023                 1000 
+##                Maine        West Virginia              Montana 
+##                  932                  896                  796 
+##               Hawaii         South Dakota District of Columbia 
+##                  779                  573                  483 
+##              Vermont         North Dakota              Wyoming 
+##                  473                  458                  342</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">education &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">table</span>(fullSample<span class="op">$</span>education))
+<span class="kw">colnames</span>(education) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Educational Level&quot;</span>, <span class="st">&quot;Participants&quot;</span>)
+(college &lt;-<span class="st"> </span><span class="kw">prettyNum</span>(<span class="kw">round</span>(education[<span class="dv">4</span>, <span class="dv">2</span>]<span class="op">/</span><span class="kw">sum</span>(education[, <span class="dv">2</span>]) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">0</span>), <span class="dt">big.mark =</span> <span class="st">&quot;,&quot;</span>, 
+    <span class="dt">scientific =</span> F))</code></pre></div>
+<pre><code>## [1] &quot;12&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ethnic &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">table</span>(fullSample<span class="op">$</span>race))
+<span class="kw">colnames</span>(ethnic) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ethnicity/Race&quot;</span>, <span class="st">&quot;Participants&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fullSample &lt;-<span class="st"> </span>IPIP100items04apr2006thru7feb2017
+fullSample <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(country)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable</span>(., <span class="st">&quot;html&quot;</span>, <span class="dt">booktabs =</span> T, <span class="dt">escape =</span> F,
+        <span class="dt">caption =</span> <span class="st">&quot;Sample Sizes in Top 25 Countries&quot;</span>,
+        <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Frequency&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">full_width =</span> F)</code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-13">Table 2.1: </span>Sample Sizes in Top 25 Countries
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Country
+</th>
+<th style="text-align:right;">
+Frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+USA
+</td>
+<td style="text-align:right;">
+251913
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CAN
+</td>
+<td style="text-align:right;">
+16242
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GBR
+</td>
+<td style="text-align:right;">
+11237
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AUS
+</td>
+<td style="text-align:right;">
+8437
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+4576
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SWE
+</td>
+<td style="text-align:right;">
+2999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MYS
+</td>
+<td style="text-align:right;">
+2995
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHL
+</td>
+<td style="text-align:right;">
+2994
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DEU
+</td>
+<td style="text-align:right;">
+2974
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHN
+</td>
+<td style="text-align:right;">
+2086
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SGP
+</td>
+<td style="text-align:right;">
+1885
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NLD
+</td>
+<td style="text-align:right;">
+1754
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MEX
+</td>
+<td style="text-align:right;">
+1540
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NOR
+</td>
+<td style="text-align:right;">
+1484
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NZL
+</td>
+<td style="text-align:right;">
+1430
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ZAF
+</td>
+<td style="text-align:right;">
+1191
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FRA
+</td>
+<td style="text-align:right;">
+1148
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BRA
+</td>
+<td style="text-align:right;">
+1147
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POL
+</td>
+<td style="text-align:right;">
+1114
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IRL
+</td>
+<td style="text-align:right;">
+1090
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FIN
+</td>
+<td style="text-align:right;">
+963
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ROU
+</td>
+<td style="text-align:right;">
+924
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKG
+</td>
+<td style="text-align:right;">
+919
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IDN
+</td>
+<td style="text-align:right;">
+847
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ITA
+</td>
+<td style="text-align:right;">
+782
+</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ethnic <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Participants)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">kable</span>(., <span class="st">&quot;html&quot;</span>, <span class="dt">booktabs =</span> T, <span class="dt">escape =</span> F,
@@ -562,7 +897,7 @@ Now we will combine both of the samples and describe them with proper tables and
 <span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">full_width =</span> F)</code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-2">Table 2.1: </span>Race/Ethnicity Among U.S. Participants in the full sample
+<span id="tab:unnamed-chunk-14">Table 2.2: </span>Race/Ethnicity Among U.S. Participants in the full sample
 </caption>
 <thead>
 <tr>
@@ -710,7 +1045,7 @@ education <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">full_width =</span> F)</code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-3">Table 2.2: </span>Educational Attainment Level in the full sample
+<span id="tab:unnamed-chunk-15">Table 2.3: </span>Educational Attainment Level in the full sample
 </caption>
 <thead>
 <tr>
@@ -838,8 +1173,8 @@ IPIP100CorCI &lt;- cor.ci(fullSample[,items], p=.05, n.iter = 100, overlap=FALSE
 save(IPIP100CorCI, file = &quot;~/Downloads/cor_stab.RData&quot;)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%s/results/cor_stab.RData?raw=true&quot;</span>, data_path)))
 <span class="kw">plot</span>(<span class="kw">density</span>(IPIP100CorCI<span class="op">$</span>sds), <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Standard error of item-level correlations&quot;</span>, <span class="dt">xlim=</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">02</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))</code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-6"></span>
-<img src="age_nets_files/figure-html/unnamed-chunk-6-1.png" alt="Supplementary Figure 2. Standard error of item-level correlations" width="672" />
+<div class="figure"><span id="fig:unnamed-chunk-18"></span>
+<img src="age_nets_files/figure-html/unnamed-chunk-18-1.png" alt="Supplementary Figure 2. Standard error of item-level correlations" width="672" />
 <p class="caption">
 Figure 2.1: Supplementary Figure 2. Standard error of item-level correlations
 </p>
