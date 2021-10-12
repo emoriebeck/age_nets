@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Fit the Multi-Trait Networks {MTnetworks} | A Minimal Book Example</title>
+  <title>Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Fit the Multi-Trait Networks {MTnetworks} | A Minimal Book Example" />
+  <meta property="og:title" content="Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,17 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Fit the Multi-Trait Networks {MTnetworks} | A Minimal Book Example" />
+  <meta name="twitter:title" content="Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
 
-<meta name="author" content="Yihui Xie" />
+<meta name="author" content="Emorie D Beck" />
+<meta name="author" content="David M Condon" />
+<meta name="author" content="Joshua J Jackson" />
 
 
-<meta name="date" content="2019-06-21" />
+<meta name="date" content="2019-07-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -47,6 +49,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -103,25 +106,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>2</b> Workspace</a><ul>
-<li class="chapter" data-level="2.1" data-path="workspace.html"><a href="workspace.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
-<li class="chapter" data-level="2.2" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>2.2</b> Load and Clean Data</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background on the SAPA Project</a><ul>
+<li class="chapter" data-level="2.1" data-path="background.html"><a href="background.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
+<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#methods"><i class="fa fa-check"></i><b>2.2</b> Methods</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="background.html"><a href="background.html#to-2010"><i class="fa fa-check"></i><b>2.2.1</b> 2006 to 2010</a></li>
+<li class="chapter" data-level="2.2.2" data-path="background.html"><a href="background.html#to-2017"><i class="fa fa-check"></i><b>2.2.2</b> 2010 to 2017}</a></li>
+<li class="chapter" data-level="2.2.3" data-path="background.html"><a href="background.html#merge-the-datasets-and-describe"><i class="fa fa-check"></i><b>2.2.3</b> Merge the datasets and Describe}</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>3</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
-<li class="chapter" data-level="3.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>3.1</b> Multi-Trait Networks</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Single Trait Networks</a></li>
-<li class="chapter" data-level="5" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>5</b> Age Differences in Coherence and Differentiation</a><ul>
-<li class="chapter" data-level="5.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>5.1</b> Multi-Trait Coherence and Differentiation</a></li>
-<li class="chapter" data-level="5.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>5.2</b> Single and Mutli-Trait Coherence</a></li>
+<li class="chapter" data-level="3" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>3</b> Workspace</a><ul>
+<li class="chapter" data-level="3.1" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>3.1</b> Load and Clean Data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>6</b> Community Structure</a><ul>
-<li class="chapter" data-level="6.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>6.0.1</b> Plots</a></li>
-<li class="chapter" data-level="6.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>6.0.2</b> Matching Across Communities</a></li>
+<li class="chapter" data-level="4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
+<li class="chapter" data-level="4.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>4.1</b> Multi-Trait Networks</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>7</b> Profile Correlations</a><ul>
-<li class="chapter" data-level="7.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>7.1</b> Profiles Correlation Plots (Figure 5)</a></li>
+<li class="chapter" data-level="5" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>5</b> Fit the Single Trait Networks</a></li>
+<li class="chapter" data-level="6" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>6</b> Age Differences in Coherence and Differentiation</a><ul>
+<li class="chapter" data-level="6.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>6.1</b> Multi-Trait Coherence and Differentiation</a></li>
+<li class="chapter" data-level="6.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>6.2</b> Single and Mutli-Trait Coherence</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>7</b> Community Structure</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>7.0.1</b> Plots</a></li>
+<li class="chapter" data-level="7.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>7.0.2</b> Matching Across Communities</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>8</b> Profile Correlations</a><ul>
+<li class="chapter" data-level="8.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>8.1</b> Profiles Correlation Plots (Figure 5)</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -135,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interindividual Age Differences in Personality Structure</a>
           </h1>
         </div>
 
@@ -144,9 +154,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="fit-the-multi-trait-networks-mtnetworks" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Fit the Multi-Trait Networks {MTnetworks}</h1>
+<h1><span class="header-section-number">Chapter 4</span> Fit the Multi-Trait Networks {MTnetworks}</h1>
 <div id="multi-trait-networks" class="section level2">
-<h2><span class="header-section-number">3.1</span> Multi-Trait Networks</h2>
+<h2><span class="header-section-number">4.1</span> Multi-Trait Networks</h2>
 <p>First, we have to do some prep to get the data into list form to run parLapply on the function to fit the networks.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create monochromatic purple color theme for node groups</span>
 ipipcolors &lt;-<span class="st"> </span>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Set3&quot;</span>)
@@ -226,10 +236,10 @@ allcentrality50  &lt;-<span class="st"> </span><span class="kw">parLapply</span>
 allcentrality100 &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="kw">llply</span>(allcorsNgraphs100, <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>,<span class="dv">2</span>), <span class="cf">function</span>(x) qgraph<span class="op">::</span><span class="kw">centrality_auto</span>(x))
 <span class="kw">stopCluster</span>(cl) <span class="co"># end parallel computing session</span>
 
-<span class="kw">save</span>(allcorsNgraphs20, allcorsNgraphs50, allcorsNgraphs100,
-     allcorsNgraphs20gr, allcorsNgraphs50gr, allcorsNgraphs100gr,
-     allcentrality20, allcentrality50, allcentrality100, 
-     <span class="dt">file =</span> <span class="st">&quot;~/Box/networks/SAPA/allcors.RData&quot;</span>)</code></pre></div>
+<span class="co"># save(allcorsNgraphs20, allcorsNgraphs50, allcorsNgraphs100,</span>
+<span class="co">#      allcorsNgraphs20gr, allcorsNgraphs50gr, allcorsNgraphs100gr,</span>
+<span class="co">#      allcentrality20, allcentrality50, allcentrality100, </span>
+<span class="co">#      file = &quot;~/Box/networks/SAPA/allcors.RData&quot;)</span></code></pre></div>
 <p>Now, to avoid redundancy, we will make create a <code>tibble</code> with the networks and centrality stored as list columns, which will make it easier to run functions on them efficiently.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MT_net_nested &lt;-<span class="st"> </span>
 <span class="st">  </span><span class="kw">tibble</span>(<span class="dt">inventory =</span> <span class="st">&quot;IPIP20&quot;</span>,
@@ -266,8 +276,8 @@ corsNgraphsgr  &lt;-<span class="st"> </span>data50 <span class="op">%&gt;%</spa
 <span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">net =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="kw">EDBqgraphAvLayout</span>(., ItemInfo50, ipipgroup50))) <span class="op">%&gt;%</span>
 <span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols50))
-<span class="kw">save</span>(MT_net_nested, MT_net_nested_gr, <span class="dt">file =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%s/SAPA/results/mt_nested_nets.RData&quot;</span>, data_path))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%s/SAPA/results/mt_nested_nets.RData&quot;</span>, data_path))
+<span class="co"># save(MT_net_nested, MT_net_nested_gr, file = sprintf(&quot;%s/results/mt_nested_nets.RData&quot;, data_path))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%s/results/mt_nested_nets.RData?raw=true&quot;</span>, data_path)))
 getEdges.df &lt;-<span class="st"> </span><span class="cf">function</span>(x, cols) {
     y &lt;-<span class="st"> </span>qgraph<span class="op">::</span><span class="kw">getWmat</span>(x)
     y[<span class="kw">upper.tri</span>(y, <span class="dt">diag =</span> T)] &lt;-<span class="st"> </span><span class="ot">NA</span>
@@ -350,19 +360,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

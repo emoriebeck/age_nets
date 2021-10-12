@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Profile Correlations | A Minimal Book Example</title>
+  <title>Chapter 8 Profile Correlations | Interindividual Age Differences in Personality Structure</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Profile Correlations | A Minimal Book Example" />
+  <meta property="og:title" content="Chapter 8 Profile Correlations | Interindividual Age Differences in Personality Structure" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,17 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Profile Correlations | A Minimal Book Example" />
+  <meta name="twitter:title" content="Chapter 8 Profile Correlations | Interindividual Age Differences in Personality Structure" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
 
-<meta name="author" content="Yihui Xie" />
+<meta name="author" content="Emorie D Beck" />
+<meta name="author" content="David M Condon" />
+<meta name="author" content="Joshua J Jackson" />
 
 
-<meta name="date" content="2019-06-21" />
+<meta name="date" content="2019-07-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -47,6 +49,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -103,25 +106,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>2</b> Workspace</a><ul>
-<li class="chapter" data-level="2.1" data-path="workspace.html"><a href="workspace.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
-<li class="chapter" data-level="2.2" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>2.2</b> Load and Clean Data</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background on the SAPA Project</a><ul>
+<li class="chapter" data-level="2.1" data-path="background.html"><a href="background.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
+<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#methods"><i class="fa fa-check"></i><b>2.2</b> Methods</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="background.html"><a href="background.html#to-2010"><i class="fa fa-check"></i><b>2.2.1</b> 2006 to 2010</a></li>
+<li class="chapter" data-level="2.2.2" data-path="background.html"><a href="background.html#to-2017"><i class="fa fa-check"></i><b>2.2.2</b> 2010 to 2017}</a></li>
+<li class="chapter" data-level="2.2.3" data-path="background.html"><a href="background.html#merge-the-datasets-and-describe"><i class="fa fa-check"></i><b>2.2.3</b> Merge the datasets and Describe}</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>3</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
-<li class="chapter" data-level="3.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>3.1</b> Multi-Trait Networks</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Single Trait Networks</a></li>
-<li class="chapter" data-level="5" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>5</b> Age Differences in Coherence and Differentiation</a><ul>
-<li class="chapter" data-level="5.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>5.1</b> Multi-Trait Coherence and Differentiation</a></li>
-<li class="chapter" data-level="5.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>5.2</b> Single and Mutli-Trait Coherence</a></li>
+<li class="chapter" data-level="3" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>3</b> Workspace</a><ul>
+<li class="chapter" data-level="3.1" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>3.1</b> Load and Clean Data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>6</b> Community Structure</a><ul>
-<li class="chapter" data-level="6.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>6.0.1</b> Plots</a></li>
-<li class="chapter" data-level="6.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>6.0.2</b> Matching Across Communities</a></li>
+<li class="chapter" data-level="4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
+<li class="chapter" data-level="4.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>4.1</b> Multi-Trait Networks</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>7</b> Profile Correlations</a><ul>
-<li class="chapter" data-level="7.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>7.1</b> Profiles Correlation Plots (Figure 5)</a></li>
+<li class="chapter" data-level="5" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>5</b> Fit the Single Trait Networks</a></li>
+<li class="chapter" data-level="6" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>6</b> Age Differences in Coherence and Differentiation</a><ul>
+<li class="chapter" data-level="6.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>6.1</b> Multi-Trait Coherence and Differentiation</a></li>
+<li class="chapter" data-level="6.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>6.2</b> Single and Mutli-Trait Coherence</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>7</b> Community Structure</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>7.0.1</b> Plots</a></li>
+<li class="chapter" data-level="7.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>7.0.2</b> Matching Across Communities</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>8</b> Profile Correlations</a><ul>
+<li class="chapter" data-level="8.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>8.1</b> Profiles Correlation Plots (Figure 5)</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -135,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interindividual Age Differences in Personality Structure</a>
           </h1>
         </div>
 
@@ -144,7 +154,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="procors" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Profile Correlations</h1>
+<h1><span class="header-section-number">Chapter 8</span> Profile Correlations</h1>
 <p>Next, we calculate profile correlations to test the stability of edges across all possible pairwise combinations of ages. A strong parallel correlation indicates that the weight of the edges is associated across two ages. We then map these profile correlations onto a heat map that displays the pairwise profile correlations. We would expect to see the strongest profile correlations cluster on the diagonal of heatmap – that is between ages that are adjacent or near in age.<br />
 ## Multi-Trait</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wide_fun &lt;-<span class="st"> </span><span class="cf">function</span>(df){
@@ -195,7 +205,7 @@ edges.mat50wi &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;
 procor50bw &lt;-<span class="st"> </span><span class="kw">cor</span>(<span class="kw">t</span>(edges.mat50bw[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)
 procor50wi &lt;-<span class="st"> </span><span class="kw">cor</span>(<span class="kw">t</span>(edges.mat50wi[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)</code></pre></div>
 <div id="Figure5" class="section level2">
-<h2><span class="header-section-number">7.1</span> Profiles Correlation Plots (Figure 5)</h2>
+<h2><span class="header-section-number">8.1</span> Profiles Correlation Plots (Figure 5)</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##############################################
 ################## PLOTS #####################
 ##############################################
@@ -217,7 +227,7 @@ procor_plot_fun &lt;-<span class="st"> </span><span class="cf">function</span>(d
             <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),
             <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">size =</span> <span class="kw">rel</span>(.<span class="dv">8</span>)),
             <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> .<span class="dv">5</span>))
-  <span class="kw">ggsave</span>(p, <span class="dt">file =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%s/SAPA/photos/profile correlations/Big5_%s_profile_cors_heatmap.png&quot;</span>, data_path, inv), <span class="dt">width =</span> <span class="dv">12</span>, <span class="dt">height =</span> <span class="dv">8</span>)
+  <span class="co"># ggsave(p, file = sprintf(&quot;%s/photos/Big5_%s_profile_cors_heatmap.png&quot;, data_path, inv), width = 12, height = 8)</span>
   p
 }
 
@@ -232,8 +242,9 @@ p &lt;-<span class="st"> </span>gridExtra<span class="op">::</span><span class="
   <span class="kw">procor_plot_fun</span>(procor50wi, <span class="st">&quot;IPIP50 Within-Trait Edges&quot;</span>, <span class="dt">leg =</span> <span class="st">&quot;none&quot;</span>), 
   <span class="dt">layout_matrix =</span> layout)</code></pre></div>
 <p><img src="age_nets_files/figure-html/mt%20procor%20plots-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(p, <span class="dt">file =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%s/SAPA/photos/profile correlations/Big5_IPIP50_profile_cors_heatmap.png&quot;</span>, data_path),
-       <span class="dt">width =</span> <span class="dv">12</span>, <span class="dt">height =</span> <span class="dv">8</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ggsave(p, file = sprintf(&quot;%s/photos/Big5_IPIP50_profile_cors_heatmap.png&quot;, data_path),</span>
+       <span class="co"># width = 12, height = 8)</span>
+<span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
 
 </div>
 </div>
@@ -288,19 +299,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -1,0 +1,420 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Community Structure {#communities}  
+Next, we calculate the communities in each network using the Spin Glass algorithm. Although there is no widely accepted definition of communities (Baroncelli, 2012), communities are generally considered to be nodes that are more connected to each other than to other nodes. For demonstrative purposes, we separately collapse across the 20s and 60s and run the networks. Then we calculate their community structure and compare them. 
+## Multi-Trait
+### Run Communities  
+```{r communities, eval = T}
+communities_fun <-   function(g, cols){    
+        g <- igraph::as.igraph(g)
+        V(g)$label <- cols
+        g2 <- g
+        E(g2)$weight <- abs(E(g2)$weight)
+        lvc <- igraph::cluster_louvain(g2)
+        mod <- modularity(lvc, membership(lvc))
+        subgraphs <- list()
+        for (i in 1:length(unique(lvc$membership))){
+          subgraphs[[i]] <- igraph::induced_subgraph(g,
+            vids = which(lvc$membership == i),
+            impl = "copy_and_delete")}
+        results <- list(graph = g, 
+                        louvain = lvc,
+                        subgraphs = subgraphs, 
+                        mod = mod)
+        return(results)
+}
+
+membership_fun <- function(comm, cols){
+  if(!is.na(comm)) {
+    comm <- comm$louvain$membership %>% setNames(cols)
+  } else{
+    comm <- rep(1, length(cols)); names(comm) <- cols
+  }
+  return(comm)
+}
+
+MT_net_nested <- MT_net_nested %>%
+  mutate(cols = map(mat, colnames),
+         communities = map2(net, cols, possibly(communities_fun, NA_real_)),
+         membership = map2(communities, cols, possibly(membership_fun, NA_real_)))
+
+# MT_net_nested_gr <- MT_net_nested_gr %>%
+#   mutate(communities = map2(net, cols, communities_fun),
+#          membership = map2(communities, cols, membership_fun))
+
+ldply_list <- function(d){
+  l <- d$membership; names(l) <- d$age
+  ldply(l) %>% rename(age = .id)
+}
+
+communitiesall <- MT_net_nested %>% 
+  select(inventory:set, membership) %>%
+  filter(!is.na(membership)) %>%
+  group_by(inventory, rule, gamma, set) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(data2 = map(data, ldply_list))
+
+communities38below <- MT_net_nested %>% 
+  select(inventory:set, membership) %>%
+  filter(!is.na(membership) & age <= 38) %>%
+  group_by(inventory, rule, gamma, set) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(data = map(data, ldply_list))
+
+communities39above <- MT_net_nested %>% 
+  select(inventory:set, membership) %>%
+  filter(!is.na(membership) & age >= 39) %>%
+  group_by(inventory, rule, gamma, set) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(data = map(data, ldply_list))
+
+# communitiesall <- (MT_net_nested %>% filter(inventory == "IPIP50"))$membership %>% ldply(.)
+# communities38below <- (MT_net_nested %>% filter(inventory == "IPIP50" & age <= 38))$membership %>% ldply(.)
+# communities39above <- (MT_net_nested %>% filter(inventory == "IPIP50" & age >= 39))$membership %>% ldply(.)
+```
+
+```{r}
+ncom_fun <- function(x){
+  if(is.na(x)) return(1) else return(max(unique(x$louvain$membership)))
+}
+
+MT_net_nested <- MT_net_nested %>%
+  mutate(n_comm = map_dbl(communities, ncom_fun))
+```
+
+
+### NMI  
+
+```{r}
+nmi_fun <- function(df){
+  n <- nrow(df)
+  mat <- matrix(rep(NA, n^2), nrow = n)
+  colnames(mat) <- df$age; rownames(mat) <- df$age
+  for(i in 1:n){
+    for(j in 1:(i)){
+      mat[i,j] <- 1
+    }
+  }
+  d <- mat %>% 
+    data.frame() %>%
+    rownames_to_column("a1") %>%
+    pivot_longer(cols = -a1, names_to = "a2", values_to = "drop", values_drop_na = T) %>%
+    mutate(a2 = str_remove_all(a2, "X")) %>%
+    filter(a1 != a2) %>%
+    select(-drop) %>%
+    mutate(nmi = map2_dbl(a1, a2, possibly(~call_nmi_fun(.x, .y, df), NA_real_)))
+}
+
+call_nmi_fun <- function(a1, a2, df){
+  # get structure membership
+  fm1 <- df[df$age == a1,-1]
+  fm2 <- df[df$age == a2,-1]
+  if(!any(is.na(fm1) | is.na(fm2))){
+    # nmi
+    igraph::compare(fm1, fm2, method = "nmi")
+  } else NA
+}
+
+communitiesall <- communitiesall %>%
+  mutate(nmi = map(data, nmi_fun))
+
+communities38below <- communities38below %>%
+  mutate(nmi = map(data, nmi_fun))
+
+communities39above <- communities39above %>%
+  mutate(nmi = map(data, nmi_fun))
+```
+
+#### Plots  
+```{r}
+nmi_plot_fun <- function(df, inventory, rule, set, gamma){
+  cols <- if(inventory == "IPIP100") all_cols100 else if(inventory == "IPIP50") all_cols50 else all_cols20
+  p <- df %>%
+    ggplot(aes(x = a2, y = a1, fill = nmi)) + 
+      geom_raster() + 
+      scale_fill_gradient2(
+        high = "red"
+        , mid = "white"
+        , low = "blue"
+        , limit = c(0,1)
+        , midpoint = .5
+        , name="Normalized\nMutual\nInformation") +
+        labs(x = NULL, y = NULL) + 
+      theme_classic() + 
+      theme(axis.text.x = element_text(face = "bold", angle = 90),
+            axis.text.y = element_text(face = "bold"),
+            plot.title = element_text(hjust = .5, face = "bold"))
+  ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/07-nmi/png/%s-%s-%s-%s.png"
+                        , inventory, rule, set, gamma)
+         , width = 8, height = 8)
+  ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/07-nmi/pdf/%s-%s-%s-%s.pdf"
+                        , inventory, rule, set, gamma)
+         , width = 8, height = 8)
+  return(p)
+}
+
+communitiesall <- communitiesall %>%
+  mutate(p = pmap(list(nmi, inventory, rule, set, gamma), nmi_plot_fun))
+```
+
+#### Comparison  
+```{r}
+reg_fun <- function(d){
+  broom::tidy(lm(nmi ~ group, data = d))
+}
+
+comm_comp <- communities38below %>% 
+  filter(set == "age") %>%
+  select(-data) %>%
+  unnest(nmi) %>%
+  mutate(group = "below") %>%
+  full_join(
+    communities39above %>% 
+      filter(set == "age") %>%
+      select(-data) %>%
+      unnest(nmi) %>%
+      mutate(group = "above")
+  ) %>%
+  mutate(group = factor(group, c("below", "above"))) %>%
+  group_by(inventory, rule, gamma, set) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(m = map(data, reg_fun))
+
+comm_comp %>%
+  select(-data) %>%
+  unnest(m) %>%
+  filter(term == "groupabove") %>%
+  mutate(sig = ifelse(p.value < .01, "sig", "ns"))
+```
+
+
+### Network Plots with Community Structure
+```{r comm plots, fig.cap="Figure 3. Item networks by age group. Nodes (circles) represent unique IPIP-50 items. Nodes colors are colored according to their putative Big Five scale membership, while node borders are colored according to their empirically derived community membership. Edges (lines between nodes) indicate partial correlations. Solid lines indicate positive relationships, while dashed lines indicate negative relationships."}
+communities20s <- MT_net_nested %>% filter(age == 2)#)$communities[[1]]
+communities60s <- (MT_net_nested %>% filter(inventory == "IPIP50" & age == 6))$communities[[1]]
+
+b_color_fun <- function(c){
+  if(!is.na(c) & max(unique(c$louvain$membership)) <= 9){
+    mapvalues(c$louvain$membership, from = seq(1, max(c$louvain$membership),1), 
+              to = RColorBrewer::brewer.pal(max(c$louvain$membership),"Set3"))
+  } else{
+    RColorBrewer::brewer.pal(3,"Set3")[1]
+  }
+}
+
+MT_net_nested <- MT_net_nested %>%
+  # filter(set == "decades") %>%
+  mutate(bordercolors = map(communities, possibly(b_color_fun, NA_real_)), 
+         net = map2(net, bordercolors, possibly(EDBqgraph_communities, NA_real_))) %>%
+  arrange(age)
+
+
+comm_plot_fun <- function(d, inventory, rule, gamma){
+  pdf(file = sprintf("~/Box/networks/SAPA/02-results/01-plots/04-communities/%s-%s-%s.pdf", inventory, rule, gamma)
+      , width = 800, height = 400)
+  par(mfrow = c(1,2))
+  plot((d %>% filter(age == 2))$net[[1]])
+  title("20s")
+  plot((d %>% filter(age == 6))$net[[1]])
+  title("60s")
+  dev.off()
+
+  png(file = sprintf("~/Box/networks/SAPA/02-results/01-plots/04-communities/%s-%s-%s.png", inventory, rule, gamma)
+      , width = 2000, height = 1000)
+  par(mfrow = c(1,2))
+  plot((d %>% filter(age == 2))$net[[1]])
+  title("20s")
+  plot((d %>% filter(age == 6))$net[[1]])
+  title("60s")
+  dev.off()
+}
+
+MT_net_nested %>%
+  select(inventory:set, net) %>%
+  filter(age %in% c(2, 6)) %>%
+  group_by(inventory, rule, gamma) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(p = pmap(list(data, inventory, rule, gamma), comm_plot_fun))
+
+pdf(filename = "~/Box/networks/SAPA/photos/nets_20s_60s.pdf", width = 800, height = 400)
+par(mfrow = c(1,2))
+plot((MT_net_nested %>% filter(inventory == "IPIP50" & age == 2 & rule == "median" & gamma == ".25"))$net[[1]])
+title("20s")
+plot((MT_net_nested_gr %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25"))$net[[1]])
+title("60s")
+dev.off()
+```
+
+```{r age plots, fig.cap="Supplementary Figure 3. Network Structure by Decade"}
+par(mfrow = c(2,4))
+lapply(1:7, function(x){ plot((MT_net_nested %>% filter(inventory == "IPIP50" & set == "decades" & rule == "median" & gamma == ".25"))$net[[x]]); title(sprintf("%s0s", x))})
+```
+
+### GIFs Across All Ages  
+```{r}
+setwd("~/Box/networks/SAPA/02-results/01-plots/01-gifs")
+library(animation)
+draw.a.plot <-  function(age, p){
+  plot(p)
+  title(age)
+}
+
+# Pure Top Down - Highest in OutStrength, Lowest in InStrength
+loop.animate <- function(p) {
+    map2(names(p), p, draw.a.plot)
+    # lapply(names(p), function(i) {draw.a.plot(i)})
+}
+
+gif_fun <- function(d, invn, rule, gamma){
+  net_plots <- d$net
+  names(net_plots) <- d$age
+  saveGIF(loop.animate(net_plots)
+          , interval = .5
+          , movie.name = sprintf("~/Box/networks/SAPA/02-results/01-plots/01-gifs/%s_%s_%s.gif", invn, rule, gamma)
+          , ani.width = 500
+          , ani.height = 500
+          )
+}
+
+mt_gifs <- MT_net_nested %>%
+  filter(set == "age") %>%
+  select(inventory, age, rule, gamma, net) %>%
+  group_by(inventory, rule, gamma) %>%
+  arrange(age) %>%
+  nest() %>%
+  ungroup() %>%
+  mutate(gif = pmap(list(data, inventory, rule, gamma), gif_fun))
+```
+
+
+
+### Matching Across Communities  
+The code below is a little incomprehensible, but in this instance there isn't really a better alternative.  
+```{r comm matching}
+match_fun <- function(d, inventory){
+  nvars <- str_remove_all(inventory, "IPIP") %>% as.numeric()
+  nrows <- nrow(d) %>% as.numeric()
+  match_mat <- matrix(rep(NA, nvars*nvars), nrow = nvars)
+  for(i in 1:nvars){ # 
+    for(j in 1:nvars){
+      match <- 0L
+      for(k in 1:nrows){
+        # print(paste(i, j, k))
+        match <- ifelse(d[k,i] == d[k,j], match + 1, match)
+      }
+      match_mat[i,j] <- match
+    }
+  }
+  return(match_mat)
+}
+
+match_matall     <- communitiesall     %>% mutate(match = map2(data, inventory, possibly(match_fun, NA_real_)))
+match_mat38below <- communities38below %>% mutate(match = map2(data, inventory, possibly(match_fun, NA_real_)))
+match_mat39above <- communities39above %>% mutate(match = map2(data, inventory, possibly(match_fun, NA_real_)))
+
+# match_mat38below <- matrix(rep(NA, 50*50), nrow = 50)
+# match_mat39above <- matrix(rep(NA, 50*50), nrow = 50)
+# for(i in 1:50){
+#   for(j in 1:50){
+#     match38below <- 0L
+#     match39above <- 0L
+#     for(k in 1:25){
+#       match38below <- ifelse(communities38below[k,i] == communities38below[k,j], match38below + 1, match38below)
+#       match39above <- ifelse(communities39above[k,i] == communities39above[k,j], match39above + 1, match39above)
+#     }
+#     match_mat38below[i,j] <- match38below
+#     match_mat39above[i,j] <- match39above
+#   }
+# }
+```
+
+#### Plots
+```{r}
+community_plot_fun <- function(df, inventory, age){
+  cols <- if(inventory == "IPIP100") all_cols100 else if(inventory == "IPIP50") all_cols50 else all_cols20
+  lim <- str_remove(inventory, "[A-Z a-z]") %>% as.numeric()
+  colnames(df) <- cols; rownames(df) <- cols
+  df[upper.tri(df, diag = T)] <- NA
+  df %>%
+    data.frame() %>%
+    rownames_to_column("Edge1") %>%
+    as_tibble() %>%
+    mutate(Edge1 = factor(Edge1, levels = cols)) %>%
+    gather(key = Edge2, value = communities, -Edge1) %>%
+    mutate(Edge2 = factor(Edge2, levels = cols)) %>%
+    filter(!is.na(communities)) %>%
+    ggplot(aes(x = Edge2, y = Edge1, fill = communities)) + 
+      geom_raster() + 
+      scale_fill_gradient(
+        high = "orchid4", low = "white",
+        limit = c(0,lim), name="Shared\nCommunity\nSums") +
+        labs(x = NULL, y = NULL, 
+             title = sprintf("%s", age)) + 
+      theme_classic() + 
+      theme(axis.text.x = element_text(face = "bold", angle = 90),
+            axis.text.y = element_text(face = "bold"),
+            plot.title = element_text(hjust = .5, face = "bold"))
+}
+
+communityall     <- match_matall %>%
+  mutate(all_plot = pmap(list(match, inventory, "All"), community_plot_fun))
+community38below <- match_mat38below %>%
+  mutate(u38_plot = pmap(list(match, inventory, "38 & below"), community_plot_fun))
+community39above <- match_mat39above %>%
+  mutate(p39_plot = pmap(list(match, inventory, "39 & above"), community_plot_fun))
+```
+
+```{r}
+merge_comm_fun <- function(all, u38, p39, inventory, rule, gamma){
+  all <- all + theme(legend.position = c(.9, .5))
+  u38 <- u38 + 
+    theme(legend.position = "none",
+          axis.text = element_text(size = rel(.3)))
+  p39 <- p39 + 
+    theme(legend.position = "none",
+          axis.text = element_text(size = rel(.3)))
+  p1 <- cowplot::plot_grid(u38, p39, nrow = 2, axis = "l")
+  p2 <- cowplot::plot_grid(all, p1, ncol = 2, axis = "b", rel_widths = c(2/3,1/3))
+  ggsave(p2, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/05-community-matching/pdf/%s-%s-%s.pdf"
+                        , inventory, rule, gamma)
+         , width = 9, height = 6)
+  ggsave(p2, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/05-community-matching/png/%s-%s-%s.png"
+                        , inventory, rule, gamma)
+         , width = 9, height = 6)
+  return(p2)
+}
+
+
+community_plots <- communityall %>% select(-data, -match) %>%
+  full_join(community38below %>% select(-data, -match)) %>%
+  full_join(community39above %>% select(-data, -match)) %>%
+  filter(set == "age") %>%
+  mutate(p = pmap(list(all_plot, u38_plot, p39_plot, inventory, rule, gamma), merge_comm_fun))
+```
+
+
+```{r comm plot, fig.cap="Figure 4. Frequency of shared community membership across items in (A) the full sample (B), participants 38 and below, (C) and participants 39 and above. Groups were split according to a median age split of all age groups for ease of comparing frequency, The diagonal of each plot indicates items within the same Big 5 scale, while off-diagonal elements are largely items of different scales. Darker colors indicate that the empirically derived community membership of two nodes was frequently shared across age groups, while lighter colors indicate that community membership was often not shared."}
+(community_plots %>%
+  filter(inventory == "IPIP50" & rule == "median" & gamma == ".25"))$p[[1]]
+```
+
+### Modularity  
+```{r}
+MT_net_nested %>%
+  mutate(modularity = map_dbl(communities, possibly(~(.)$mod, NA_real_))) %>%
+  select(inventory, age, rule, gamma, set, modularity) %>% 
+  filter(set == "age") %>%
+  ggplot(aes(x = age, color = inventory, y = modularity, group = inventory)) + 
+  geom_line() + 
+  facet_grid(rule~gamma) + 
+  theme_classic()
+```
+

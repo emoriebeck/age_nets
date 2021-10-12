@@ -1,5 +1,5 @@
-"0","load(url(sprintf(""%s/results/st_nested_nets.RData"", data_path)))
+"0","rm(ls()[(grepl(""data"", ls()) | grepl(""ipip"", tolower(ls()))) & ! grepl(""colors"", ls())])
 "
-"2","Error in load(url(sprintf(""%s/results/st_nested_nets.RData"", data_path))) : 
-  the input does not start with a magic number compatible with loading from a connection
+"2","Error in rm(ls()[(grepl(""data"", ls()) | grepl(""ipip"", tolower(ls()))) &  : 
+  ... must contain names or character strings
 "

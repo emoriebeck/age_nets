@@ -1,0 +1,38 @@
+# Fit the Single Trait Networks {#STnetworks}
+
+Now, we will fit networks for each trait separately, which means they will not account for relationships between traits to which the indicators putatively belong.  
+```{r st nets, eval = F}
+ST_net_nested <- ipip20 %>% mutate(inventory = "IPIP20") %>%
+  setNames(c("RID", "age", "gender", all_cols20, "age2", "inventory")) %>%
+  gather(key = item, value = value, -RID, -age, -gender, -inventory, na.rm = T) %>%
+full_join(
+  ipip50 %>% mutate(inventory = "IPIP50") %>% 
+  setNames(c("RID", "age", "gender", all_cols50, "age2", "inventory")) %>%
+  gather(key = item, value = value, -RID, -age, -gender, -inventory, na.rm = T)
+) %>%
+full_join(
+  ipip100 %>% mutate(inventory = "IPIP100") %>%
+  setNames(c("RID", "age", "gender", all_cols100, "age2", "inventory")) %>%
+  gather(key = item, value = value, -RID, -age, -gender, -inventory, na.rm = T)
+) %>% tbl_df %>%
+  separate(item, c("trait", "number"), 1, remove = F) %>%
+  select(inventory, RID, age, trait, item, value) %>%
+  group_by(inventory, age, trait) %>%
+  nest() %>%
+  mutate(data = map(data, function(x){x %>% spread(key = item, value = value)}),
+         cols = map(data, colnames), 
+         results  = map(data, EDBqgraph2),
+         mat = map(results, ~.[[1]]),
+         net = map(results, ~.[[2]]),
+         centrality = map(net, centrality_auto)) 
+
+# save(ST_net_nested, file = sprintf("%s/results/st_nested_nets.RData", data_path))
+```
+
+```{r get st nets edges}
+load(url(sprintf("%s/results/st_nested_nets.RData?raw=true", data_path)))
+rm(list = ls()[(grepl("data", ls()) | grepl("ipip", tolower(ls()))) & ! grepl("colors", ls())])
+ST_net_nested <- ST_net_nested %>%
+  mutate(edges.df = map2(net, cols, getEdges.df),
+         cors.df = map2(mat, cols, getEdges.df))
+```

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Community Structure | A Minimal Book Example</title>
+  <title>Chapter 7 Community Structure | Interindividual Age Differences in Personality Structure</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Community Structure | A Minimal Book Example" />
+  <meta property="og:title" content="Chapter 7 Community Structure | Interindividual Age Differences in Personality Structure" />
   <meta property="og:type" content="book" />
   
   
@@ -16,15 +16,17 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Community Structure | A Minimal Book Example" />
+  <meta name="twitter:title" content="Chapter 7 Community Structure | Interindividual Age Differences in Personality Structure" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
 
-<meta name="author" content="Yihui Xie" />
+<meta name="author" content="Emorie D Beck" />
+<meta name="author" content="David M Condon" />
+<meta name="author" content="Joshua J Jackson" />
 
 
-<meta name="date" content="2019-06-21" />
+<meta name="date" content="2019-07-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -47,6 +49,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -103,25 +106,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>2</b> Workspace</a><ul>
-<li class="chapter" data-level="2.1" data-path="workspace.html"><a href="workspace.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
-<li class="chapter" data-level="2.2" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>2.2</b> Load and Clean Data</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background on the SAPA Project</a><ul>
+<li class="chapter" data-level="2.1" data-path="background.html"><a href="background.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
+<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#methods"><i class="fa fa-check"></i><b>2.2</b> Methods</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="background.html"><a href="background.html#to-2010"><i class="fa fa-check"></i><b>2.2.1</b> 2006 to 2010</a></li>
+<li class="chapter" data-level="2.2.2" data-path="background.html"><a href="background.html#to-2017"><i class="fa fa-check"></i><b>2.2.2</b> 2010 to 2017}</a></li>
+<li class="chapter" data-level="2.2.3" data-path="background.html"><a href="background.html#merge-the-datasets-and-describe"><i class="fa fa-check"></i><b>2.2.3</b> Merge the datasets and Describe}</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>3</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
-<li class="chapter" data-level="3.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>3.1</b> Multi-Trait Networks</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Single Trait Networks</a></li>
-<li class="chapter" data-level="5" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>5</b> Age Differences in Coherence and Differentiation</a><ul>
-<li class="chapter" data-level="5.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>5.1</b> Multi-Trait Coherence and Differentiation</a></li>
-<li class="chapter" data-level="5.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>5.2</b> Single and Mutli-Trait Coherence</a></li>
+<li class="chapter" data-level="3" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>3</b> Workspace</a><ul>
+<li class="chapter" data-level="3.1" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>3.1</b> Load and Clean Data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>6</b> Community Structure</a><ul>
-<li class="chapter" data-level="6.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>6.0.1</b> Plots</a></li>
-<li class="chapter" data-level="6.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>6.0.2</b> Matching Across Communities</a></li>
+<li class="chapter" data-level="4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
+<li class="chapter" data-level="4.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>4.1</b> Multi-Trait Networks</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>7</b> Profile Correlations</a><ul>
-<li class="chapter" data-level="7.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>7.1</b> Profiles Correlation Plots (Figure 5)</a></li>
+<li class="chapter" data-level="5" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>5</b> Fit the Single Trait Networks</a></li>
+<li class="chapter" data-level="6" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>6</b> Age Differences in Coherence and Differentiation</a><ul>
+<li class="chapter" data-level="6.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>6.1</b> Multi-Trait Coherence and Differentiation</a></li>
+<li class="chapter" data-level="6.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>6.2</b> Single and Mutli-Trait Coherence</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>7</b> Community Structure</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>7.0.1</b> Plots</a></li>
+<li class="chapter" data-level="7.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>7.0.2</b> Matching Across Communities</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>8</b> Profile Correlations</a><ul>
+<li class="chapter" data-level="8.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>8.1</b> Profiles Correlation Plots (Figure 5)</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -135,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Interindividual Age Differences in Personality Structure</a>
           </h1>
         </div>
 
@@ -144,7 +154,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="communities" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Community Structure</h1>
+<h1><span class="header-section-number">Chapter 7</span> Community Structure</h1>
 <p>Next, we calculate the communities in each network using the Spin Glass algorithm. Although there is no widely accepted definition of communities (Baroncelli, 2012), communities are generally considered to be nodes that are more connected to each other than to other nodes. For demonstrative purposes, we separately collapse across the 20s and 60s and run the networks. Then we calculate their community structure and compare them. ## Multi-Trait ### Run Communities</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">communities_fun &lt;-<span class="st">   </span><span class="cf">function</span>(g, cols){    
         g &lt;-<span class="st"> </span>igraph<span class="op">::</span><span class="kw">as.igraph</span>(g)
@@ -179,7 +189,7 @@ communitiesall &lt;-<span class="st"> </span>(MT_net_nested <span class="op">%&g
 communities38below &lt;-<span class="st"> </span>(MT_net_nested <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span> <span class="op">&amp;</span><span class="st"> </span>age <span class="op">&lt;=</span><span class="st"> </span><span class="dv">38</span>))<span class="op">$</span>membership <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ldply</span>(.)
 communities39above &lt;-<span class="st"> </span>(MT_net_nested <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span> <span class="op">&amp;</span><span class="st"> </span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">39</span>))<span class="op">$</span>membership <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ldply</span>(.)</code></pre></div>
 <div id="plots" class="section level3">
-<h3><span class="header-section-number">6.0.1</span> Plots</h3>
+<h3><span class="header-section-number">7.0.1</span> Plots</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">communities20s &lt;-<span class="st"> </span>(MT_net_nested_gr <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span> <span class="op">&amp;</span><span class="st"> </span>age_group <span class="op">==</span><span class="st"> </span><span class="dv">2</span>))<span class="op">$</span>communities[[<span class="dv">1</span>]]
 communities60s &lt;-<span class="st"> </span>(MT_net_nested_gr <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span> <span class="op">&amp;</span><span class="st"> </span>age_group <span class="op">==</span><span class="st"> </span><span class="dv">6</span>))<span class="op">$</span>communities[[<span class="dv">1</span>]]
 
@@ -199,10 +209,14 @@ MT_net_nested_gr &lt;-<span class="st"> </span>MT_net_nested_gr <span class="op"
 <span class="kw">title</span>(<span class="st">&quot;20s&quot;</span>)
 <span class="kw">plot</span>((MT_net_nested_gr <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span> <span class="op">&amp;</span><span class="st"> </span>age_group <span class="op">==</span><span class="st"> </span><span class="dv">6</span>))<span class="op">$</span>net[[<span class="dv">1</span>]])
 <span class="kw">title</span>(<span class="st">&quot;60s&quot;</span>)</code></pre></div>
-<p><img src="age_nets_files/figure-html/comm%20plots-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dev.off()</span>
-
-<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>))
+<div class="figure">
+<img src="age_nets_files/figure-html/comm%20plots-1.png" alt="Figure 3. Item networks by age group. Nodes (circles) represent unique IPIP-50 items. Nodes colors are colored according to their putative Big Five scale membership, while node borders are colored according to their empirically derived community membership. Edges (lines between nodes) indicate partial correlations. Solid lines indicate positive relationships, while dashed lines indicate negative relationships." width="672" />
+<p class="caption">
+(#fig:comm plots)Figure 3. Item networks by age group. Nodes (circles) represent unique IPIP-50 items. Nodes colors are colored according to their putative Big Five scale membership, while node borders are colored according to their empirically derived community membership. Edges (lines between nodes) indicate partial correlations. Solid lines indicate positive relationships, while dashed lines indicate negative relationships.
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dev.off()</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>))
 <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="cf">function</span>(x){ <span class="kw">plot</span>((MT_net_nested_gr <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span>))<span class="op">$</span>net[[x]]); <span class="kw">title</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%s0s&quot;</span>, x))})</code></pre></div>
 <pre><code>## [[1]]
 ## NULL
@@ -224,10 +238,15 @@ MT_net_nested_gr &lt;-<span class="st"> </span>MT_net_nested_gr <span class="op"
 ## 
 ## [[7]]
 ## NULL</code></pre>
-<p><img src="age_nets_files/figure-html/comm%20plots-2.png" width="672" /></p>
+<div class="figure">
+<img src="age_nets_files/figure-html/age%20plots-1.png" alt="Supplementary Figure 3. Network Structure by Decade" width="672" />
+<p class="caption">
+(#fig:age plots)Supplementary Figure 3. Network Structure by Decade
+</p>
+</div>
 </div>
 <div id="matching-across-communities" class="section level3">
-<h3><span class="header-section-number">6.0.2</span> Matching Across Communities</h3>
+<h3><span class="header-section-number">7.0.2</span> Matching Across Communities</h3>
 <p>The code below is a little incomprehensible, but in this instance there isn’t really a better alternative.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">match_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">50</span><span class="op">*</span><span class="dv">50</span>), <span class="dt">nrow =</span> <span class="dv">50</span>)
 <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>){ <span class="co"># </span>
@@ -282,13 +301,18 @@ community38below &lt;-<span class="st"> </span><span class="kw">community_plot_f
         <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="kw">rel</span>(.<span class="dv">3</span>)))
 community39above &lt;-<span class="st"> </span><span class="kw">community_plot_fun</span>(match_mat39above, <span class="st">&quot;39 &amp; above&quot;</span>, <span class="dv">25</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>,
-        <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="kw">rel</span>(.<span class="dv">3</span>)))
-
-community_plot &lt;-<span class="st">  </span><span class="kw">grid.arrange</span>(communityall, community38below, community39above, 
+        <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="kw">rel</span>(.<span class="dv">3</span>)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">community_plot &lt;-<span class="st">  </span><span class="kw">grid.arrange</span>(communityall, community38below, community39above, 
              <span class="dt">layout_matrix =</span> <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>),
                                    <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">4</span>)))</code></pre></div>
-<p><img src="age_nets_files/figure-html/comm%20matching-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="dt">plot =</span> community_plot, <span class="dt">file =</span> <span class="st">&quot;~/Box/networks/SAPA/photos/shared_communities.png&quot;</span>, <span class="dt">width =</span> <span class="dv">9</span>, <span class="dt">height =</span> <span class="dv">6</span>)</code></pre></div>
+<div class="figure">
+<img src="age_nets_files/figure-html/comm%20plot-1.png" alt="Figure 4. Frequency of shared community membership across items in (A) the full sample (B), participants 38 and below, (C) and participants 39 and above. Groups were split according to a median age split of all age groups for ease of comparing frequency, The diagonal of each plot indicates items within the same Big 5 scale, while off-diagonal elements are largely items of different scales. Darker colors indicate that the empirically derived community membership of two nodes was frequently shared across age groups, while lighter colors indicate that community membership was often not shared." width="672" />
+<p class="caption">
+(#fig:comm plot)Figure 4. Frequency of shared community membership across items in (A) the full sample (B), participants 38 and below, (C) and participants 39 and above. Groups were split according to a median age split of all age groups for ease of comparing frequency, The diagonal of each plot indicates items within the same Big 5 scale, while off-diagonal elements are largely items of different scales. Darker colors indicate that the empirically derived community membership of two nodes was frequently shared across age groups, while lighter colors indicate that community membership was often not shared.
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ggsave(plot = community_plot, file = sprintf(&quot;%s/photos/shared_communities.png&quot;, data_path), </span>
+<span class="co">#        width = 9, height = 6)</span></code></pre></div>
 
 </div>
 </div>
@@ -343,19 +367,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

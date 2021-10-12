@@ -1,0 +1,214 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Single Trait Networks  
+
+## Fit the Single Trait Networks {#STnetworks}  
+
+Now, we will fit networks for each trait separately, which means they will not account for relationships between traits to which the indicators putatively belong.  
+```{r st nets, eval = F}
+reshape_fun <- function(d){
+  d %>% 
+    gather(key = item, value = value, -RID, na.rm = T) %>%
+    separate(item, c("trait", "number"), 1, remove = F) %>%
+    select(RID, trait, item, value) %>%
+    group_by(trait) %>%
+    nest() %>%
+    ungroup()
+}
+
+ST_net_nested <- ipip20 %>% 
+  select(-age_groups, -gender, -age) %>%
+  mutate(inventory = "IPIP20") %>%
+  setNames(c("RID", all_cols20, "age2", "inventory")) %>%
+  group_by(age2, inventory) %>% 
+  nest() %>%
+  ungroup() %>%
+  # gather(key = item, value = value, -RID, -age, -age2, -inventory, na.rm = T) %>%
+full_join(
+  ipip50 %>% 
+    select(-age_groups, -gender, -age) %>%
+    mutate(inventory = "IPIP50") %>% 
+    setNames(c("RID", all_cols50, "age2", "inventory")) %>%
+    group_by(age2, inventory) %>% 
+    nest() %>%
+    ungroup()
+    # gather(key = item, value = value, -RID, -age, -age2, -inventory, na.rm = T)
+) %>%
+full_join(
+  ipip100 %>% 
+    select(-age_groups, -gender, -age) %>%
+    mutate(inventory = "IPIP100") %>%
+    setNames(c("RID",  all_cols100, "age2", "inventory")) %>%
+    group_by(age2, inventory) %>% 
+    nest() %>%
+    ungroup()
+    # gather(key = item, value = value, -RID, -age, -age2, -inventory, na.rm = T)
+) %>% 
+  mutate(data = map(data, reshape_fun)) %>%
+  unnest(data) %>%
+  mutate(data = map(data, function(x){x %>% spread(key = item, value = value)}))
+
+ST_net_nested <- crossing(
+  ST_net_nested
+  , rule = c("min", "max", "median")
+  , gamma = c(.25, .50)
+  ) 
+
+plan(multisession(workers = 4L))
+ST_net_nested %>% mutate(
+         results  = future_pmap(
+         # results  = pmap(
+           list(data, age2, trait, inventory, rule, gamma)
+           , .f = EDBqgraph_ST
+           , .options = furrr_options(
+             packages = c("psych", "qgraph", "plyr", "tidyverse", "RColorBrewer")
+             )
+           , .progress = T
+           )
+         )
+closeAllConnections()
+gc()
+
+# save(ST_net_nested, file = sprintf("%s/02-results/st_nested_nets.RData", data_path))
+```
+
+```{r get st nets edges}
+# load(url(sprintf("%s/02-results/st_nested_nets.RData?raw=true", data_path)))
+rm(list = ls()[(grepl("data", ls()) | grepl("ipip", tolower(ls()))) & ! grepl("colors", ls())])
+ST_net_nested <- ST_net_nested %>%
+  mutate(edges.df = map2(net, cols, getEdges.df),
+         cors.df = map2(mat, cols, getEdges.df))
+```
+
+### Compile the Results  
+```{r}
+getEdges.df <- function(x, cols) {
+    y <- qgraph::getWmat(x)
+    y[upper.tri(y, diag = T)] <- NA
+    colnames(y) <- cols; rownames(y) <- cols
+    nvar <- dim(y)[2]
+    df <- y %>%
+      data.frame() %>%
+      rownames_to_column("from") %>%
+      gather(key = to, value = weight, -from, na.rm = T) %>%
+      mutate(edge = paste(from, to, sep = "_"))
+    return(df)
+}
+
+loadRData <- function(file, dir, obj){
+    path <- sprintf("~/Box/networks/SAPA/02-results/singletrait-age/%s/%s",
+                               dir, file)
+    #loads an RData file, and returns it
+    load(path)
+    get(ls()[grepl(obj, ls())])
+  }
+
+ST_net_nested <- tibble(
+  file = list.files("~/Box/networks/SAPA/02-results/singletrait-age/network")
+  ) %>%
+  # filter(grepl("IPIP50", file)) %>%
+  mutate(net = pmap(list(file, "network", "graph"), loadRData)
+         , mat = pmap(list(file, "cor", "cor"), loadRData)
+         # , centrality = pmap(list(file, "centrality", "cent"), loadRData)
+         , file = str_remove_all(file, ".RData")) %>%
+  separate(file, c("inventory", "age", "Trait", "rule", "gamma"), sep = "-") %>%
+  mutate(cols = map(mat, colnames)
+         , edges.df = map2(net, cols, getEdges.df)
+         , cors.df = map2(mat, cols, getEdges.df)
+         , gamma = str_remove_all(gamma, ".RData")
+         , gamma = str_remove_all(gamma, "0")
+         , gamma = paste0(".", gamma)
+         )
+```
+
+## N = 500 Single Trait Networks  
+```{r}
+done <- tibble(file = list.files("~/Box/networks/SAPA/02-results/singletrait-500/centrality")
+               , set = "500") %>%
+  separate(file, c("inventory", "age2", "trait", "rule", "gamma"), sep = "-") %>%
+  mutate(gamma = str_remove_all(gamma, ".RData")
+         , gamma = str_remove_all(gamma, "0")
+         , gamma = as.numeric(paste0(".", gamma))
+         , done = "done")
+
+ST_net_nested_500 <- crossing(
+  ST_net_nested
+  , rule = c("min", "max", "median")
+  , gamma = c(.25, .50)
+  ) 
+
+plan(multisession(workers = 12L))
+ST_net_nested_500 %>% 
+  full_join(done) %>%
+  filter(is.na(done)) %>%
+  mutate(
+         results  = future_pmap(
+         # results  = pmap(
+           list(data, age2, trait, inventory, rule, gamma)
+           , .f = EDBqgraph_ST_n500
+           , .options = furrr_options(
+             packages = c("psych", "qgraph", "plyr", "tidyverse", "RColorBrewer")
+             )
+           , .progress = T
+           )
+         )
+closeAllConnections()
+gc()
+```
+
+### Compile the Results  
+```{r}
+loadRData <- function(file, dir, obj){
+    path <- sprintf("~/Box/networks/SAPA/02-results/singletrait-500/%s/%s",
+                               dir, file)
+    #loads an RData file, and returns it
+    load(path)
+    get(ls()[grepl(obj, ls())])
+  }
+
+ST_net_nested_500 <- tibble(
+  file = list.files("~/Box/networks/SAPA/02-results/singletrait-500/network")
+  ) %>%
+  # filter(grepl("IPIP50", file)) %>%
+  mutate(net = pmap(list(file, "network", "graph"), loadRData)
+         , mat = pmap(list(file, "cor", "cor"), loadRData)
+         , centrality = pmap(list(file, "centrality", "cent"), loadRData)
+         , file = str_remove_all(file, ".RData")) %>%
+  separate(file, c("inventory", "age", "Trait", "rule", "gamma"), sep = "-") 
+```
+
+```{r}
+call_edges_df <- function(net, cols){
+  names(net) <- 1:100
+  ldply(net, function(x) getEdges.df(x, cols))
+}
+
+ST_net_nested_500 <- ST_net_nested_500 %>% 
+  mutate(cols = map(mat, ~colnames((.)[[1]]))
+         , edges.df = map2(net, cols, call_edges_df)) %>% 
+  select(-net)
+save(ST_net_nested_500
+     , file = "~/Box/networks/SAPA/02-results/singletrait-500/nested-nets.RData")
+```
+
+### Summarize the Results  
+```{r}
+sum_fun <- function(x){
+  x %>% group_by(from, to, edge) %>% 
+    summarize(upper = quantile(weight, probs =.975)
+              , lower = quantile(weight, probs =.025)
+              , estimate = mean(weight)
+      ) %>%
+    ungroup() 
+}
+ST_net_nested_500 <- ST_net_nested_500  %>%
+  mutate(edges.df = map(edges.df, sum_fun))
+
+save(ST_net_nested_500
+     , file = "~/Box/networks/SAPA/02-results/singletrait-500/nested-nets_small.RData")
+```
+
+

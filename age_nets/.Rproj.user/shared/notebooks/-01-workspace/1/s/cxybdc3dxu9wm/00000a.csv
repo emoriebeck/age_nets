@@ -1,0 +1,5 @@
+"0","rm(ls()[grepl(""^Item"", ls()) | grepl(""keys"", ls())])
+"
+"2","Error in rm(ls()[grepl(""^Item"", ls()) | grepl(""keys"", ls())]) : 
+  ... must contain names or character strings
+"
