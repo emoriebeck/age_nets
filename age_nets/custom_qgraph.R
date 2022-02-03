@@ -4,7 +4,7 @@ EDBqgraph_orig <- function(age, inventory, rule, set, gamma){
   
   loadRData <- function(inventory, set, age){
     #loads an RData file, and returns it
-    path <- sprintf("~/Box/networks/SAPA/01-data/%s/%s/%s.RData"
+    path <- sprintf("/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData"
                     , inventory, set, age)
     load(path)
     get(ls()[ls() == "d"])
@@ -70,12 +70,12 @@ EDBqgraph_orig <- function(age, inventory, rule, set, gamma){
   graph$graphAttributes$Nodes$label.color[graph$graphAttributes$Nodes$color 
                                           %in% dark_colors] <- "white"
   # 02-results <- list(cor, graph)
-  save(graph, file = sprintf("~/Box/networks/SAPA/02-results/multitrait-%s/network/%s-%s-%s-%s.RData",
+  save(graph, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-%s/network/%s-%s-%s-%s.RData",
                                set, inventory, age, rule, str_remove(gamma, "[.]")))
-  save(cor, file = sprintf("~/Box/networks/SAPA/02-results/multitrait-%s/cor/%s-%s-%s-%s.RData",
+  save(cor, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-%s/cor/%s-%s-%s-%s.RData",
                              set, inventory, age, rule, str_remove(gamma, "[.]")))
   cent <- qgraph::centrality_auto(graph)
-  save(cent, file = sprintf("~/Box/networks/SAPA/02-results/multitrait-%s/centrality/%s-%s-%s-%s.RData"
+  save(cent, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-%s/centrality/%s-%s-%s-%s.RData"
                             , set, inventory, age, rule, str_remove(gamma, "[.]")))
   return(T)
 }
@@ -86,7 +86,7 @@ EDBqgraph_n500 <- function(age, inventory, rule, set, gamma){
   
   loadRData <- function(inventory, set, age){
     #loads an RData file, and returns it
-    path <- sprintf("~/Box/networks/SAPA/01-data/%s/%s/%s.RData"
+    path <- sprintf("/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData"
                     , inventory, set, age)
     load(path)
     get(ls()[ls() == "d"])
@@ -150,12 +150,12 @@ EDBqgraph_n500 <- function(age, inventory, rule, set, gamma){
   })
   
   # 02-results <- list(cor, graph)
-  save(graph, file = sprintf("~/Box/networks/SAPA/02-results/multitrait-%s-500/network/%s-%s-%s-%s.RData",
+  save(graph, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-%s-500/network/%s-%s-%s-%s.RData",
                              set, inventory, age, rule, str_remove(gamma, "[.]")))
-  save(cor, file = sprintf("~/Box/networks/SAPA/02-results/multitrait-%s-500/cor/%s-%s-%s-%s.RData",
+  save(cor, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-%s-500/cor/%s-%s-%s-%s.RData",
                            set, inventory, age, rule, str_remove(gamma, "[.]")))
   cent <- lapply(graph, function(z) qgraph::centrality_auto(z))
-  save(cent, file = sprintf("~/Box/networks/SAPA/02-results/multitrait-%s-500/centrality/%s-%s-%s-%s.RData"
+  save(cent, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-%s-500/centrality/%s-%s-%s-%s.RData"
                             , set, inventory, age, rule, str_remove(gamma, "[.]")))
   return(T)
 }
@@ -202,12 +202,12 @@ EDBqgraph_ST <- function(x, age, trait, inventory, rule, gamma){
   # 02-results <- list(cor, graph)
   # return(02-results)
   
-  save(graph, file = sprintf("~/Box/networks/SAPA/02-results/singletrait-age/network/%s-%s-%s-%s-%s.RData",
+  save(graph, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-age/network/%s-%s-%s-%s-%s.RData",
                              inventory, age, trait, rule, str_remove(gamma, "[.]")))
-  save(cor, file = sprintf("~/Box/networks/SAPA/02-results/singletrait-age/cor/%s-%s-%s-%s-%s.RData",
+  save(cor, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-age/cor/%s-%s-%s-%s-%s.RData",
                             inventory, age, trait, rule, str_remove(gamma, "[.]")))
   cent <- qgraph::centrality_auto(graph)
-  save(cent, file = sprintf("~/Box/networks/SAPA/02-results/singletrait-age/centrality/%s-%s-%s-%s-%s.RData"
+  save(cent, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-age/centrality/%s-%s-%s-%s-%s.RData"
                             , inventory, age, trait, rule, str_remove(gamma, "[.]")))
   return(T)
 }
@@ -279,12 +279,12 @@ EDBqgraph_ST_n500 <- function(x, age, trait, inventory, rule, gamma){
   # 02-results <- list(cor, graph)
   # return(02-results)
   
-  save(graph, file = sprintf("~/Box/networks/SAPA/02-results/singletrait-500/network/%s-%s-%s-%s-%s.RData",
+  save(graph, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-500/network/%s-%s-%s-%s-%s.RData",
                              inventory, age, trait, rule, str_remove(gamma, "[.]")))
-  save(cor, file = sprintf("~/Box/networks/SAPA/02-results/singletrait-500/cor/%s-%s-%s-%s-%s.RData",
+  save(cor, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-500/cor/%s-%s-%s-%s-%s.RData",
                            inventory, age, trait, rule, str_remove(gamma, "[.]")))
   cent <- lapply(graph, function(z) qgraph::centrality_auto(z))
-  save(cent, file = sprintf("~/Box/networks/SAPA/02-results/singletrait-500/centrality/%s-%s-%s-%s-%s.RData"
+  save(cent, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-500/centrality/%s-%s-%s-%s-%s.RData"
                             , inventory, age, trait, rule, str_remove(gamma, "[.]")))
   return(T)
 }
@@ -298,7 +298,7 @@ EDBqgraph_communities <- function(x, bordercolors){
                   , legend = F
                   , border.width = 4
                   , DoNotPlot = TRUE
-                  , minimum = .075
+                  , minimum = .15
                   )
   graph$graphAttributes$Edges$lty[graph$Edgelist$weight < 0] <- 2
   graph$graphAttributes$Edges$color <-  ifelse(graph$Edgelist$weight < 0, 

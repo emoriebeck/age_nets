@@ -107,10 +107,10 @@ traj_plot_fun <- function(mt, inventory, rule, gamma, set){
               legend.text = element_text(size = rel(.7)),
               legend.title = element_text(size = rel(.7), face = "bold"),
               legend.position = c(.15, .9))
-  ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/02-trajectories/png/%s-%s-%s-%s.png"
+  ggsave(p, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/02-trajectories/png/%s-%s-%s-%s.png"
                         , inventory, rule, str_remove_all(gamma, "[.]"), set)
          , width = 5, height = 4)
-  ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/02-trajectories/pdf/%s-%s-%s-%s.pdf"
+  ggsave(p, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/02-trajectories/pdf/%s-%s-%s-%s.pdf"
                         , inventory, rule, str_remove_all(gamma, "[.]"), set)
          , width = 5, height = 4)
   return(p)
@@ -163,9 +163,9 @@ edges.sum %>%
             legend.text = element_text(size = rel(.7)),
             legend.title = element_text(size = rel(.7), face = "bold"),
             legend.position = c(.15, .9))
-ggsave("~/Box/networks/SAPA/02-results/01-plots/02-trajectories/differentiation_coherence_line_graph_comp.png",
+ggsave("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/02-trajectories/differentiation_coherence_line_graph_comp.png",
        width = 15, height = 8)
-ggsave("~/Box/networks/SAPA/02-results/01-plots/02-trajectories/differentiation_coherence_line_graph_comp.pdf",
+ggsave("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/02-trajectories/differentiation_coherence_line_graph_comp.pdf",
        width = 15, height = 8)
 ```
 
@@ -205,10 +205,10 @@ st_traj_fun <- function(mt, st, inventory, rule, gamma, set){
               legend.key.size = unit(.5, "cm"), 
               legend.text = element_text(size = rel(.75)),
               legend.title = element_text(size = rel(.75), face = "bold"))
-  ggsave(file = sprintf("~/Box/networks/SAPA/02-results/01-plots/03-st-trajectories/png/%s-%s-%s-%s.png"
+  ggsave(file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/03-st-trajectories/png/%s-%s-%s-%s.png"
                         , inventory, rule, str_remove_all(gamma, "[.]"), set)
          , width = 6, height = 4)
-  ggsave(file = sprintf("~/Box/networks/SAPA/02-results/01-plots/03-st-trajectories/pdf/%s-%s-%s-%s.pdf"
+  ggsave(file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/03-st-trajectories/pdf/%s-%s-%s-%s.pdf"
                         , inventory, rule, str_remove_all(gamma, "[.]"), set)
          , width = 6, height = 4)
   return(p)
@@ -216,7 +216,7 @@ st_traj_fun <- function(mt, st, inventory, rule, gamma, set){
 
 nested_edges <- nested_edges %>%
   mutate(st_plot = pmap(list(mt_data, st_data, inventory, rule, gamma, set)
-              , .f = st_traj_fun))
+              , .f = possibly(st_traj_fun, NA_real_)))
 
 (nested_edges %>% filter(rule == "median" & gamma == ".25" & inventory == "IPIP50"))$st_plot[[1]]
 ```

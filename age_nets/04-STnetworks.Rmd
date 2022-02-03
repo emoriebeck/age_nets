@@ -75,7 +75,7 @@ gc()
 # save(ST_net_nested, file = sprintf("%s/02-results/st_nested_nets.RData", data_path))
 ```
 
-```{r get st nets edges}
+```{r get st nets edges, eval = F}
 # load(url(sprintf("%s/02-results/st_nested_nets.RData?raw=true", data_path)))
 rm(list = ls()[(grepl("data", ls()) | grepl("ipip", tolower(ls()))) & ! grepl("colors", ls())])
 ST_net_nested <- ST_net_nested %>%
@@ -99,7 +99,7 @@ getEdges.df <- function(x, cols) {
 }
 
 loadRData <- function(file, dir, obj){
-    path <- sprintf("~/Box/networks/SAPA/02-results/singletrait-age/%s/%s",
+    path <- sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-age/%s/%s",
                                dir, file)
     #loads an RData file, and returns it
     load(path)
@@ -107,7 +107,7 @@ loadRData <- function(file, dir, obj){
   }
 
 ST_net_nested <- tibble(
-  file = list.files("~/Box/networks/SAPA/02-results/singletrait-age/network")
+  file = list.files("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-age/network")
   ) %>%
   # filter(grepl("IPIP50", file)) %>%
   mutate(net = pmap(list(file, "network", "graph"), loadRData)
@@ -122,18 +122,15 @@ ST_net_nested <- tibble(
          , gamma = str_remove_all(gamma, "0")
          , gamma = paste0(".", gamma)
          )
+save(ST_net_nested, file = "/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-age/nested-nets.RData")
+```
+
+```{r}
+load("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-age/nested-nets.RData")
 ```
 
 ## N = 500 Single Trait Networks  
-```{r}
-done <- tibble(file = list.files("~/Box/networks/SAPA/02-results/singletrait-500/centrality")
-               , set = "500") %>%
-  separate(file, c("inventory", "age2", "trait", "rule", "gamma"), sep = "-") %>%
-  mutate(gamma = str_remove_all(gamma, ".RData")
-         , gamma = str_remove_all(gamma, "0")
-         , gamma = as.numeric(paste0(".", gamma))
-         , done = "done")
-
+```{r, eval = F}
 ST_net_nested_500 <- crossing(
   ST_net_nested
   , rule = c("min", "max", "median")
@@ -142,8 +139,6 @@ ST_net_nested_500 <- crossing(
 
 plan(multisession(workers = 12L))
 ST_net_nested_500 %>% 
-  full_join(done) %>%
-  filter(is.na(done)) %>%
   mutate(
          results  = future_pmap(
          # results  = pmap(
@@ -160,9 +155,9 @@ gc()
 ```
 
 ### Compile the Results  
-```{r}
+```{r, eval = F}
 loadRData <- function(file, dir, obj){
-    path <- sprintf("~/Box/networks/SAPA/02-results/singletrait-500/%s/%s",
+    path <- sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-500/%s/%s",
                                dir, file)
     #loads an RData file, and returns it
     load(path)
@@ -170,7 +165,7 @@ loadRData <- function(file, dir, obj){
   }
 
 ST_net_nested_500 <- tibble(
-  file = list.files("~/Box/networks/SAPA/02-results/singletrait-500/network")
+  file = list.files("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-500/network")
   ) %>%
   # filter(grepl("IPIP50", file)) %>%
   mutate(net = pmap(list(file, "network", "graph"), loadRData)
@@ -180,7 +175,7 @@ ST_net_nested_500 <- tibble(
   separate(file, c("inventory", "age", "Trait", "rule", "gamma"), sep = "-") 
 ```
 
-```{r}
+```{r, eval = F}
 call_edges_df <- function(net, cols){
   names(net) <- 1:100
   ldply(net, function(x) getEdges.df(x, cols))
@@ -191,11 +186,11 @@ ST_net_nested_500 <- ST_net_nested_500 %>%
          , edges.df = map2(net, cols, call_edges_df)) %>% 
   select(-net)
 save(ST_net_nested_500
-     , file = "~/Box/networks/SAPA/02-results/singletrait-500/nested-nets.RData")
+     , file = "/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-500/nested-nets.RData")
 ```
 
 ### Summarize the Results  
-```{r}
+```{r, eval = F}
 sum_fun <- function(x){
   x %>% group_by(from, to, edge) %>% 
     summarize(upper = quantile(weight, probs =.975)
@@ -208,7 +203,10 @@ ST_net_nested_500 <- ST_net_nested_500  %>%
   mutate(edges.df = map(edges.df, sum_fun))
 
 save(ST_net_nested_500
-     , file = "~/Box/networks/SAPA/02-results/singletrait-500/nested-nets_small.RData")
+     , file = "/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-500/nested-nets_small.RData")
 ```
 
+```{r}
+load("/Volumes/Emorie/projects/age nets/SAPA/02-results/singletrait-500/nested-nets_small.RData")
+```
 

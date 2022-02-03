@@ -1,10 +1,10 @@
 # Supplementary Analyses: Exploratory Factor Analysis {#efa}  
 
-```{r}
+```{r, eval = F}
 efa_fun <- function(inventory, set, age, rule){
   loadRData <- function(inventory, set, age){
     #loads an RData file, and returns it
-    path <- sprintf("~/Box/networks/SAPA/01-data/%s/%s/%s.RData"
+    path <- sprintf("/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData"
                     , inventory, set, age)
     load(path)
     get(ls()[ls() == "d"])
@@ -75,14 +75,14 @@ efa_fun <- function(inventory, set, age, rule){
   fa.res5 <- fa(cor, nfactors = 5, n.obs = pwise_n)
   
   g <- graph_fun(fa.res, inventory)
-  pdf(file = sprintf("~/Box/networks/SAPA/02-results/01-plots/08-efa/%s-%s-%s-%s.pdf"
+  pdf(file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/08-efa/%s-%s-%s-%s.pdf"
                            , inventory, age, rule, set)
       , width = 10, height = 10)
   plot(g)
   dev.off()
   
   res <- list(nfact = nfact, fa = fa.res, bffa = fa.res5)
-  save(res, file = sprintf("~/Box/networks/SAPA/02-results/efa-%s/%s-%s-%s.RData"
+  save(res, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/efa-%s/%s-%s-%s.RData"
                            , set, inventory, age, rule))
   return(res)
 }
@@ -147,7 +147,7 @@ gc()
 ## Compile Results  
 ```{r}
 loadRData <- function(file, set, obj){
-    path <- sprintf("~/Box/networks/SAPA/02-results/efa-%s/%s",
+    path <- sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/efa-%s/%s",
                                set, file)
     #loads an RData file, and returns it
     load(path)
@@ -155,10 +155,10 @@ loadRData <- function(file, set, obj){
 }
 
 efa_nested <- tibble(
-  file = list.files("~/Box/networks/SAPA/02-results/efa-age")
+  file = list.files("/Volumes/Emorie/projects/age nets/SAPA/02-results/efa-age")
   , set = "age"
   ) %>% full_join(tibble(
-    file = list.files("~/Box/networks/SAPA/02-results/efa-decades")
+    file = list.files("/Volumes/Emorie/projects/age nets/SAPA/02-results/efa-decades")
     , set = "decades"
   )) %>%
   separate(file, c("inventory", "age", "rule"), sep = "-", remove = F) %>%
@@ -183,7 +183,7 @@ efa_nested %>%
 
 
 ## Visualizations  
-```{r}
+```{r, eval = F}
 graph_fun <- function(fa.res, inventory){
   grp <- if(inventory == "IPIP20") ipipgroup20 else if(inventory == "IPIP50") ipipgroup50 else ipipgroup100
   cols <- if(inventory == "IPIP20") all_cols20 else if(inventory == "IPIP50") all_cols50 else all_cols100
@@ -225,7 +225,7 @@ efa_nested <- efa_nested %>%
   mutate(graph = map(efa, graph_fun))
 
 save_fun <- function(graph, age){
-  pdf(file = sprintf("~/Box/networks/SAPA/results/plots/efa/efa_%s.pdf", age), 
+  pdf(file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/results/plots/efa/efa_%s.pdf", age), 
       width = 6, height = 6)
   plot(graph)
   title(age)

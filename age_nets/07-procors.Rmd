@@ -112,10 +112,10 @@ procor_plot_fun <- function(df, inv, rule, set, gamma, type, leg){
             axis.text.x = element_text(angle = 90, size = rel(.8)),
             plot.title = element_text(hjust = .5))
   # ggsave(p, file = sprintf("%s/photos/Big5_%s_profile_cors_heatmap.png", data_path, inv), width = 12, height = 8)
-  # ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/06-pro-cors/%s/png/%s-%s-%s-%s.png"
+  # ggsave(p, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/06-pro-cors/%s/png/%s-%s-%s-%s.png"
   #                          , type, inv, rule, set, gamma)
   #        , width = 12, height = 12)
-  # ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/06-pro-cors/%s/pdf/%s-%s-%s-%s.pdf"
+  # ggsave(p, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/06-pro-cors/%s/pdf/%s-%s-%s-%s.pdf"
   #                          , type, inv, rule, set, gamma)
          # , width = 12, height = 12)
   p
@@ -144,10 +144,10 @@ combine_plots_fun <- function(all, between, within, inv, rule, set, gamma){
   p2 <- cowplot::plot_grid(all, p1, ncol = 2, axis = "b", rel_widths = c(2/3,1/3))
   p <- cowplot::plot_grid(p2, legend, nrow = 2, rel_heights = c(.9, .1))
   
-  ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/06-pro-cors/png/%s-%s-%s-%s.png"
+  ggsave(p, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/06-pro-cors/png/%s-%s-%s-%s.png"
                            , inv, rule, set, gamma)
          , width = 12, height = 8)
-  ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/06-pro-cors/pdf/%s-%s-%s-%s.pdf"
+  ggsave(p, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/06-pro-cors/pdf/%s-%s-%s-%s.pdf"
                            , inv, rule, set, gamma)
   , width = 12, height = 8)
 }

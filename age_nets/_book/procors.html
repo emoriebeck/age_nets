@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Profile Correlations | Interindividual Age Differences in Personality Structure</title>
-  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="description" content="Chapter 8 Profile Correlations | Interindividual Age Differences in Personality Structure" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Profile Correlations | Interindividual Age Differences in Personality Structure" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 8 Profile Correlations | Interindividual Age Differences in Personality Structure" />
   
-  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
   
 
 <meta name="author" content="Emorie D Beck" />
@@ -26,22 +26,25 @@
 <meta name="author" content="Joshua J Jackson" />
 
 
-<meta name="date" content="2019-07-11" />
+<meta name="date" content="2022-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="communities.html">
-
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="communities.html"/>
+<link rel="next" href="efa.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -49,46 +52,78 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -107,31 +142,82 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background on the SAPA Project</a><ul>
+<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background on the SAPA Project</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="background.html"><a href="background.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
-<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#methods"><i class="fa fa-check"></i><b>2.2</b> Methods</a><ul>
+<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#methods"><i class="fa fa-check"></i><b>2.2</b> Methods</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="background.html"><a href="background.html#to-2010"><i class="fa fa-check"></i><b>2.2.1</b> 2006 to 2010</a></li>
 <li class="chapter" data-level="2.2.2" data-path="background.html"><a href="background.html#to-2017"><i class="fa fa-check"></i><b>2.2.2</b> 2010 to 2017}</a></li>
-<li class="chapter" data-level="2.2.3" data-path="background.html"><a href="background.html#merge-the-datasets-and-describe"><i class="fa fa-check"></i><b>2.2.3</b> Merge the datasets and Describe}</a></li>
+<li class="chapter" data-level="2.2.3" data-path="background.html"><a href="background.html#merge-the-datasets-and-describe"><i class="fa fa-check"></i><b>2.2.3</b> Merge the datasets and Describe</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>3</b> Workspace</a><ul>
+<li class="chapter" data-level="3" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>3</b> Workspace</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>3.1</b> Load and Clean Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
-<li class="chapter" data-level="4.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>4.1</b> Multi-Trait Networks</a></li>
+<li class="chapter" data-level="4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Multi-Trait Networks {MTnetworks}</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>4.1</b> Multi-Trait Networks</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#setup-data"><i class="fa fa-check"></i><b>4.1.1</b> Setup Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#run-models"><i class="fa fa-check"></i><b>4.1.2</b> Run Models</a></li>
+<li class="chapter" data-level="4.1.3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#compile-results"><i class="fa fa-check"></i><b>4.1.3</b> Compile Results</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>5</b> Fit the Single Trait Networks</a></li>
-<li class="chapter" data-level="6" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>6</b> Age Differences in Coherence and Differentiation</a><ul>
+<li class="chapter" data-level="4.2" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#n-500-across-ages"><i class="fa fa-check"></i><b>4.2</b> N = 500 Across Ages</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#run-models-1"><i class="fa fa-check"></i><b>4.2.1</b> Run Models</a></li>
+<li class="chapter" data-level="4.2.2" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#compile-results-1"><i class="fa fa-check"></i><b>4.2.2</b> Compile Results</a></li>
+<li class="chapter" data-level="4.2.3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#summarize-results"><i class="fa fa-check"></i><b>4.2.3</b> Summarize Results</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#additional-sensitivity-analyses"><i class="fa fa-check"></i><b>4.3</b> Additional Sensitivity Analyses</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#forcepd-f"><i class="fa fa-check"></i><b>4.3.1</b> forcePD = F</a></li>
+<li class="chapter" data-level="4.3.2" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#n-n-for-60s-group-forcepd-f"><i class="fa fa-check"></i><b>4.3.2</b> N = N for 60’s group, forcePD = F</a></li>
+<li class="chapter" data-level="4.3.3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#n-1000-forcepd-f"><i class="fa fa-check"></i><b>4.3.3</b> N = 1000, forcePD = F</a></li>
+<li class="chapter" data-level="4.3.4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#remove-multicollinear-items-forcepd-f"><i class="fa fa-check"></i><b>4.3.4</b> Remove Multicollinear Items, forcePD = F</a></li>
+<li class="chapter" data-level="4.3.5" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#remove-multicollinear-items-forcepd-f-n-n-for-60s-group"><i class="fa fa-check"></i><b>4.3.5</b> Remove Multicollinear Items, forcePD = F, N = N for 60’s group</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="single-trait-networks.html"><a href="single-trait-networks.html"><i class="fa fa-check"></i><b>5</b> Single Trait Networks</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="single-trait-networks.html"><a href="single-trait-networks.html#STnetworks"><i class="fa fa-check"></i><b>5.1</b> Fit the Single Trait Networks</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="single-trait-networks.html"><a href="single-trait-networks.html#compile-the-results"><i class="fa fa-check"></i><b>5.1.1</b> Compile the Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="single-trait-networks.html"><a href="single-trait-networks.html#n-500-single-trait-networks"><i class="fa fa-check"></i><b>5.2</b> N = 500 Single Trait Networks</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="single-trait-networks.html"><a href="single-trait-networks.html#compile-the-results-1"><i class="fa fa-check"></i><b>5.2.1</b> Compile the Results</a></li>
+<li class="chapter" data-level="5.2.2" data-path="single-trait-networks.html"><a href="single-trait-networks.html#summarize-the-results"><i class="fa fa-check"></i><b>5.2.2</b> Summarize the Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>6</b> Age Differences in Coherence and Differentiation</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>6.1</b> Multi-Trait Coherence and Differentiation</a></li>
 <li class="chapter" data-level="6.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>6.2</b> Single and Mutli-Trait Coherence</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>7</b> Community Structure</a><ul>
-<li class="chapter" data-level="7.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>7.0.1</b> Plots</a></li>
-<li class="chapter" data-level="7.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>7.0.2</b> Matching Across Communities</a></li>
+<li class="chapter" data-level="7" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>7</b> Community Structure</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="communities.html"><a href="communities.html#nmi"><i class="fa fa-check"></i><b>7.0.1</b> NMI</a></li>
+<li class="chapter" data-level="7.0.2" data-path="communities.html"><a href="communities.html#network-plots-with-community-structure"><i class="fa fa-check"></i><b>7.0.2</b> Network Plots with Community Structure</a></li>
+<li class="chapter" data-level="7.0.3" data-path="communities.html"><a href="communities.html#gifs-across-all-ages-a"><i class="fa fa-check"></i><b>7.0.3</b> GIFs Across All Ages a</a></li>
+<li class="chapter" data-level="7.0.4" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>7.0.4</b> Matching Across Communities</a></li>
+<li class="chapter" data-level="7.0.5" data-path="communities.html"><a href="communities.html#modularity"><i class="fa fa-check"></i><b>7.0.5</b> Modularity</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>8</b> Profile Correlations</a><ul>
+<li class="chapter" data-level="8" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>8</b> Profile Correlations</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>8.1</b> Profiles Correlation Plots (Figure 5)</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>9</b> Supplementary Analyses: Exploratory Factor Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="efa.html"><a href="efa.html#compile-results-2"><i class="fa fa-check"></i><b>9.1</b> Compile Results</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="efa.html"><a href="efa.html#number-of-factors"><i class="fa fa-check"></i><b>9.1.1</b> Number of Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="efa.html"><a href="efa.html#visualizations"><i class="fa fa-check"></i><b>9.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="efa.html"><a href="efa.html#differentiation"><i class="fa fa-check"></i><b>9.2.1</b> Differentiation</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -153,98 +239,292 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="procors" class="section level1">
+<div id="procors" class="section level1" number="8">
 <h1><span class="header-section-number">Chapter 8</span> Profile Correlations</h1>
 <p>Next, we calculate profile correlations to test the stability of edges across all possible pairwise combinations of ages. A strong parallel correlation indicates that the weight of the edges is associated across two ages. We then map these profile correlations onto a heat map that displays the pairwise profile correlations. We would expect to see the strongest profile correlations cluster on the diagonal of heatmap – that is between ages that are adjacent or near in age.<br />
 ## Multi-Trait</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wide_fun &lt;-<span class="st"> </span><span class="cf">function</span>(df){
-  df &lt;-<span class="st"> </span><span class="kw">unclass</span>(df) <span class="op">%&gt;%</span><span class="st"> </span>data.frame <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>from, <span class="op">-</span>to) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(<span class="dt">key =</span> edge, <span class="dt">value =</span> weight)
-  <span class="kw">rownames</span>(df) &lt;-<span class="st"> </span>df<span class="op">$</span>age
-  df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>age)
-  <span class="kw">return</span>(df)
-  }
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="procors.html#cb422-1" aria-hidden="true" tabindex="-1"></a>mat_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb422-2"><a href="procors.html#cb422-2" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">as.numeric</span>(age))</span>
+<span id="cb422-3"><a href="procors.html#cb422-3" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">unclass</span>(df) <span class="sc">%&gt;%</span> data.frame</span>
+<span id="cb422-4"><a href="procors.html#cb422-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(df) <span class="ot">&lt;-</span> df<span class="sc">$</span>age</span>
+<span id="cb422-5"><a href="procors.html#cb422-5" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>age) </span>
+<span id="cb422-6"><a href="procors.html#cb422-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="fu">t</span>(df), <span class="at">use =</span> <span class="st">&quot;pairwise&quot;</span>)</span>
+<span id="cb422-7"><a href="procors.html#cb422-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb422-8"><a href="procors.html#cb422-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb422-9"><a href="procors.html#cb422-9" aria-hidden="true" tabindex="-1"></a><span class="co"># change the direction of the data </span></span>
+<span id="cb422-10"><a href="procors.html#cb422-10" aria-hidden="true" tabindex="-1"></a>MT_procor <span class="ot">&lt;-</span> MT_net_nested <span class="sc">%&gt;%</span> </span>
+<span id="cb422-11"><a href="procors.html#cb422-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(inventory, age, rule, gamma, set, edges.df) <span class="sc">%&gt;%</span></span>
+<span id="cb422-12"><a href="procors.html#cb422-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(MT_net_nested_500 <span class="sc">%&gt;%</span> </span>
+<span id="cb422-13"><a href="procors.html#cb422-13" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(inventory, age, rule, gamma, set, edges.df) <span class="sc">%&gt;%</span></span>
+<span id="cb422-14"><a href="procors.html#cb422-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">set =</span> <span class="st">&quot;500&quot;</span></span>
+<span id="cb422-15"><a href="procors.html#cb422-15" aria-hidden="true" tabindex="-1"></a>                     , <span class="at">edges.df =</span> <span class="fu">map</span>(edges.df, <span class="sc">~</span>(.) <span class="sc">%&gt;%</span> <span class="fu">select</span>(from, to, edge, <span class="at">weight =</span> estimate))))</span></code></pre></div>
+<pre><code>## Joining, by = c(&quot;inventory&quot;, &quot;age&quot;, &quot;rule&quot;, &quot;gamma&quot;, &quot;set&quot;, &quot;edges.df&quot;)</code></pre>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="procors.html#cb424-1" aria-hidden="true" tabindex="-1"></a>bwwi_procor <span class="ot">&lt;-</span> MT_procor <span class="sc">%&gt;%</span></span>
+<span id="cb424-2"><a href="procors.html#cb424-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edges.df =</span> <span class="fu">map</span>(edges.df, <span class="sc">~</span>(.) <span class="sc">%&gt;%</span> </span>
+<span id="cb424-3"><a href="procors.html#cb424-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">separate</span>(from, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;from_factor&quot;</span>, <span class="st">&quot;from_item&quot;</span>), <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb424-4"><a href="procors.html#cb424-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">separate</span>(to, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;to_factor&quot;</span>, <span class="st">&quot;to_item&quot;</span>), <span class="dv">1</span>))</span>
+<span id="cb424-5"><a href="procors.html#cb424-5" aria-hidden="true" tabindex="-1"></a>         , <span class="at">between =</span> <span class="fu">map</span>(edges.df, <span class="sc">~</span>(.) <span class="sc">%&gt;%</span> </span>
+<span id="cb424-6"><a href="procors.html#cb424-6" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">filter</span>(from_factor <span class="sc">!=</span> to_factor) <span class="sc">%&gt;%</span></span>
+<span id="cb424-7"><a href="procors.html#cb424-7" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">select</span>(edge, weight) <span class="sc">%&gt;%</span> </span>
+<span id="cb424-8"><a href="procors.html#cb424-8" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">spread</span>(<span class="at">key =</span> edge, <span class="at">value =</span> weight))</span>
+<span id="cb424-9"><a href="procors.html#cb424-9" aria-hidden="true" tabindex="-1"></a>         , <span class="at">within =</span> <span class="fu">map</span>(edges.df, <span class="sc">~</span>(.) <span class="sc">%&gt;%</span> </span>
+<span id="cb424-10"><a href="procors.html#cb424-10" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">filter</span>(from_factor <span class="sc">==</span> to_factor) <span class="sc">%&gt;%</span></span>
+<span id="cb424-11"><a href="procors.html#cb424-11" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">select</span>(edge, weight) <span class="sc">%&gt;%</span> </span>
+<span id="cb424-12"><a href="procors.html#cb424-12" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">spread</span>(<span class="at">key =</span> edge, <span class="at">value =</span> weight))) <span class="sc">%&gt;%</span></span>
+<span id="cb424-13"><a href="procors.html#cb424-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>edges.df) <span class="sc">%&gt;%</span></span>
+<span id="cb424-14"><a href="procors.html#cb424-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;between&quot;</span>, <span class="st">&quot;within&quot;</span>)</span>
+<span id="cb424-15"><a href="procors.html#cb424-15" aria-hidden="true" tabindex="-1"></a>               , <span class="at">names_to =</span> <span class="st">&quot;type&quot;</span></span>
+<span id="cb424-16"><a href="procors.html#cb424-16" aria-hidden="true" tabindex="-1"></a>               , <span class="at">values_to =</span> <span class="st">&quot;data&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb424-17"><a href="procors.html#cb424-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inventory, rule, gamma, set, type) <span class="sc">%&gt;%</span></span>
+<span id="cb424-18"><a href="procors.html#cb424-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb424-19"><a href="procors.html#cb424-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb424-20"><a href="procors.html#cb424-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">map</span>(data, <span class="sc">~</span>(.) <span class="sc">%&gt;%</span> <span class="fu">unnest</span>(data))</span>
+<span id="cb424-21"><a href="procors.html#cb424-21" aria-hidden="true" tabindex="-1"></a>         <span class="co"># , data = map(data, mat_fun)</span></span>
+<span id="cb424-22"><a href="procors.html#cb424-22" aria-hidden="true" tabindex="-1"></a>         , <span class="at">procor =</span> <span class="fu">map</span>(data, <span class="fu">possibly</span>(mat_fun, <span class="cn">NA_real_</span>)))</span></code></pre></div>
+<pre><code>## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
 
-<span class="co"># change the direction of the data </span>
-MT_procor &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">unnest</span>(edges.df) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(inventory) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wide =</span> <span class="kw">map</span>(data, wide_fun),
-         <span class="dt">procor =</span> <span class="kw">map</span>(wide, <span class="op">~</span><span class="kw">cor</span>(<span class="kw">t</span>(.), <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)))
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
 
-<span class="co"># separate out differentiation from coherence</span>
-edges.mat50bw &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">       </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest</span>(edges.df) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">separate</span>(from, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;from_factor&quot;</span>, <span class="st">&quot;from_item&quot;</span>), <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">separate</span>(to, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;to_factor&quot;</span>, <span class="st">&quot;to_item&quot;</span>), <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">filter</span>(from_factor <span class="op">!=</span><span class="st"> </span>to_factor) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">select</span>(age, weight, edge) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">spread</span>(<span class="dt">key =</span> edge, <span class="dt">value =</span> weight) <span class="op">%&gt;%</span>
-<span class="st">       </span>unclass <span class="op">%&gt;%</span><span class="st"> </span>data.frame
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
 
-<span class="co"># separate out coherence from differentiation </span>
-edges.mat50wi &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">       </span><span class="kw">filter</span>(inventory <span class="op">==</span><span class="st"> &quot;IPIP50&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest</span>(edges.df) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">separate</span>(from, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;from_factor&quot;</span>, <span class="st">&quot;from_item&quot;</span>), <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">separate</span>(to, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;to_factor&quot;</span>, <span class="st">&quot;to_item&quot;</span>), <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">filter</span>(from_factor <span class="op">==</span><span class="st"> </span>to_factor) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">select</span>(age, weight, edge) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">spread</span>(<span class="dt">key =</span> edge, <span class="dt">value =</span> weight) <span class="op">%&gt;%</span>
-<span class="st">       </span>unclass <span class="op">%&gt;%</span><span class="st"> </span>data.frame
-       
-<span class="co"># set the rownsames of these to age</span>
-<span class="kw">rownames</span>(edges.mat50bw) &lt;-<span class="st"> </span>edges.mat50bw<span class="op">$</span>age
-<span class="kw">rownames</span>(edges.mat50wi) &lt;-<span class="st"> </span>edges.mat50wi<span class="op">$</span>age
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
 
-##############################################
-############ Profile Correlations ############
-##############################################
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
 
-<span class="co"># calculate profile correlations</span>
-procor50bw &lt;-<span class="st"> </span><span class="kw">cor</span>(<span class="kw">t</span>(edges.mat50bw[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)
-procor50wi &lt;-<span class="st"> </span><span class="kw">cor</span>(<span class="kw">t</span>(edges.mat50wi[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)</code></pre></div>
-<div id="Figure5" class="section level2">
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero</code></pre>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="procors.html#cb426-1" aria-hidden="true" tabindex="-1"></a>MT_procor <span class="ot">&lt;-</span> MT_procor <span class="sc">%&gt;%</span></span>
+<span id="cb426-2"><a href="procors.html#cb426-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edges.df =</span> <span class="fu">map</span>(edges.df, <span class="sc">~</span>(.) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>from, <span class="sc">-</span>to) <span class="sc">%&gt;%</span> <span class="fu">spread</span>(<span class="at">key =</span> edge, <span class="at">value =</span> weight))) <span class="sc">%&gt;%</span></span>
+<span id="cb426-3"><a href="procors.html#cb426-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inventory, rule, gamma, set) <span class="sc">%&gt;%</span></span>
+<span id="cb426-4"><a href="procors.html#cb426-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb426-5"><a href="procors.html#cb426-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb426-6"><a href="procors.html#cb426-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">map</span>(data, <span class="sc">~</span>(.) <span class="sc">%&gt;%</span> <span class="fu">unnest</span>(edges.df))</span>
+<span id="cb426-7"><a href="procors.html#cb426-7" aria-hidden="true" tabindex="-1"></a>         <span class="co"># , data = map(data, mat_fun)</span></span>
+<span id="cb426-8"><a href="procors.html#cb426-8" aria-hidden="true" tabindex="-1"></a>         , <span class="at">procor =</span> <span class="fu">map</span>(data, <span class="fu">possibly</span>(mat_fun, <span class="cn">NA_real_</span>)))</span></code></pre></div>
+<pre><code>## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero
+
+## Warning in cor(t(df), use = &quot;pairwise&quot;): the standard deviation is zero</code></pre>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="procors.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb428-2"><a href="procors.html#cb428-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # separate out differentiation from coherence</span></span>
+<span id="cb428-3"><a href="procors.html#cb428-3" aria-hidden="true" tabindex="-1"></a><span class="co"># edges.mat50bw &lt;- MT_net_nested %&gt;% </span></span>
+<span id="cb428-4"><a href="procors.html#cb428-4" aria-hidden="true" tabindex="-1"></a><span class="co">#        filter(inventory == &quot;IPIP50&quot;) %&gt;% unnest(edges.df) %&gt;%</span></span>
+<span id="cb428-5"><a href="procors.html#cb428-5" aria-hidden="true" tabindex="-1"></a><span class="co">#        separate(from, into = c(&quot;from_factor&quot;, &quot;from_item&quot;), 1) %&gt;%</span></span>
+<span id="cb428-6"><a href="procors.html#cb428-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        separate(to, into = c(&quot;to_factor&quot;, &quot;to_item&quot;), 1) %&gt;%</span></span>
+<span id="cb428-7"><a href="procors.html#cb428-7" aria-hidden="true" tabindex="-1"></a><span class="co">#        filter(from_factor != to_factor) %&gt;%</span></span>
+<span id="cb428-8"><a href="procors.html#cb428-8" aria-hidden="true" tabindex="-1"></a><span class="co">#        select(age, weight, edge) %&gt;%</span></span>
+<span id="cb428-9"><a href="procors.html#cb428-9" aria-hidden="true" tabindex="-1"></a><span class="co">#        spread(key = edge, value = weight) %&gt;%</span></span>
+<span id="cb428-10"><a href="procors.html#cb428-10" aria-hidden="true" tabindex="-1"></a><span class="co">#        unclass %&gt;% data.frame</span></span>
+<span id="cb428-11"><a href="procors.html#cb428-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb428-12"><a href="procors.html#cb428-12" aria-hidden="true" tabindex="-1"></a><span class="co"># # separate out coherence from differentiation </span></span>
+<span id="cb428-13"><a href="procors.html#cb428-13" aria-hidden="true" tabindex="-1"></a><span class="co"># edges.mat50wi &lt;- MT_net_nested %&gt;% </span></span>
+<span id="cb428-14"><a href="procors.html#cb428-14" aria-hidden="true" tabindex="-1"></a><span class="co">#        filter(inventory == &quot;IPIP50&quot;) %&gt;% unnest(edges.df) %&gt;%</span></span>
+<span id="cb428-15"><a href="procors.html#cb428-15" aria-hidden="true" tabindex="-1"></a><span class="co">#        separate(from, into = c(&quot;from_factor&quot;, &quot;from_item&quot;), 1) %&gt;%</span></span>
+<span id="cb428-16"><a href="procors.html#cb428-16" aria-hidden="true" tabindex="-1"></a><span class="co">#        separate(to, into = c(&quot;to_factor&quot;, &quot;to_item&quot;), 1) %&gt;%</span></span>
+<span id="cb428-17"><a href="procors.html#cb428-17" aria-hidden="true" tabindex="-1"></a><span class="co">#        filter(from_factor == to_factor) %&gt;%</span></span>
+<span id="cb428-18"><a href="procors.html#cb428-18" aria-hidden="true" tabindex="-1"></a><span class="co">#        select(age, weight, edge) %&gt;%</span></span>
+<span id="cb428-19"><a href="procors.html#cb428-19" aria-hidden="true" tabindex="-1"></a><span class="co">#        spread(key = edge, value = weight) %&gt;%</span></span>
+<span id="cb428-20"><a href="procors.html#cb428-20" aria-hidden="true" tabindex="-1"></a><span class="co">#        unclass %&gt;% data.frame</span></span>
+<span id="cb428-21"><a href="procors.html#cb428-21" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb428-22"><a href="procors.html#cb428-22" aria-hidden="true" tabindex="-1"></a><span class="co"># set the rownsames of these to age</span></span>
+<span id="cb428-23"><a href="procors.html#cb428-23" aria-hidden="true" tabindex="-1"></a><span class="co"># rownames(edges.mat50bw) &lt;- edges.mat50bw$age</span></span>
+<span id="cb428-24"><a href="procors.html#cb428-24" aria-hidden="true" tabindex="-1"></a><span class="co"># rownames(edges.mat50wi) &lt;- edges.mat50wi$age</span></span>
+<span id="cb428-25"><a href="procors.html#cb428-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb428-26"><a href="procors.html#cb428-26" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################</span></span>
+<span id="cb428-27"><a href="procors.html#cb428-27" aria-hidden="true" tabindex="-1"></a><span class="do">############ Profile Correlations ############</span></span>
+<span id="cb428-28"><a href="procors.html#cb428-28" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################</span></span>
+<span id="cb428-29"><a href="procors.html#cb428-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb428-30"><a href="procors.html#cb428-30" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate profile correlations</span></span>
+<span id="cb428-31"><a href="procors.html#cb428-31" aria-hidden="true" tabindex="-1"></a><span class="co"># procor50bw &lt;- cor(t(edges.mat50bw[,-1]), use = &quot;pairwise.complete.obs&quot;)</span></span>
+<span id="cb428-32"><a href="procors.html#cb428-32" aria-hidden="true" tabindex="-1"></a><span class="co"># procor50wi &lt;- cor(t(edges.mat50wi[,-1]), use = &quot;pairwise.complete.obs&quot;)</span></span></code></pre></div>
+<div id="Figure5" class="section level2" number="8.1">
 <h2><span class="header-section-number">8.1</span> Profiles Correlation Plots (Figure 5)</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##############################################
-################## PLOTS #####################
-##############################################
-
-procor_plot_fun &lt;-<span class="st"> </span><span class="cf">function</span>(df, inv, leg){
-  df[<span class="kw">upper.tri</span>(df, <span class="dt">diag =</span> T)] &lt;-<span class="st"> </span><span class="ot">NA</span>
-  p &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(df) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">age1 =</span> <span class="kw">colnames</span>(.)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">gather</span>(<span class="dt">key =</span> age2, <span class="dt">value =</span> r, <span class="dv">1</span><span class="op">:</span>(<span class="kw">ncol</span>(.) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(r)) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> age2, <span class="dt">y =</span> age1, <span class="dt">fill =</span> r)) <span class="op">+</span><span class="st"> </span>
-<span class="st">      </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> r)) <span class="op">+</span><span class="st"> </span>
-<span class="st">      </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">mid =</span> <span class="st">&quot;white&quot;</span>, 
-       <span class="dt">midpoint =</span> .<span class="dv">5</span>, <span class="dt">limit =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">space =</span> <span class="st">&quot;Lab&quot;</span>, 
-       <span class="dt">name=</span><span class="st">&quot;Profile</span><span class="ch">\n</span><span class="st">Correlation&quot;</span>) <span class="op">+</span>
-<span class="st">      </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">title =</span> <span class="kw">sprintf</span>(<span class="st">&quot;Profile Correlations for %s&quot;</span>, inv)) <span class="op">+</span><span class="st"> </span>
-<span class="st">      </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">      </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> leg,
-            <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),
-            <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">size =</span> <span class="kw">rel</span>(.<span class="dv">8</span>)),
-            <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> .<span class="dv">5</span>))
-  <span class="co"># ggsave(p, file = sprintf(&quot;%s/photos/Big5_%s_profile_cors_heatmap.png&quot;, data_path, inv), width = 12, height = 8)</span>
-  p
-}
-
-MT_procor &lt;-<span class="st"> </span>MT_procor <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">plot =</span> <span class="kw">map2</span>(procor, inventory, <span class="op">~</span><span class="kw">procor_plot_fun</span>(.x, .y, <span class="dt">leg =</span> <span class="st">&quot;none&quot;</span>)))
-
-layout &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),
-                <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>))
-p &lt;-<span class="st"> </span>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(
-  MT_procor<span class="op">$</span>plot[[<span class="dv">2</span>]], 
-  <span class="kw">procor_plot_fun</span>(procor50bw, <span class="st">&quot;IPIP50 Cross-Trait Edges&quot;</span>, <span class="dt">leg =</span> <span class="st">&quot;none&quot;</span>), 
-  <span class="kw">procor_plot_fun</span>(procor50wi, <span class="st">&quot;IPIP50 Within-Trait Edges&quot;</span>, <span class="dt">leg =</span> <span class="st">&quot;none&quot;</span>), 
-  <span class="dt">layout_matrix =</span> layout)</code></pre></div>
-<p><img src="age_nets_files/figure-html/mt%20procor%20plots-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ggsave(p, file = sprintf(&quot;%s/photos/Big5_IPIP50_profile_cors_heatmap.png&quot;, data_path),</span>
-       <span class="co"># width = 12, height = 8)</span>
-<span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="procors.html#cb429-1" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################</span></span>
+<span id="cb429-2"><a href="procors.html#cb429-2" aria-hidden="true" tabindex="-1"></a><span class="do">################## PLOTS #####################</span></span>
+<span id="cb429-3"><a href="procors.html#cb429-3" aria-hidden="true" tabindex="-1"></a><span class="do">##############################################</span></span>
+<span id="cb429-4"><a href="procors.html#cb429-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb429-5"><a href="procors.html#cb429-5" aria-hidden="true" tabindex="-1"></a>procor_plot_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(df, inv, rule, set, gamma, type, leg){</span>
+<span id="cb429-6"><a href="procors.html#cb429-6" aria-hidden="true" tabindex="-1"></a>  df[<span class="fu">upper.tri</span>(df, <span class="at">diag =</span> T)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb429-7"><a href="procors.html#cb429-7" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">tbl_df</span>(df) <span class="sc">%&gt;%</span> </span>
+<span id="cb429-8"><a href="procors.html#cb429-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">age1 =</span> <span class="fu">colnames</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb429-9"><a href="procors.html#cb429-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather</span>(<span class="at">key =</span> age2, <span class="at">value =</span> r, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">ncol</span>(.) <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb429-10"><a href="procors.html#cb429-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(r)) <span class="sc">%&gt;%</span></span>
+<span id="cb429-11"><a href="procors.html#cb429-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age2, <span class="at">y =</span> age1, <span class="at">fill =</span> r)) <span class="sc">+</span> </span>
+<span id="cb429-12"><a href="procors.html#cb429-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">fill =</span> r)) <span class="sc">+</span> </span>
+<span id="cb429-13"><a href="procors.html#cb429-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">high =</span> <span class="st">&quot;red&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb429-14"><a href="procors.html#cb429-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">midpoint =</span> .<span class="dv">5</span>, <span class="at">limit =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">space =</span> <span class="st">&quot;Lab&quot;</span>, </span>
+<span id="cb429-15"><a href="procors.html#cb429-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">name=</span><span class="st">&quot;Profile</span><span class="sc">\n</span><span class="st">Correlation&quot;</span>) <span class="sc">+</span></span>
+<span id="cb429-16"><a href="procors.html#cb429-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">title =</span> <span class="fu">sprintf</span>(<span class="st">&quot;Profile Correlations for %s&quot;</span>, inv)) <span class="sc">+</span> </span>
+<span id="cb429-17"><a href="procors.html#cb429-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb429-18"><a href="procors.html#cb429-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> leg,</span>
+<span id="cb429-19"><a href="procors.html#cb429-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb429-20"><a href="procors.html#cb429-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="fu">rel</span>(.<span class="dv">8</span>)),</span>
+<span id="cb429-21"><a href="procors.html#cb429-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">5</span>))</span>
+<span id="cb429-22"><a href="procors.html#cb429-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ggsave(p, file = sprintf(&quot;%s/photos/Big5_%s_profile_cors_heatmap.png&quot;, data_path, inv), width = 12, height = 8)</span></span>
+<span id="cb429-23"><a href="procors.html#cb429-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ggsave(p, file = sprintf(&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/06-pro-cors/%s/png/%s-%s-%s-%s.png&quot;</span></span>
+<span id="cb429-24"><a href="procors.html#cb429-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">#                          , type, inv, rule, set, gamma)</span></span>
+<span id="cb429-25"><a href="procors.html#cb429-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        , width = 12, height = 12)</span></span>
+<span id="cb429-26"><a href="procors.html#cb429-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ggsave(p, file = sprintf(&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/06-pro-cors/%s/pdf/%s-%s-%s-%s.pdf&quot;</span></span>
+<span id="cb429-27"><a href="procors.html#cb429-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">#                          , type, inv, rule, set, gamma)</span></span>
+<span id="cb429-28"><a href="procors.html#cb429-28" aria-hidden="true" tabindex="-1"></a>         <span class="co"># , width = 12, height = 12)</span></span>
+<span id="cb429-29"><a href="procors.html#cb429-29" aria-hidden="true" tabindex="-1"></a>  p</span>
+<span id="cb429-30"><a href="procors.html#cb429-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb429-31"><a href="procors.html#cb429-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb429-32"><a href="procors.html#cb429-32" aria-hidden="true" tabindex="-1"></a>MT_procor <span class="ot">&lt;-</span> MT_procor <span class="sc">%&gt;%</span></span>
+<span id="cb429-33"><a href="procors.html#cb429-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plot =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(procor, inventory, rule, set, gamma, <span class="st">&quot;all&quot;</span>, <span class="st">&quot;bottom&quot;</span>), procor_plot_fun)) </span></code></pre></div>
+<pre><code>## Warning: `tbl_df()` was deprecated in dplyr 1.0.0.
+## Please use `tibble::as_tibble()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="procors.html#cb431-1" aria-hidden="true" tabindex="-1"></a>bwwi_procor <span class="ot">&lt;-</span> bwwi_procor <span class="sc">%&gt;%</span></span>
+<span id="cb431-2"><a href="procors.html#cb431-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plot =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(procor, inventory, rule, set, gamma, type, <span class="st">&quot;bottom&quot;</span>), procor_plot_fun)) </span>
+<span id="cb431-3"><a href="procors.html#cb431-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb431-4"><a href="procors.html#cb431-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb431-5"><a href="procors.html#cb431-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(p, file = sprintf(&quot;%s/photos/Big5_IPIP50_profile_cors_heatmap.png&quot;, data_path),</span></span>
+<span id="cb431-6"><a href="procors.html#cb431-6" aria-hidden="true" tabindex="-1"></a>       <span class="co"># width = 12, height = 8)</span></span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="procors.html#cb432-1" aria-hidden="true" tabindex="-1"></a>combine_plots_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(all, between, within, inv, rule, set, gamma){</span>
+<span id="cb432-2"><a href="procors.html#cb432-2" aria-hidden="true" tabindex="-1"></a>  legend  <span class="ot">&lt;-</span> cowplot<span class="sc">::</span><span class="fu">get_legend</span>(all)</span>
+<span id="cb432-3"><a href="procors.html#cb432-3" aria-hidden="true" tabindex="-1"></a>  all     <span class="ot">&lt;-</span> all     <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> inv)</span>
+<span id="cb432-4"><a href="procors.html#cb432-4" aria-hidden="true" tabindex="-1"></a>  between <span class="ot">&lt;-</span> between <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s: Between-Trait Edges&quot;</span>, inv))</span>
+<span id="cb432-5"><a href="procors.html#cb432-5" aria-hidden="true" tabindex="-1"></a>  within  <span class="ot">&lt;-</span> within  <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%s: Within-Trait Edges&quot;</span> , inv))</span>
+<span id="cb432-6"><a href="procors.html#cb432-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb432-7"><a href="procors.html#cb432-7" aria-hidden="true" tabindex="-1"></a>  p1 <span class="ot">&lt;-</span> cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(within, between, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">axis =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb432-8"><a href="procors.html#cb432-8" aria-hidden="true" tabindex="-1"></a>  p2 <span class="ot">&lt;-</span> cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(all, p1, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">axis =</span> <span class="st">&quot;b&quot;</span>, <span class="at">rel_widths =</span> <span class="fu">c</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))</span>
+<span id="cb432-9"><a href="procors.html#cb432-9" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(p2, legend, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">rel_heights =</span> <span class="fu">c</span>(.<span class="dv">9</span>, .<span class="dv">1</span>))</span>
+<span id="cb432-10"><a href="procors.html#cb432-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb432-11"><a href="procors.html#cb432-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(p, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/06-pro-cors/png/%s-%s-%s-%s.png&quot;</span></span>
+<span id="cb432-12"><a href="procors.html#cb432-12" aria-hidden="true" tabindex="-1"></a>                           , inv, rule, set, gamma)</span>
+<span id="cb432-13"><a href="procors.html#cb432-13" aria-hidden="true" tabindex="-1"></a>         , <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">8</span>)</span>
+<span id="cb432-14"><a href="procors.html#cb432-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(p, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/06-pro-cors/pdf/%s-%s-%s-%s.pdf&quot;</span></span>
+<span id="cb432-15"><a href="procors.html#cb432-15" aria-hidden="true" tabindex="-1"></a>                           , inv, rule, set, gamma)</span>
+<span id="cb432-16"><a href="procors.html#cb432-16" aria-hidden="true" tabindex="-1"></a>  , <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">8</span>)</span>
+<span id="cb432-17"><a href="procors.html#cb432-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb432-18"><a href="procors.html#cb432-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb432-19"><a href="procors.html#cb432-19" aria-hidden="true" tabindex="-1"></a>procor_plots <span class="ot">&lt;-</span> MT_procor <span class="sc">%&gt;%</span></span>
+<span id="cb432-20"><a href="procors.html#cb432-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>data, <span class="sc">-</span>procor) <span class="sc">%&gt;%</span></span>
+<span id="cb432-21"><a href="procors.html#cb432-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">all =</span> plot) <span class="sc">%&gt;%</span></span>
+<span id="cb432-22"><a href="procors.html#cb432-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(</span>
+<span id="cb432-23"><a href="procors.html#cb432-23" aria-hidden="true" tabindex="-1"></a>    bwwi_procor <span class="sc">%&gt;%</span></span>
+<span id="cb432-24"><a href="procors.html#cb432-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(<span class="sc">-</span>data, <span class="sc">-</span>procor) <span class="sc">%&gt;%</span></span>
+<span id="cb432-25"><a href="procors.html#cb432-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;type&quot;</span></span>
+<span id="cb432-26"><a href="procors.html#cb432-26" aria-hidden="true" tabindex="-1"></a>                  , <span class="at">values_from =</span> <span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb432-27"><a href="procors.html#cb432-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb432-28"><a href="procors.html#cb432-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(all, between, within, inventory, rule, set, gamma), combine_plots_fun))</span></code></pre></div>
+<pre><code>## Joining, by = c(&quot;inventory&quot;, &quot;rule&quot;, &quot;gamma&quot;, &quot;set&quot;)</code></pre>
 
 </div>
 </div>
@@ -253,17 +533,18 @@ p &lt;-<span class="st"> </span>gridExtra<span class="op">::</span><span class="
           </div>
         </div>
       </div>
-<a href="communities.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="communities.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="efa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -271,12 +552,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -291,7 +572,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": ["age_nets.pdf", "age_nets.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

@@ -8,7 +8,7 @@ Next, we calculate the communities in each network using the Spin Glass algorith
 ## Multi-Trait
 ### Run Communities  
 ```{r communities, eval = T}
-communities_fun <-   function(g, cols){    
+communities_fun <-   function(g, cols){
         g <- igraph::as.igraph(g)
         V(g)$label <- cols
         g2 <- g
@@ -36,9 +36,17 @@ membership_fun <- function(comm, cols){
   return(comm)
 }
 
-MT_net_nested <- MT_net_nested %>%
-  mutate(cols = map(mat, colnames),
-         communities = map2(net, cols, possibly(communities_fun, NA_real_)),
+MT_net_nested_all <- MT_net_nested_500 %>%
+  mutate(cols = map(net, ~(.)$graphAttributes$Nodes$labels)
+         , type = "500") %>%
+  full_join(
+    MT_net_nested %>%
+      mutate(cols = map(mat, colnames),
+             type = "All") %>%
+      select(file:set, edges.df, net, cols, type)
+  ) %>%
+  # filter(set == "decades" & type == "500") %>%
+  mutate(communities = map2(net, cols, possibly(communities_fun, NA_real_)),
          membership = map2(communities, cols, possibly(membership_fun, NA_real_)))
 
 # MT_net_nested_gr <- MT_net_nested_gr %>%
@@ -50,26 +58,26 @@ ldply_list <- function(d){
   ldply(l) %>% rename(age = .id)
 }
 
-communitiesall <- MT_net_nested %>% 
-  select(inventory:set, membership) %>%
+communitiesall <- MT_net_nested_all %>% 
+  select(inventory:set, membership, type) %>%
   filter(!is.na(membership)) %>%
-  group_by(inventory, rule, gamma, set) %>%
+  group_by(inventory, rule, gamma, set, type) %>%
   nest() %>%
   ungroup() %>%
-  mutate(data2 = map(data, ldply_list))
+  mutate(data2 = map(data, possibly(ldply_list, NA_real_)))
 
-communities38below <- MT_net_nested %>% 
-  select(inventory:set, membership) %>%
+communities38below <- MT_net_nested_all %>% 
+  select(inventory:set, membership, type) %>%
   filter(!is.na(membership) & age <= 38) %>%
-  group_by(inventory, rule, gamma, set) %>%
+  group_by(inventory, rule, gamma, set,type) %>%
   nest() %>%
   ungroup() %>%
   mutate(data = map(data, ldply_list))
 
-communities39above <- MT_net_nested %>% 
-  select(inventory:set, membership) %>%
+communities39above <- MT_net_nested_all %>% 
+  select(inventory:set, membership, type) %>%
   filter(!is.na(membership) & age >= 39) %>%
-  group_by(inventory, rule, gamma, set) %>%
+  group_by(inventory, rule, gamma, set, type) %>%
   nest() %>%
   ungroup() %>%
   mutate(data = map(data, ldply_list))
@@ -84,7 +92,7 @@ ncom_fun <- function(x){
   if(is.na(x)) return(1) else return(max(unique(x$louvain$membership)))
 }
 
-MT_net_nested <- MT_net_nested %>%
+MT_net_nested_all <- MT_net_nested_all %>%
   mutate(n_comm = map_dbl(communities, ncom_fun))
 ```
 
@@ -150,10 +158,10 @@ nmi_plot_fun <- function(df, inventory, rule, set, gamma){
       theme(axis.text.x = element_text(face = "bold", angle = 90),
             axis.text.y = element_text(face = "bold"),
             plot.title = element_text(hjust = .5, face = "bold"))
-  ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/07-nmi/png/%s-%s-%s-%s.png"
+  ggsave(p, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/07-nmi/png/%s-%s-%s-%s.png"
                         , inventory, rule, set, gamma)
          , width = 8, height = 8)
-  ggsave(p, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/07-nmi/pdf/%s-%s-%s-%s.pdf"
+  ggsave(p, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/07-nmi/pdf/%s-%s-%s-%s.pdf"
                         , inventory, rule, set, gamma)
          , width = 8, height = 8)
   return(p)
@@ -182,12 +190,13 @@ comm_comp <- communities38below %>%
       mutate(group = "above")
   ) %>%
   mutate(group = factor(group, c("below", "above"))) %>%
-  group_by(inventory, rule, gamma, set) %>%
+  group_by(inventory, rule, gamma, set, type) %>%
   nest() %>%
   ungroup() %>%
-  mutate(m = map(data, reg_fun))
+  mutate(m = map(data, possibly(reg_fun, NA_real_)))
 
 comm_comp %>%
+  filter(!is.na(m)) %>%
   select(-data) %>%
   unnest(m) %>%
   filter(term == "groupabove") %>%
@@ -195,10 +204,12 @@ comm_comp %>%
 ```
 
 
-### Network Plots with Community Structure
-```{r comm plots, fig.cap="Figure 3. Item networks by age group. Nodes (circles) represent unique IPIP-50 items. Nodes colors are colored according to their putative Big Five scale membership, while node borders are colored according to their empirically derived community membership. Edges (lines between nodes) indicate partial correlations. Solid lines indicate positive relationships, while dashed lines indicate negative relationships."}
-communities20s <- MT_net_nested %>% filter(age == 2)#)$communities[[1]]
-communities60s <- (MT_net_nested %>% filter(inventory == "IPIP50" & age == 6))$communities[[1]]
+### Network Plots with Community Structure  
+
+#### Full Sample  
+```{r comm plots run}
+# communities20s <- MT_net_nested_all %>% filter(age == 2 & type == "All")#)$communities[[1]]
+# communities60s <- (MT_net_nested %>% filter(inventory == "IPIP50" & age == 6))$communities[[1]]
 
 b_color_fun <- function(c){
   if(!is.na(c) & max(unique(c$louvain$membership)) <= 9){
@@ -209,46 +220,97 @@ b_color_fun <- function(c){
   }
 }
 
-MT_net_nested <- MT_net_nested %>%
+c <- (MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25" & type == "All"))$communities[[1]]
+m <- c$louvain$membership
+m <- mapvalues(
+  c$louvain$membership,
+  c(1,2,3,4,5,6),
+  c(4,6,1,3,5,2)
+  )
+bc <- mapvalues(m, from = seq(1, max(m),1), 
+              to = RColorBrewer::brewer.pal(max(m),"Set3"))
+net <- (MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25" & type == "All"))$net[[1]]
+net2 <- EDBqgraph_communities(net, bc)
+
+MT_net_nested_all <- MT_net_nested_all %>%
   # filter(set == "decades") %>%
+  # filter(set == "decades" & type == "500") %>%
   mutate(bordercolors = map(communities, possibly(b_color_fun, NA_real_)), 
-         net = map2(net, bordercolors, possibly(EDBqgraph_communities, NA_real_))) %>%
+         net2 = map2(net, bordercolors, possibly(EDBqgraph_communities, NA_real_))) %>%
   arrange(age)
 
 
-comm_plot_fun <- function(d, inventory, rule, gamma){
-  pdf(file = sprintf("~/Box/networks/SAPA/02-results/01-plots/04-communities/%s-%s-%s.pdf", inventory, rule, gamma)
+comm_plot_fun <- function(d, inventory, rule, gamma, set, type){
+  pdf(file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/04-communities/%s-%s-%s-%s-%s.pdf", inventory, rule, gamma, set, type)
       , width = 800, height = 400)
   par(mfrow = c(1,2))
-  plot((d %>% filter(age == 2))$net[[1]])
+  plot((d %>% filter(age == 2))$net2[[1]])
   title("20s")
-  plot((d %>% filter(age == 6))$net[[1]])
+  plot((d %>% filter(age == 6))$net2[[1]])
   title("60s")
   dev.off()
 
-  png(file = sprintf("~/Box/networks/SAPA/02-results/01-plots/04-communities/%s-%s-%s.png", inventory, rule, gamma)
+  png(file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/04-communities/%s-%s-%s-%s-%s.png", inventory, rule, gamma, set, type)
       , width = 2000, height = 1000)
   par(mfrow = c(1,2))
-  plot((d %>% filter(age == 2))$net[[1]])
+  plot((d %>% filter(age == 2))$net2[[1]])
   title("20s")
-  plot((d %>% filter(age == 6))$net[[1]])
+  plot((d %>% filter(age == 6))$net2[[1]])
   title("60s")
   dev.off()
 }
 
-MT_net_nested %>%
-  select(inventory:set, net) %>%
+MT_net_nested_all %>%
+  select(inventory:set, type, net2) %>%
+  filter(type == "All") %>%
+  mutate(set = str_remove_all(set, "N = ")) %>%
   filter(age %in% c(2, 6)) %>%
-  group_by(inventory, rule, gamma) %>%
+  group_by(inventory, rule, gamma, type, set) %>%
   nest() %>%
   ungroup() %>%
-  mutate(p = pmap(list(data, inventory, rule, gamma), comm_plot_fun))
+  mutate(p = pmap(list(data, inventory, rule, gamma, set, type), possibly(comm_plot_fun, NA_real_)))
+# 
+# m2 <- (MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25" & type == "All"))$membership[[1]]
+# m2 <- mapvalues(m2, c(5,1,3,6,2,4), c(5,4,3,2,1,6))
+# b2 <- mapvalues(m2, from = seq(1, max(m2),1), 
+#               to = RColorBrewer::brewer.pal(max(m2),"Set3"))
+# n2 <- (MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25" & type == "All"))$net[[1]]
+# edgecolors <- c("orchid1", "lightblue")
+# graph <- qgraph(n2, border.color = b2, legend = F, border.width = 4, DoNotPlot = TRUE, minimum = .1)
+# graph$graphAttributes$Edges$lty[graph$Edgelist$weight < 0] <- 2
+# graph$graphAttributes$Edges$color <- ifelse(graph$Edgelist$weight < 0, 
+#                                             edgecolors[1], edgecolors[2])
+# dark_colors <- c("#9E9AC8", "#6A51A3", "#3F007D")
+# graph$graphAttributes$Nodes$label.color[graph$graphAttributes$Nodes$color 
+#                                         %in% dark_colors] <- "white"
 
-pdf(filename = "~/Box/networks/SAPA/photos/nets_20s_60s.pdf", width = 800, height = 400)
+pdf(file = "/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/nets_20s_60s.pdf", width = 800, height = 400)
 par(mfrow = c(1,2))
-plot((MT_net_nested %>% filter(inventory == "IPIP50" & age == 2 & rule == "median" & gamma == ".25"))$net[[1]])
+plot((MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 2 & rule == "median" & gamma == ".25" & type == "All"))$net2[[1]])
 title("20s")
-plot((MT_net_nested_gr %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25"))$net[[1]])
+plot(net2)
+# plot((MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25" & type == "All"))$net2[[1]])
+title("60s")
+dev.off()
+
+png(file = "/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/nets_20s_60s.png", width = 800, height = 400)
+par(mfrow = c(1,2))
+plot((MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 2 & rule == "median" & gamma == ".25" & type == "All"))$net2[[1]])
+title("20s")
+plot(net2)
+# plot((MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25" & type == "All"))$net2[[1]])
+title("60s")
+dev.off()
+```
+
+#### N = 500 Sample  
+```{r comm plots, fig.cap="Figure 3. Item networks by age group. Nodes (circles) represent unique IPIP-50 items. Nodes colors are colored according to their putative Big Five scale membership, while node borders are colored according to their empirically derived community membership. Edges (lines between nodes) indicate partial correlations. Solid lines indicate positive relationships, while dashed lines indicate negative relationships."}
+
+pdf(file = "/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/nets_20s_60s_500.pdf", width = 800, height = 400)
+par(mfrow = c(1,2))
+plot((MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 2 & rule == "median" & gamma == ".25" & type == "500"))$net2[[1]])
+title("20s")
+plot((MT_net_nested_all %>% filter(inventory == "IPIP50" & age == 6 & rule == "median" & gamma == ".25" & type == "500"))$net2[[1]])
 title("60s")
 dev.off()
 ```
@@ -258,9 +320,9 @@ par(mfrow = c(2,4))
 lapply(1:7, function(x){ plot((MT_net_nested %>% filter(inventory == "IPIP50" & set == "decades" & rule == "median" & gamma == ".25"))$net[[x]]); title(sprintf("%s0s", x))})
 ```
 
-### GIFs Across All Ages  
-```{r}
-setwd("~/Box/networks/SAPA/02-results/01-plots/01-gifs")
+### GIFs Across All Ages  a
+```{r, eval = F}
+setwd("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/01-gifs")
 library(animation)
 draw.a.plot <-  function(age, p){
   plot(p)
@@ -278,7 +340,7 @@ gif_fun <- function(d, invn, rule, gamma){
   names(net_plots) <- d$age
   saveGIF(loop.animate(net_plots)
           , interval = .5
-          , movie.name = sprintf("~/Box/networks/SAPA/02-results/01-plots/01-gifs/%s_%s_%s.gif", invn, rule, gamma)
+          , movie.name = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/01-gifs/%s_%s_%s.gif", invn, rule, gamma)
           , ani.width = 500
           , ani.height = 500
           )
@@ -316,7 +378,7 @@ match_fun <- function(d, inventory){
   return(match_mat)
 }
 
-match_matall     <- communitiesall     %>% mutate(match = map2(data, inventory, possibly(match_fun, NA_real_)))
+match_matall     <- communitiesall     %>% mutate(match = map2(data2, inventory, possibly(match_fun, NA_real_)))
 match_mat38below <- communities38below %>% mutate(match = map2(data, inventory, possibly(match_fun, NA_real_)))
 match_mat39above <- communities39above %>% mutate(match = map2(data, inventory, possibly(match_fun, NA_real_)))
 
@@ -383,32 +445,28 @@ merge_comm_fun <- function(all, u38, p39, inventory, rule, gamma){
           axis.text = element_text(size = rel(.3)))
   p1 <- cowplot::plot_grid(u38, p39, nrow = 2, axis = "l")
   p2 <- cowplot::plot_grid(all, p1, ncol = 2, axis = "b", rel_widths = c(2/3,1/3))
-  ggsave(p2, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/05-community-matching/pdf/%s-%s-%s.pdf"
+  ggsave(p2, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/05-community-matching/pdf/%s-%s-%s.pdf"
                         , inventory, rule, gamma)
          , width = 9, height = 6)
-  ggsave(p2, file = sprintf("~/Box/networks/SAPA/02-results/01-plots/05-community-matching/png/%s-%s-%s.png"
+  ggsave(p2, file = sprintf("/Volumes/Emorie/projects/age nets/SAPA/02-results/01-plots/05-community-matching/png/%s-%s-%s.png"
                         , inventory, rule, gamma)
          , width = 9, height = 6)
   return(p2)
 }
 
 
-community_plots <- communityall %>% select(-data, -match) %>%
-  full_join(community38below %>% select(-data, -match)) %>%
-  full_join(community39above %>% select(-data, -match)) %>%
+community_plots <- communityall %>% select(-data, -data2, -match, -nmi) %>%
+  full_join(community38below %>% select(-data, -match, -nmi)) %>%
+  full_join(community39above %>% select(-data,  -match, -nmi)) %>%
   filter(set == "age") %>%
   mutate(p = pmap(list(all_plot, u38_plot, p39_plot, inventory, rule, gamma), merge_comm_fun))
 ```
 
 
-```{r comm plot, fig.cap="Figure 4. Frequency of shared community membership across items in (A) the full sample (B), participants 38 and below, (C) and participants 39 and above. Groups were split according to a median age split of all age groups for ease of comparing frequency, The diagonal of each plot indicates items within the same Big 5 scale, while off-diagonal elements are largely items of different scales. Darker colors indicate that the empirically derived community membership of two nodes was frequently shared across age groups, while lighter colors indicate that community membership was often not shared."}
-(community_plots %>%
-  filter(inventory == "IPIP50" & rule == "median" & gamma == ".25"))$p[[1]]
-```
-
 ### Modularity  
 ```{r}
-MT_net_nested %>%
+MT_net_nested_all %>%
+  filter(type == "All") %>%
   mutate(modularity = map_dbl(communities, possibly(~(.)$mod, NA_real_))) %>%
   select(inventory, age, rule, gamma, set, modularity) %>% 
   filter(set == "age") %>%

@@ -9,6 +9,7 @@ editor_options:
 First, we will load in two separate data sets from the SAPA project. The first is the larger set of items from the SAPA project, including comprehensive codebooks, while the second contains only the IPIP personality items but has more participants. We'll use the codebooks from the former and the data from the latter. 
 
 ```{r load data}
+wd <- "/Volumes/Emorie/projects/age nets"
 data_path <- "https://github.com/emoriebeck/age_nets/blob/master"
 load(url(sprintf("%s/data/SAPAdata18aug2010thru7feb2017.rdata?raw=true", data_path)))
 load(url(sprintf("%s/data/IPIP100items04apr2006thru7feb2017.rdata?raw=true", data_path)))
@@ -18,7 +19,7 @@ IPIP100items04apr2006thru7feb2017 <-
   IPIP100items04apr2006thru7feb2017 %>% group_by(RID) %>% filter(n() == 1)
 
 # load custom themes for qgraph 
-source(sprintf("%s/custom_qgraph.R?raw=true", data_path))
+source(sprintf("%s/age_nets/custom_qgraph.R", wd))
 ```
 
 First, we will get the item numbers for the IPIP 50.  
@@ -54,6 +55,8 @@ ipip100_items <- melt(ItemLists) %>%
   mutate(name = seq(1,n(),1),
          name = paste(L1, name, sep = "_")) %>%
   ungroup()
+
+
 ```
 
 Now, we'll get item info, including the text and names of the scales.  
@@ -108,6 +111,12 @@ ipip100_cols <- c("RID", "age", "gender",
 
 And subset the data based on those items into new data frames.  
 ```{r subset data}
+ipip100_keys <- melt(keys.list) %>%
+  filter(grepl("IPIP100", L1)) %>% 
+  mutate(code = ifelse(grepl("-", value), -1, 1)
+         , value = str_remove_all(value, "-"))
+# IPIP100items04apr2006thru7feb2017_r <- 
+#   reverse.code(IPIP100items04apr2006thru7feb2017 %>% select(RID, age, gender, one_of(ipip100_keys$value)), keys = c(1,1,1, ipip100_keys$code), mini = 1, maxi = 6)
 # subset IPIP50 & IPIP100 SAPA data
 ipip20  <- IPIP100items04apr2006thru7feb2017[, ipip20_cols]
 ipip50  <- IPIP100items04apr2006thru7feb2017[, ipip50_cols]
