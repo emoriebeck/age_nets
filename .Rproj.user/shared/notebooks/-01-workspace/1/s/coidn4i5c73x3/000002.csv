@@ -1,0 +1,4 @@
+"0","# rename columns by trait"
+"0","colnames(ipip20)[4:23]   <- ipip20_items$name"
+"0","colnames(ipip50)[4:53]   <- ipip50_items$name"
+"0","colnames(ipip100)[4:103] <- ipip100_items$name"

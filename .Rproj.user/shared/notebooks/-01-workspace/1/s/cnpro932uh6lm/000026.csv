@@ -1,0 +1,8 @@
+"0","data_path <- ""https://github.com/emoriebeck/age_nets/blob/master"""
+"0","load(url(sprintf(""%s/data/SAPAdata18aug2010thru7feb2017.rdata?raw=true"", data_path)))"
+"0","load(url(sprintf(""%s/data/IPIP100items04apr2006thru7feb2017.rdata?raw=true"", data_path)))"
+"0","# There is one row that is duplicated twice, so we'll remove it"
+"0","IPIP100items04apr2006thru7feb2017 <- "
+"0","  IPIP100items04apr2006thru7feb2017 %>% group_by(RID) %>% filter(n() == 1)"
+"0","# load custom themes for qgraph "
+"0","source(sprintf(""%s/custom_qgraph.R?raw=true"", data_path))"

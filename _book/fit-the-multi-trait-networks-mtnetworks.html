@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure</title>
-  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="description" content="Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 4 Fit the Multi-Trait Networks {MTnetworks} | Interindividual Age Differences in Personality Structure" />
   
-  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
   
 
 <meta name="author" content="Emorie D Beck" />
@@ -26,22 +26,25 @@
 <meta name="author" content="Joshua J Jackson" />
 
 
-<meta name="date" content="2019-07-09" />
+<meta name="date" content="2022-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="workspace.html">
-<link rel="next" href="STnetworks.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="workspace.html"/>
+<link rel="next" href="single-trait-networks.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -49,46 +52,78 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -107,31 +142,82 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background on the SAPA Project</a><ul>
+<li class="chapter" data-level="2" data-path="background.html"><a href="background.html"><i class="fa fa-check"></i><b>2</b> Background on the SAPA Project</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="background.html"><a href="background.html#packages"><i class="fa fa-check"></i><b>2.1</b> Packages</a></li>
-<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#methods"><i class="fa fa-check"></i><b>2.2</b> Methods</a><ul>
+<li class="chapter" data-level="2.2" data-path="background.html"><a href="background.html#methods"><i class="fa fa-check"></i><b>2.2</b> Methods</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="background.html"><a href="background.html#to-2010"><i class="fa fa-check"></i><b>2.2.1</b> 2006 to 2010</a></li>
 <li class="chapter" data-level="2.2.2" data-path="background.html"><a href="background.html#to-2017"><i class="fa fa-check"></i><b>2.2.2</b> 2010 to 2017}</a></li>
-<li class="chapter" data-level="2.2.3" data-path="background.html"><a href="background.html#merge-the-datasets-and-describe"><i class="fa fa-check"></i><b>2.2.3</b> Merge the datasets and Describe}</a></li>
+<li class="chapter" data-level="2.2.3" data-path="background.html"><a href="background.html#merge-the-datasets-and-describe"><i class="fa fa-check"></i><b>2.2.3</b> Merge the datasets and Describe</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>3</b> Workspace</a><ul>
+<li class="chapter" data-level="3" data-path="workspace.html"><a href="workspace.html"><i class="fa fa-check"></i><b>3</b> Workspace</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="workspace.html"><a href="workspace.html#load-and-clean-data"><i class="fa fa-check"></i><b>3.1</b> Load and Clean Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Multi-Trait Networks {MTnetworks}</a><ul>
-<li class="chapter" data-level="4.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>4.1</b> Multi-Trait Networks</a></li>
+<li class="chapter" data-level="4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html"><i class="fa fa-check"></i><b>4</b> Fit the Multi-Trait Networks {MTnetworks}</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#multi-trait-networks"><i class="fa fa-check"></i><b>4.1</b> Multi-Trait Networks</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#setup-data"><i class="fa fa-check"></i><b>4.1.1</b> Setup Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#run-models"><i class="fa fa-check"></i><b>4.1.2</b> Run Models</a></li>
+<li class="chapter" data-level="4.1.3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#compile-results"><i class="fa fa-check"></i><b>4.1.3</b> Compile Results</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="STnetworks.html"><a href="STnetworks.html"><i class="fa fa-check"></i><b>5</b> Fit the Single Trait Networks</a></li>
-<li class="chapter" data-level="6" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>6</b> Age Differences in Coherence and Differentiation</a><ul>
+<li class="chapter" data-level="4.2" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#n-500-across-ages"><i class="fa fa-check"></i><b>4.2</b> N = 500 Across Ages</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#run-models-1"><i class="fa fa-check"></i><b>4.2.1</b> Run Models</a></li>
+<li class="chapter" data-level="4.2.2" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#compile-results-1"><i class="fa fa-check"></i><b>4.2.2</b> Compile Results</a></li>
+<li class="chapter" data-level="4.2.3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#summarize-results"><i class="fa fa-check"></i><b>4.2.3</b> Summarize Results</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#additional-sensitivity-analyses"><i class="fa fa-check"></i><b>4.3</b> Additional Sensitivity Analyses</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#forcepd-f"><i class="fa fa-check"></i><b>4.3.1</b> forcePD = F</a></li>
+<li class="chapter" data-level="4.3.2" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#n-n-for-60s-group-forcepd-f"><i class="fa fa-check"></i><b>4.3.2</b> N = N for 60’s group, forcePD = F</a></li>
+<li class="chapter" data-level="4.3.3" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#n-1000-forcepd-f"><i class="fa fa-check"></i><b>4.3.3</b> N = 1000, forcePD = F</a></li>
+<li class="chapter" data-level="4.3.4" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#remove-multicollinear-items-forcepd-f"><i class="fa fa-check"></i><b>4.3.4</b> Remove Multicollinear Items, forcePD = F</a></li>
+<li class="chapter" data-level="4.3.5" data-path="fit-the-multi-trait-networks-mtnetworks.html"><a href="fit-the-multi-trait-networks-mtnetworks.html#remove-multicollinear-items-forcepd-f-n-n-for-60s-group"><i class="fa fa-check"></i><b>4.3.5</b> Remove Multicollinear Items, forcePD = F, N = N for 60’s group</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="single-trait-networks.html"><a href="single-trait-networks.html"><i class="fa fa-check"></i><b>5</b> Single Trait Networks</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="single-trait-networks.html"><a href="single-trait-networks.html#STnetworks"><i class="fa fa-check"></i><b>5.1</b> Fit the Single Trait Networks</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="single-trait-networks.html"><a href="single-trait-networks.html#compile-the-results"><i class="fa fa-check"></i><b>5.1.1</b> Compile the Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="single-trait-networks.html"><a href="single-trait-networks.html#n-500-single-trait-networks"><i class="fa fa-check"></i><b>5.2</b> N = 500 Single Trait Networks</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="single-trait-networks.html"><a href="single-trait-networks.html#compile-the-results-1"><i class="fa fa-check"></i><b>5.2.1</b> Compile the Results</a></li>
+<li class="chapter" data-level="5.2.2" data-path="single-trait-networks.html"><a href="single-trait-networks.html#summarize-the-results"><i class="fa fa-check"></i><b>5.2.2</b> Summarize the Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="pcors.html"><a href="pcors.html"><i class="fa fa-check"></i><b>6</b> Age Differences in Coherence and Differentiation</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="pcors.html"><a href="pcors.html#Figure1"><i class="fa fa-check"></i><b>6.1</b> Multi-Trait Coherence and Differentiation</a></li>
 <li class="chapter" data-level="6.2" data-path="pcors.html"><a href="pcors.html#Figure2"><i class="fa fa-check"></i><b>6.2</b> Single and Mutli-Trait Coherence</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>7</b> Community Structure</a><ul>
-<li class="chapter" data-level="7.0.1" data-path="communities.html"><a href="communities.html#plots"><i class="fa fa-check"></i><b>7.0.1</b> Plots</a></li>
-<li class="chapter" data-level="7.0.2" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>7.0.2</b> Matching Across Communities</a></li>
+<li class="chapter" data-level="7" data-path="communities.html"><a href="communities.html"><i class="fa fa-check"></i><b>7</b> Community Structure</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="communities.html"><a href="communities.html#nmi"><i class="fa fa-check"></i><b>7.0.1</b> NMI</a></li>
+<li class="chapter" data-level="7.0.2" data-path="communities.html"><a href="communities.html#network-plots-with-community-structure"><i class="fa fa-check"></i><b>7.0.2</b> Network Plots with Community Structure</a></li>
+<li class="chapter" data-level="7.0.3" data-path="communities.html"><a href="communities.html#gifs-across-all-ages-a"><i class="fa fa-check"></i><b>7.0.3</b> GIFs Across All Ages a</a></li>
+<li class="chapter" data-level="7.0.4" data-path="communities.html"><a href="communities.html#matching-across-communities"><i class="fa fa-check"></i><b>7.0.4</b> Matching Across Communities</a></li>
+<li class="chapter" data-level="7.0.5" data-path="communities.html"><a href="communities.html#modularity"><i class="fa fa-check"></i><b>7.0.5</b> Modularity</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>8</b> Profile Correlations</a><ul>
+<li class="chapter" data-level="8" data-path="procors.html"><a href="procors.html"><i class="fa fa-check"></i><b>8</b> Profile Correlations</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="procors.html"><a href="procors.html#Figure5"><i class="fa fa-check"></i><b>8.1</b> Profiles Correlation Plots (Figure 5)</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="efa.html"><a href="efa.html"><i class="fa fa-check"></i><b>9</b> Supplementary Analyses: Exploratory Factor Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="efa.html"><a href="efa.html#compile-results-2"><i class="fa fa-check"></i><b>9.1</b> Compile Results</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="efa.html"><a href="efa.html#number-of-factors"><i class="fa fa-check"></i><b>9.1.1</b> Number of Factors</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="efa.html"><a href="efa.html#visualizations"><i class="fa fa-check"></i><b>9.2</b> Visualizations</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="efa.html"><a href="efa.html#differentiation"><i class="fa fa-check"></i><b>9.2.1</b> Differentiation</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -153,160 +239,676 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fit-the-multi-trait-networks-mtnetworks" class="section level1">
+<div id="fit-the-multi-trait-networks-mtnetworks" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Fit the Multi-Trait Networks {MTnetworks}</h1>
-<div id="multi-trait-networks" class="section level2">
+<div id="multi-trait-networks" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Multi-Trait Networks</h2>
+<div id="setup-data" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Setup Data</h3>
 <p>First, we have to do some prep to get the data into list form to run parLapply on the function to fit the networks.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create monochromatic purple color theme for node groups</span>
-ipipcolors &lt;-<span class="st"> </span>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Set3&quot;</span>)
-
-<span class="co"># remove unnecessary demographics from data</span>
-data20 &lt;-<span class="st"> </span>ipip20 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>RID, <span class="op">-</span>gender) 
-<span class="kw">colnames</span>(data20)[<span class="dv">2</span><span class="op">:</span><span class="dv">21</span>] &lt;-<span class="st"> </span>all_cols20
-
-data50 &lt;-<span class="st"> </span>ipip50 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>RID, <span class="op">-</span>gender) 
-<span class="kw">colnames</span>(data50)[<span class="dv">2</span><span class="op">:</span><span class="dv">51</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(a, c, n, e, o)
-
-data100 &lt;-<span class="st"> </span>ipip100 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>RID, <span class="op">-</span>gender) 
-<span class="kw">colnames</span>(data100)[<span class="dv">2</span><span class="op">:</span><span class="dv">101</span>] &lt;-<span class="st"> </span>all_cols100</code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create monochromatic purple color theme for node groups</span></span>
+<span id="cb105-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-2" aria-hidden="true" tabindex="-1"></a>ipipcolors <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Set3&quot;</span>)</span>
+<span id="cb105-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="co"># remove unnecessary demographics from data</span></span>
+<span id="cb105-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-5" aria-hidden="true" tabindex="-1"></a>data20 <span class="ot">&lt;-</span> ipip20 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>RID, <span class="sc">-</span>gender) </span>
+<span id="cb105-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data20)[<span class="dv">2</span><span class="sc">:</span><span class="dv">21</span>] <span class="ot">&lt;-</span> all_cols20</span>
+<span id="cb105-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-8" aria-hidden="true" tabindex="-1"></a>data50 <span class="ot">&lt;-</span> ipip50 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>RID, <span class="sc">-</span>gender) </span>
+<span id="cb105-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data50)[<span class="dv">2</span><span class="sc">:</span><span class="dv">51</span>] <span class="ot">&lt;-</span> all_cols50 <span class="co">#c(a, c, n, e, o)</span></span>
+<span id="cb105-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-11" aria-hidden="true" tabindex="-1"></a>data100 <span class="ot">&lt;-</span> ipip100 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>RID, <span class="sc">-</span>gender) </span>
+<span id="cb105-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb105-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data100)[<span class="dv">2</span><span class="sc">:</span><span class="dv">101</span>] <span class="ot">&lt;-</span> all_cols100</span></code></pre></div>
 <p>Before we can run the networks, we are going to group them in two ways, once by decade and once by year.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># transform data to list for use in parLapply for year by year groups</span>
-datalist20 &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data20, <span class="op">-</span>age, <span class="op">-</span>age_groups), .(age2))
-datalist50 &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data50, <span class="op">-</span>age, <span class="op">-</span>age_groups), .(age2))
-datalist100 &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data100,<span class="op">-</span>age, <span class="op">-</span>age_groups), .(age2))
-
-<span class="co"># transform data to list for use in parLapply for decade groups</span>
-datalist20gr &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data20, <span class="op">-</span>age, <span class="op">-</span>age2), .(age_groups))
-datalist50gr &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data50, <span class="op">-</span>age, <span class="op">-</span>age2), .(age_groups))
-datalist100gr &lt;-<span class="st"> </span><span class="kw">dlply</span>(<span class="kw">select</span>(data100,<span class="op">-</span>age, <span class="op">-</span>age2), .(age_groups))
-
-<span class="co"># remove the age group column</span>
-datalist20gr &lt;-<span class="st"> </span><span class="kw">llply</span>(datalist20gr, <span class="cf">function</span>(x) x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>age_groups))
-datalist50gr &lt;-<span class="st"> </span><span class="kw">llply</span>(datalist50gr, <span class="cf">function</span>(x) x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>age_groups))
-datalist100gr &lt;-<span class="st"> </span><span class="kw">llply</span>(datalist100gr, <span class="cf">function</span>(x) x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>age_groups))
-
-<span class="co"># remove the later decades with a small sample size</span>
-datalist20gr  &lt;-<span class="st"> </span>datalist20gr[<span class="op">!</span><span class="kw">names</span>(datalist20gr) <span class="op">%in%</span><span class="st"> </span><span class="dv">80</span><span class="op">:</span><span class="dv">90</span>]
-datalist50gr  &lt;-<span class="st"> </span>datalist50gr[<span class="op">!</span><span class="kw">names</span>(datalist50gr) <span class="op">%in%</span><span class="st"> </span><span class="dv">80</span><span class="op">:</span><span class="dv">90</span>]
-datalist100gr &lt;-<span class="st"> </span>datalist100gr[<span class="op">!</span><span class="kw">names</span>(datalist100gr) <span class="op">%in%</span><span class="st"> </span><span class="dv">80</span><span class="op">:</span><span class="dv">90</span>]
-
-<span class="co"># create group membership list based on item codes</span>
-ipipgroup20 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>),
-                    <span class="dt">c =</span> <span class="kw">seq</span>(<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">1</span>),
-                    <span class="dt">n =</span> <span class="kw">seq</span>(<span class="dv">9</span>,<span class="dv">12</span>,<span class="dv">1</span>),
-                    <span class="dt">e =</span> <span class="kw">seq</span>(<span class="dv">13</span>,<span class="dv">16</span>,<span class="dv">1</span>),
-                    <span class="dt">o =</span> <span class="kw">seq</span>(<span class="dv">17</span>,<span class="dv">20</span>,<span class="dv">1</span>)) 
-
-ipipgroup50 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">1</span>),
-                    <span class="dt">c =</span> <span class="kw">seq</span>(<span class="dv">11</span>,<span class="dv">20</span>,<span class="dv">1</span>),
-                    <span class="dt">n =</span> <span class="kw">seq</span>(<span class="dv">21</span>,<span class="dv">30</span>,<span class="dv">1</span>),
-                    <span class="dt">e =</span> <span class="kw">seq</span>(<span class="dv">31</span>,<span class="dv">40</span>,<span class="dv">1</span>),
-                    <span class="dt">o =</span> <span class="kw">seq</span>(<span class="dv">41</span>,<span class="dv">50</span>,<span class="dv">1</span>)) 
-
-ipipgroup100 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">20</span>,<span class="dv">1</span>),
-                     <span class="dt">c =</span> <span class="kw">seq</span>(<span class="dv">21</span>,<span class="dv">40</span>,<span class="dv">1</span>),
-                     <span class="dt">n =</span> <span class="kw">seq</span>(<span class="dv">41</span>,<span class="dv">60</span>,<span class="dv">1</span>),
-                     <span class="dt">e =</span> <span class="kw">seq</span>(<span class="dv">61</span>,<span class="dv">80</span>,<span class="dv">1</span>),
-                     <span class="dt">o =</span> <span class="kw">seq</span>(<span class="dv">81</span>,<span class="dv">100</span>,<span class="dv">1</span>))</code></pre></div>
-<p>Now we can run the networks.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate the number of cores</span>
-no_cores &lt;-<span class="st"> </span><span class="kw">detectCores</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
-
-<span class="co"># Initiate cluster</span>
-cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(no_cores)
-<span class="co"># import global env variables for parallel computing</span>
-<span class="kw">clusterExport</span>(cl, <span class="dt">varlist =</span> <span class="kw">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, 
-                              <span class="st">&quot;ipipcolors&quot;</span>, <span class="st">&quot;datalist50&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>,
-                              <span class="st">&quot;ItemInfo20&quot;</span>))
-<span class="co"># # calculate pairwise cors</span>
-<span class="co"># run the by year networks  </span>
-allcorsNgraphs20  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist20,   EDBqgraph20n)
-allcorsNgraphs50  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist50,   EDBqgraph50n)
-allcorsNgraphs100 &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist100, EDBqgraph100n)
-
-<span class="co"># run the by decade networks</span>
-allcorsNgraphs20gr  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist20gr,   EDBqgraph20n)
-allcorsNgraphs50gr  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist50gr,   EDBqgraph50n)
-allcorsNgraphs100gr &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, datalist100gr, EDBqgraph100n)
-
-<span class="co"># run centrality on the networks</span>
-allcentrality20  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="kw">llply</span>(allcorsNgraphs20,  <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>,<span class="dv">2</span>), <span class="cf">function</span>(x) qgraph<span class="op">::</span><span class="kw">centrality_auto</span>(x))
-allcentrality50  &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="kw">llply</span>(allcorsNgraphs50,  <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>,<span class="dv">2</span>), <span class="cf">function</span>(x) qgraph<span class="op">::</span><span class="kw">centrality_auto</span>(x))
-allcentrality100 &lt;-<span class="st"> </span><span class="kw">parLapply</span>(cl, <span class="kw">llply</span>(allcorsNgraphs100, <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>,<span class="dv">2</span>), <span class="cf">function</span>(x) qgraph<span class="op">::</span><span class="kw">centrality_auto</span>(x))
-<span class="kw">stopCluster</span>(cl) <span class="co"># end parallel computing session</span>
-
-<span class="co"># save(allcorsNgraphs20, allcorsNgraphs50, allcorsNgraphs100,</span>
-<span class="co">#      allcorsNgraphs20gr, allcorsNgraphs50gr, allcorsNgraphs100gr,</span>
-<span class="co">#      allcentrality20, allcentrality50, allcentrality100, </span>
-<span class="co">#      file = &quot;~/Box/networks/SAPA/allcors.RData&quot;)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transform data to list for use in parLapply for year by year groups</span></span>
+<span id="cb106-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-2" aria-hidden="true" tabindex="-1"></a>save_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(d, age, inventory) <span class="fu">save</span>(d, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/age/%s.RData&quot;</span>, inventory, age))</span>
+<span id="cb106-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-3" aria-hidden="true" tabindex="-1"></a>data20 <span class="sc">%&gt;%</span></span>
+<span id="cb106-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>age, <span class="sc">-</span>age_groups) <span class="sc">%&gt;%</span></span>
+<span id="cb106-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age2) <span class="sc">%&gt;%</span></span>
+<span id="cb106-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb106-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">map2</span>(data, age2, <span class="sc">~</span><span class="fu">save_fun</span>(.x, .y, <span class="st">&quot;IPIP20&quot;</span>)))</span>
+<span id="cb106-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-9" aria-hidden="true" tabindex="-1"></a>data50 <span class="sc">%&gt;%</span></span>
+<span id="cb106-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>age, <span class="sc">-</span>age_groups) <span class="sc">%&gt;%</span></span>
+<span id="cb106-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age2) <span class="sc">%&gt;%</span></span>
+<span id="cb106-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb106-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">map2</span>(data, age2, <span class="sc">~</span><span class="fu">save_fun</span>(.x, .y, <span class="st">&quot;IPIP50&quot;</span>)))</span>
+<span id="cb106-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-15" aria-hidden="true" tabindex="-1"></a>data100 <span class="sc">%&gt;%</span></span>
+<span id="cb106-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>age, <span class="sc">-</span>age_groups) <span class="sc">%&gt;%</span></span>
+<span id="cb106-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age2) <span class="sc">%&gt;%</span></span>
+<span id="cb106-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb106-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">map2</span>(data, age2, <span class="sc">~</span><span class="fu">save_fun</span>(.x, .y, <span class="st">&quot;IPIP100&quot;</span>)))</span>
+<span id="cb106-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-21" aria-hidden="true" tabindex="-1"></a>save_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(d, age, inventory) <span class="fu">save</span>(d, <span class="at">file =</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/decades/%s.RData&quot;</span>, inventory, age))</span>
+<span id="cb106-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-22" aria-hidden="true" tabindex="-1"></a>data20 <span class="sc">%&gt;%</span></span>
+<span id="cb106-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>age, <span class="sc">-</span>age2) <span class="sc">%&gt;%</span></span>
+<span id="cb106-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age_groups <span class="sc">&lt;</span> <span class="dv">80</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb106-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_groups) <span class="sc">%&gt;%</span></span>
+<span id="cb106-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb106-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">map2</span>(data, age_groups, <span class="sc">~</span><span class="fu">save_fun</span>(.x, .y, <span class="st">&quot;IPIP20&quot;</span>)))</span>
+<span id="cb106-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-29" aria-hidden="true" tabindex="-1"></a>data50 <span class="sc">%&gt;%</span></span>
+<span id="cb106-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>age, <span class="sc">-</span>age2) <span class="sc">%&gt;%</span></span>
+<span id="cb106-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age_groups <span class="sc">&lt;</span> <span class="dv">80</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb106-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_groups) <span class="sc">%&gt;%</span></span>
+<span id="cb106-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb106-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">map2</span>(data, age_groups, <span class="sc">~</span><span class="fu">save_fun</span>(.x, .y, <span class="st">&quot;IPIP50&quot;</span>)))</span>
+<span id="cb106-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-36" aria-hidden="true" tabindex="-1"></a>data100 <span class="sc">%&gt;%</span></span>
+<span id="cb106-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>age, <span class="sc">-</span>age2) <span class="sc">%&gt;%</span></span>
+<span id="cb106-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age_groups <span class="sc">&lt;</span> <span class="dv">80</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb106-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_groups) <span class="sc">%&gt;%</span></span>
+<span id="cb106-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb106-41"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">map2</span>(data, age_groups, <span class="sc">~</span><span class="fu">save_fun</span>(.x, .y, <span class="st">&quot;IPIP100&quot;</span>)))</span>
+<span id="cb106-42"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-42" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb106-43"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-43" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist20 &lt;- dlply(select(data20, -age, -age_groups), .(age2))</span></span>
+<span id="cb106-44"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-44" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist50 &lt;- dlply(select(data50, -age, -age_groups), .(age2))</span></span>
+<span id="cb106-45"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-45" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist100 &lt;- dlply(select(data100,-age, -age_groups), .(age2))</span></span>
+<span id="cb106-46"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-46" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb106-47"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-47" aria-hidden="true" tabindex="-1"></a><span class="co"># # transform data to list for use in parLapply for decade groups</span></span>
+<span id="cb106-48"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-48" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist20gr &lt;- dlply(select(data20, -age, -age2), .(age_groups))</span></span>
+<span id="cb106-49"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-49" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist50gr &lt;- dlply(select(data50, -age, -age2), .(age_groups))</span></span>
+<span id="cb106-50"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-50" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist100gr &lt;- dlply(select(data100,-age, -age2), .(age_groups))</span></span>
+<span id="cb106-51"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-51" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb106-52"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-52" aria-hidden="true" tabindex="-1"></a><span class="co"># # remove the age group column</span></span>
+<span id="cb106-53"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-53" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist20gr &lt;- llply(datalist20gr, function(x) x %&gt;% select(-age_groups))</span></span>
+<span id="cb106-54"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-54" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist50gr &lt;- llply(datalist50gr, function(x) x %&gt;% select(-age_groups))</span></span>
+<span id="cb106-55"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-55" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist100gr &lt;- llply(datalist100gr, function(x) x %&gt;% select(-age_groups))</span></span>
+<span id="cb106-56"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-56" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb106-57"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-57" aria-hidden="true" tabindex="-1"></a><span class="co"># # remove the later decades with a small sample size</span></span>
+<span id="cb106-58"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-58" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist20gr  &lt;- datalist20gr[!names(datalist20gr) %in% 80:90]</span></span>
+<span id="cb106-59"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-59" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist50gr  &lt;- datalist50gr[!names(datalist50gr) %in% 80:90]</span></span>
+<span id="cb106-60"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-60" aria-hidden="true" tabindex="-1"></a><span class="co"># datalist100gr &lt;- datalist100gr[!names(datalist100gr) %in% 80:90]</span></span>
+<span id="cb106-61"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-62"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-62" aria-hidden="true" tabindex="-1"></a><span class="co"># create group membership list based on item codes</span></span>
+<span id="cb106-63"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-63" aria-hidden="true" tabindex="-1"></a>ipipgroup20 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>),</span>
+<span id="cb106-64"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-64" aria-hidden="true" tabindex="-1"></a>                    <span class="at">c =</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">1</span>),</span>
+<span id="cb106-65"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-65" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n =</span> <span class="fu">seq</span>(<span class="dv">9</span>,<span class="dv">12</span>,<span class="dv">1</span>),</span>
+<span id="cb106-66"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-66" aria-hidden="true" tabindex="-1"></a>                    <span class="at">e =</span> <span class="fu">seq</span>(<span class="dv">13</span>,<span class="dv">16</span>,<span class="dv">1</span>),</span>
+<span id="cb106-67"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-67" aria-hidden="true" tabindex="-1"></a>                    <span class="at">o =</span> <span class="fu">seq</span>(<span class="dv">17</span>,<span class="dv">20</span>,<span class="dv">1</span>)) </span>
+<span id="cb106-68"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-69"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-69" aria-hidden="true" tabindex="-1"></a>ipipgroup50 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">1</span>),</span>
+<span id="cb106-70"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-70" aria-hidden="true" tabindex="-1"></a>                    <span class="at">c =</span> <span class="fu">seq</span>(<span class="dv">11</span>,<span class="dv">20</span>,<span class="dv">1</span>),</span>
+<span id="cb106-71"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-71" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n =</span> <span class="fu">seq</span>(<span class="dv">21</span>,<span class="dv">30</span>,<span class="dv">1</span>),</span>
+<span id="cb106-72"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-72" aria-hidden="true" tabindex="-1"></a>                    <span class="at">e =</span> <span class="fu">seq</span>(<span class="dv">31</span>,<span class="dv">40</span>,<span class="dv">1</span>),</span>
+<span id="cb106-73"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-73" aria-hidden="true" tabindex="-1"></a>                    <span class="at">o =</span> <span class="fu">seq</span>(<span class="dv">41</span>,<span class="dv">50</span>,<span class="dv">1</span>)) </span>
+<span id="cb106-74"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-75"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-75" aria-hidden="true" tabindex="-1"></a>ipipgroup100 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">20</span>,<span class="dv">1</span>),</span>
+<span id="cb106-76"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-76" aria-hidden="true" tabindex="-1"></a>                     <span class="at">c =</span> <span class="fu">seq</span>(<span class="dv">21</span>,<span class="dv">40</span>,<span class="dv">1</span>),</span>
+<span id="cb106-77"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-77" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n =</span> <span class="fu">seq</span>(<span class="dv">41</span>,<span class="dv">60</span>,<span class="dv">1</span>),</span>
+<span id="cb106-78"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-78" aria-hidden="true" tabindex="-1"></a>                     <span class="at">e =</span> <span class="fu">seq</span>(<span class="dv">61</span>,<span class="dv">80</span>,<span class="dv">1</span>),</span>
+<span id="cb106-79"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb106-79" aria-hidden="true" tabindex="-1"></a>                     <span class="at">o =</span> <span class="fu">seq</span>(<span class="dv">81</span>,<span class="dv">100</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-1" aria-hidden="true" tabindex="-1"></a>cor_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(age, inventory, rule, set, gamma) {</span>
+<span id="cb107-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-2" aria-hidden="true" tabindex="-1"></a>  loadRData <span class="ot">&lt;-</span> <span class="cf">function</span>(inventory, set, age){</span>
+<span id="cb107-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#loads an RData file, and returns it</span></span>
+<span id="cb107-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-4" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData&quot;</span></span>
+<span id="cb107-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-5" aria-hidden="true" tabindex="-1"></a>                    , inventory, set, age)</span>
+<span id="cb107-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(path)</span>
+<span id="cb107-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get</span>(<span class="fu">ls</span>()[<span class="fu">ls</span>() <span class="sc">==</span> <span class="st">&quot;d&quot;</span>])</span>
+<span id="cb107-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb107-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-9" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">loadRData</span>(inventory, set, age)</span>
+<span id="cb107-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-10" aria-hidden="true" tabindex="-1"></a>  cor <span class="ot">&lt;-</span> qgraph<span class="sc">::</span><span class="fu">cor_auto</span>(x, <span class="at">missing =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">forcePD =</span> F)</span>
+<span id="cb107-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb107-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="run-models" class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Run Models</h3>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># done &lt;- tibble(file = list.files(&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-age/centrality&quot;)</span></span>
+<span id="cb108-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                , set = &quot;age&quot;) %&gt;%</span></span>
+<span id="cb108-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   full_join(tibble(file = list.files(&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-decades/centrality&quot;)</span></span>
+<span id="cb108-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                , set = &quot;decades&quot;)) %&gt;%</span></span>
+<span id="cb108-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   separate(file, c(&quot;inventory&quot;, &quot;age&quot;, &quot;rule&quot;, &quot;gamma&quot;), sep = &quot;-&quot;) %&gt;%</span></span>
+<span id="cb108-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(gamma = str_remove_all(gamma, &quot;.RData&quot;)</span></span>
+<span id="cb108-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="co">#          , gamma = str_remove_all(gamma, &quot;0&quot;)</span></span>
+<span id="cb108-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-8" aria-hidden="true" tabindex="-1"></a><span class="co">#          , gamma = as.numeric(paste0(&quot;.&quot;, gamma))</span></span>
+<span id="cb108-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="co">#          , done = &quot;done&quot;)</span></span>
+<span id="cb108-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-11" aria-hidden="true" tabindex="-1"></a>MT_net_nested <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb108-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb108-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-13" aria-hidden="true" tabindex="-1"></a>  , <span class="at">rule =</span> <span class="fu">c</span>(<span class="st">&quot;median&quot;</span>, <span class="st">&quot;max&quot;</span>, <span class="st">&quot;min&quot;</span>)</span>
+<span id="cb108-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-14" aria-hidden="true" tabindex="-1"></a>  , <span class="at">gamma =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">5</span>)</span>
+<span id="cb108-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb108-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb108-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-17" aria-hidden="true" tabindex="-1"></a>MT_net_nested <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb108-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-18" aria-hidden="true" tabindex="-1"></a>  MT_net_nested</span>
+<span id="cb108-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-19" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb108-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-20" aria-hidden="true" tabindex="-1"></a>  , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">59</span>, <span class="fl">62.5</span>, <span class="fl">67.5</span>, <span class="fl">72.5</span>, <span class="dv">78</span>))</span>
+<span id="cb108-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-21" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(</span>
+<span id="cb108-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb108-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-23" aria-hidden="true" tabindex="-1"></a>    MT_net_nested</span>
+<span id="cb108-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-24" aria-hidden="true" tabindex="-1"></a>    , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb108-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-25" aria-hidden="true" tabindex="-1"></a>    , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb108-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb108-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-27" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb108-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set <span class="sc">==</span> <span class="st">&quot;decades&quot;</span> <span class="sc">&amp;</span> gamma <span class="sc">==</span> .<span class="dv">25</span> <span class="sc">&amp;</span> rule <span class="sc">==</span> <span class="st">&quot;median&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb108-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># full_join(done) %&gt;%</span></span>
+<span id="cb108-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(is.na(done)) %&gt;%</span></span>
+<span id="cb108-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r =</span> <span class="fu">future_pmap</span>(</span>
+<span id="cb108-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(age, inventory, rule, set, gamma)</span>
+<span id="cb108-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># , .f = EDBqgraph_orig</span></span>
+<span id="cb108-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-34" aria-hidden="true" tabindex="-1"></a>    , <span class="at">.f =</span> cor_fun</span>
+<span id="cb108-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-35" aria-hidden="true" tabindex="-1"></a>    , <span class="at">.options =</span> <span class="fu">furrr_options</span>(</span>
+<span id="cb108-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, <span class="st">&quot;ItemInfo20&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>)</span>
+<span id="cb108-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-37" aria-hidden="true" tabindex="-1"></a>      , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;psych&quot;</span>, <span class="st">&quot;qgraph&quot;</span>, <span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb108-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-38" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb108-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-39" aria-hidden="true" tabindex="-1"></a>    , <span class="at">.progress =</span> T</span>
+<span id="cb108-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-40" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb108-41"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-41" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span>
+<span id="cb108-42"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb108-42" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code></pre></div>
+</div>
+<div id="compile-results" class="section level3" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Compile Results</h3>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-1" aria-hidden="true" tabindex="-1"></a>loadRData <span class="ot">&lt;-</span> <span class="cf">function</span>(file, set, dir, obj){</span>
+<span id="cb109-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-2" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-%s/%s/%s&quot;</span>,</span>
+<span id="cb109-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-3" aria-hidden="true" tabindex="-1"></a>                               set, dir, file)</span>
+<span id="cb109-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#loads an RData file, and returns it</span></span>
+<span id="cb109-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(path)</span>
+<span id="cb109-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get</span>(<span class="fu">ls</span>()[<span class="fu">grepl</span>(obj, <span class="fu">ls</span>())])</span>
+<span id="cb109-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb109-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-9" aria-hidden="true" tabindex="-1"></a>MT_net_nested <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb109-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="fu">list.files</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-age/network&quot;</span>)</span>
+<span id="cb109-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-11" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb109-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(<span class="fu">tibble</span>(</span>
+<span id="cb109-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> <span class="fu">list.files</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-decades/network&quot;</span>)</span>
+<span id="cb109-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-14" aria-hidden="true" tabindex="-1"></a>    , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb109-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-15" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb109-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(file, <span class="fu">c</span>(<span class="st">&quot;inventory&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;rule&quot;</span>, <span class="st">&quot;gamma&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="at">remove =</span> F) <span class="sc">%&gt;%</span></span>
+<span id="cb109-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gamma =</span> <span class="fu">str_remove_all</span>(gamma, <span class="st">&quot;.RData&quot;</span>)</span>
+<span id="cb109-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-18" aria-hidden="true" tabindex="-1"></a>         , <span class="at">gamma =</span> <span class="fu">str_remove_all</span>(gamma, <span class="st">&quot;0&quot;</span>)</span>
+<span id="cb109-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-19" aria-hidden="true" tabindex="-1"></a>         , <span class="at">gamma =</span> <span class="fu">paste0</span>(<span class="st">&quot;.&quot;</span>, gamma)) <span class="sc">%&gt;%</span></span>
+<span id="cb109-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">net =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(file, set, <span class="st">&quot;network&quot;</span>, <span class="st">&quot;graph&quot;</span>), <span class="fu">possibly</span>(loadRData, <span class="cn">NA_real_</span>))</span>
+<span id="cb109-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-21" aria-hidden="true" tabindex="-1"></a>         , <span class="at">mat =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(file, set, <span class="st">&quot;cor&quot;</span>, <span class="st">&quot;cor&quot;</span>), <span class="fu">possibly</span>(loadRData, <span class="cn">NA_real_</span>))</span>
+<span id="cb109-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-22" aria-hidden="true" tabindex="-1"></a>         <span class="co"># , centrality = pmap(list(file, set, &quot;centrality&quot;, &quot;cent&quot;), possibly(loadRData, NA_real_))</span></span>
+<span id="cb109-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb109-23" aria-hidden="true" tabindex="-1"></a>         ) </span></code></pre></div>
+<pre><code>## Joining, by = c(&quot;file&quot;, &quot;set&quot;)</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb111-1" aria-hidden="true" tabindex="-1"></a>MT_net_nested <span class="ot">&lt;-</span> MT_net_nested <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">pd =</span> <span class="fu">map_lgl</span>(mat, corpcor<span class="sc">::</span>is.positive.definite))</span></code></pre></div>
 <p>Now, to avoid redundancy, we will make create a <code>tibble</code> with the networks and centrality stored as list columns, which will make it easier to run functions on them efficiently.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MT_net_nested &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">tibble</span>(<span class="dt">inventory =</span> <span class="st">&quot;IPIP20&quot;</span>,
-         <span class="dt">age =</span> <span class="kw">names</span>(allcorsNgraphs20),
-         <span class="dt">results =</span> allcorsNgraphs20,
-         <span class="dt">centrality =</span> allcentrality20) <span class="op">%&gt;%</span>
-<span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols20)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">inventory =</span> <span class="st">&quot;IPIP50&quot;</span>,
-         <span class="dt">age =</span> <span class="kw">names</span>(allcorsNgraphs50),
-         <span class="dt">results =</span> allcorsNgraphs50,
-         <span class="dt">centrality =</span> allcentrality50) <span class="op">%&gt;%</span>
-<span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols50))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">inventory =</span> <span class="st">&quot;IPIP100&quot;</span>,
-         <span class="dt">age =</span> <span class="kw">names</span>(allcorsNgraphs100),
-         <span class="dt">results =</span> allcorsNgraphs100,
-         <span class="dt">centrality =</span> allcentrality100) <span class="op">%&gt;%</span>
-<span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols100))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mat =</span> <span class="kw">map</span>(results, <span class="op">~</span>.[[<span class="dv">1</span>]]),
-         <span class="dt">net =</span> <span class="kw">map</span>(results, <span class="op">~</span>.[[<span class="dv">2</span>]]))
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MT_net_nested &lt;- </span></span>
+<span id="cb112-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   tibble(inventory = &quot;IPIP20&quot;,</span></span>
+<span id="cb112-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="co">#          age = names(allcorsNgraphs20),</span></span>
+<span id="cb112-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="co">#          results = allcorsNgraphs20,</span></span>
+<span id="cb112-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="co">#          centrality = allcentrality20) %&gt;%</span></span>
+<span id="cb112-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="co">#          mutate(cols = lapply(1:nrow(.), function(x)all_cols20)) %&gt;%</span></span>
+<span id="cb112-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   bind_rows(tibble(inventory = &quot;IPIP50&quot;,</span></span>
+<span id="cb112-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-8" aria-hidden="true" tabindex="-1"></a><span class="co">#          age = names(allcorsNgraphs50),</span></span>
+<span id="cb112-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-9" aria-hidden="true" tabindex="-1"></a><span class="co">#          results = allcorsNgraphs50,</span></span>
+<span id="cb112-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-10" aria-hidden="true" tabindex="-1"></a><span class="co">#          centrality = allcentrality50) %&gt;%</span></span>
+<span id="cb112-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-11" aria-hidden="true" tabindex="-1"></a><span class="co">#          mutate(cols = lapply(1:nrow(.), function(x)all_cols50))) %&gt;%</span></span>
+<span id="cb112-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   bind_rows(tibble(inventory = &quot;IPIP100&quot;,</span></span>
+<span id="cb112-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-13" aria-hidden="true" tabindex="-1"></a><span class="co">#          age = names(allcorsNgraphs100),</span></span>
+<span id="cb112-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-14" aria-hidden="true" tabindex="-1"></a><span class="co">#          results = allcorsNgraphs100,</span></span>
+<span id="cb112-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-15" aria-hidden="true" tabindex="-1"></a><span class="co">#          centrality = allcentrality100) %&gt;%</span></span>
+<span id="cb112-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-16" aria-hidden="true" tabindex="-1"></a><span class="co">#          mutate(cols = lapply(1:nrow(.), function(x)all_cols100))) %&gt;%</span></span>
+<span id="cb112-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(mat = map(results, ~.[[1]]),</span></span>
+<span id="cb112-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-18" aria-hidden="true" tabindex="-1"></a><span class="co">#          net = map(results, ~.[[2]]))</span></span>
+<span id="cb112-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb112-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-20" aria-hidden="true" tabindex="-1"></a><span class="co"># MT_net_nested_gr &lt;- tibble(age_group = names(allcorsNgraphs20gr), </span></span>
+<span id="cb112-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     results = allcorsNgraphs20gr,  cols = list(all_cols20), inventory = &quot;IPIP20&quot;) %&gt;%</span></span>
+<span id="cb112-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   bind_rows(tibble(age_group = names(allcorsNgraphs50gr), results = allcorsNgraphs50gr, </span></span>
+<span id="cb112-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-23" aria-hidden="true" tabindex="-1"></a><span class="co">#     cols = list(all_cols50), inventory = &quot;IPIP50&quot;)) %&gt;%</span></span>
+<span id="cb112-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-24" aria-hidden="true" tabindex="-1"></a><span class="co">#   bind_rows(tibble(age_group = names(allcorsNgraphs100gr), results = allcorsNgraphs100gr, </span></span>
+<span id="cb112-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-25" aria-hidden="true" tabindex="-1"></a><span class="co">#     cols = list(all_cols100), inventory = &quot;IPIP100&quot;)) %&gt;%</span></span>
+<span id="cb112-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(mat = map(results, function(x) x[[1]]),</span></span>
+<span id="cb112-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb112-27" aria-hidden="true" tabindex="-1"></a><span class="co">#          net = map(results, function(x) x[[2]]))</span></span></code></pre></div>
+<div id="reshape-results" class="section level4" number="4.1.3.1">
+<h4><span class="header-section-number">4.1.3.1</span> Reshape Results</h4>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load(url(sprintf(&quot;%s/02-results/mt_nested_nets.RData?raw=true&quot;, data_path)))</span></span>
+<span id="cb113-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-2" aria-hidden="true" tabindex="-1"></a>getEdges.df <span class="ot">&lt;-</span> <span class="cf">function</span>(x, invn) {</span>
+<span id="cb113-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  cols <span class="ot">&lt;-</span> <span class="cf">switch</span> (invn,</span>
+<span id="cb113-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">IPIP20 =</span> all_cols20</span>
+<span id="cb113-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-5" aria-hidden="true" tabindex="-1"></a>    , <span class="at">IPIP50 =</span> all_cols50</span>
+<span id="cb113-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-6" aria-hidden="true" tabindex="-1"></a>    , <span class="at">IPIP100 =</span> all_cols100</span>
+<span id="cb113-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb113-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-8" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> qgraph<span class="sc">::</span><span class="fu">getWmat</span>(x)</span>
+<span id="cb113-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-9" aria-hidden="true" tabindex="-1"></a>    y[<span class="fu">upper.tri</span>(y, <span class="at">diag =</span> T)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb113-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colnames</span>(y) <span class="ot">&lt;-</span> cols; <span class="fu">rownames</span>(y) <span class="ot">&lt;-</span> cols</span>
+<span id="cb113-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-11" aria-hidden="true" tabindex="-1"></a>    nvar <span class="ot">&lt;-</span> <span class="fu">dim</span>(y)[<span class="dv">2</span>]</span>
+<span id="cb113-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-12" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> y <span class="sc">%&gt;%</span></span>
+<span id="cb113-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb113-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rownames_to_column</span>(<span class="st">&quot;from&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb113-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">gather</span>(<span class="at">key =</span> to, <span class="at">value =</span> weight, <span class="sc">-</span>from, <span class="at">na.rm =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb113-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">edge =</span> <span class="fu">paste</span>(from, to, <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>))</span>
+<span id="cb113-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(df)</span>
+<span id="cb113-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb113-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-20" aria-hidden="true" tabindex="-1"></a>MT_net_nested <span class="ot">&lt;-</span> MT_net_nested <span class="sc">%&gt;%</span></span>
+<span id="cb113-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edges.df =</span> <span class="fu">map2</span>(net, inventory, getEdges.df),</span>
+<span id="cb113-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">cors.df =</span> <span class="fu">map2</span>(mat, inventory, <span class="fu">possibly</span>(getEdges.df, <span class="cn">NA_real_</span>)))</span>
+<span id="cb113-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-24" aria-hidden="true" tabindex="-1"></a><span class="co"># MT_net_nested_gr &lt;- MT_net_nested_gr %&gt;%</span></span>
+<span id="cb113-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-25" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(edges.df = map2(net, cols, getEdges.df),</span></span>
+<span id="cb113-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-26" aria-hidden="true" tabindex="-1"></a><span class="co">#          cors.df = map2(mat, cols, getEdges.df))</span></span>
+<span id="cb113-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb113-28" aria-hidden="true" tabindex="-1"></a>ex_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){x[[<span class="dv">1</span>]]}</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="n-500-across-ages" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> N = 500 Across Ages</h2>
+<div id="run-models-1" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Run Models</h3>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># done &lt;- tibble(file = list.files(&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-age-500/network&quot;)</span></span>
+<span id="cb114-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#              , set = &quot;age&quot;) %&gt;%</span></span>
+<span id="cb114-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># separate(file, c(&quot;inventory&quot;, &quot;age&quot;, &quot;rule&quot;, &quot;gamma&quot;), sep = &quot;-&quot;) %&gt;%</span></span>
+<span id="cb114-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate(gamma = str_remove_all(gamma, &quot;.RData&quot;)</span></span>
+<span id="cb114-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        , gamma = str_remove_all(gamma, &quot;0&quot;)</span></span>
+<span id="cb114-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        , gamma = as.numeric(paste0(&quot;.&quot;, gamma))</span></span>
+<span id="cb114-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        , done = &quot;done&quot;)</span></span>
+<span id="cb114-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-9" aria-hidden="true" tabindex="-1"></a>MT_net_nested_500 <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb114-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb114-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-11" aria-hidden="true" tabindex="-1"></a>  , <span class="at">rule =</span> <span class="fu">c</span>(<span class="st">&quot;median&quot;</span>, <span class="st">&quot;max&quot;</span>, <span class="st">&quot;min&quot;</span>)</span>
+<span id="cb114-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-12" aria-hidden="true" tabindex="-1"></a>  , <span class="at">gamma =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">5</span>)</span>
+<span id="cb114-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb114-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb114-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-15" aria-hidden="true" tabindex="-1"></a><span class="fu">crossing</span>(</span>
+<span id="cb114-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-16" aria-hidden="true" tabindex="-1"></a>  MT_net_nested_500</span>
+<span id="cb114-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-17" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb114-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-18" aria-hidden="true" tabindex="-1"></a>  , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">59</span>, <span class="fl">62.5</span>, <span class="fl">67.5</span>, <span class="fl">72.5</span>, <span class="dv">78</span>))</span>
+<span id="cb114-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-19" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb114-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(</span>
+<span id="cb114-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">crossing</span>(</span>
+<span id="cb114-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-22" aria-hidden="true" tabindex="-1"></a>      MT_net_nested_500</span>
+<span id="cb114-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-23" aria-hidden="true" tabindex="-1"></a>      , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb114-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-24" aria-hidden="true" tabindex="-1"></a>      , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb114-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb114-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-26" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb114-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># full_join(done) %&gt;%</span></span>
+<span id="cb114-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(is.na(done)) %&gt;%</span></span>
+<span id="cb114-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(age <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>) <span class="sc">&amp;</span> inventory <span class="sc">==</span> <span class="st">&quot;IPIP50&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb114-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(inventory)) <span class="sc">%&gt;%</span></span>
+<span id="cb114-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r =</span> </span>
+<span id="cb114-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-32" aria-hidden="true" tabindex="-1"></a>           <span class="fu">future_pmap</span>(</span>
+<span id="cb114-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-33" aria-hidden="true" tabindex="-1"></a>           <span class="co"># pmap(</span></span>
+<span id="cb114-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-34" aria-hidden="true" tabindex="-1"></a>             <span class="fu">list</span>(age, inventory, rule, set, gamma)</span>
+<span id="cb114-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-35" aria-hidden="true" tabindex="-1"></a>             , <span class="at">.f =</span> EDBqgraph_n500</span>
+<span id="cb114-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-36" aria-hidden="true" tabindex="-1"></a>             , <span class="at">.options =</span> <span class="fu">furrr_options</span>(</span>
+<span id="cb114-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-37" aria-hidden="true" tabindex="-1"></a>               <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, <span class="st">&quot;ItemInfo20&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>)</span>
+<span id="cb114-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-38" aria-hidden="true" tabindex="-1"></a>               , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;psych&quot;</span>, <span class="st">&quot;qgraph&quot;</span>, <span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb114-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-39" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb114-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-40" aria-hidden="true" tabindex="-1"></a>             , <span class="at">.progress =</span> T</span>
+<span id="cb114-41"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-41" aria-hidden="true" tabindex="-1"></a>             ))</span>
+<span id="cb114-42"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-42" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span>
+<span id="cb114-43"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb114-43" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code></pre></div>
+</div>
+<div id="compile-results-1" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Compile Results</h3>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-1" aria-hidden="true" tabindex="-1"></a>loadRData <span class="ot">&lt;-</span> <span class="cf">function</span>(file, set, dir, obj){</span>
+<span id="cb115-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-2" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-%s-500/%s/%s&quot;</span>,</span>
+<span id="cb115-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-3" aria-hidden="true" tabindex="-1"></a>                               set, dir, file)</span>
+<span id="cb115-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#loads an RData file, and returns it</span></span>
+<span id="cb115-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(path)</span>
+<span id="cb115-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get</span>(<span class="fu">ls</span>()[<span class="fu">grepl</span>(obj, <span class="fu">ls</span>())])</span>
+<span id="cb115-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb115-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-9" aria-hidden="true" tabindex="-1"></a>MT_net_nested_500 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb115-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="fu">list.files</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-age-500/network&quot;</span>)</span>
+<span id="cb115-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-11" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb115-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb115-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(<span class="fu">tibble</span>(</span>
+<span id="cb115-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="fu">list.files</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-decades-500/network&quot;</span>)</span>
+<span id="cb115-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-15" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb115-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-16" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb115-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(file, <span class="fu">c</span>(<span class="st">&quot;inventory&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;rule&quot;</span>, <span class="st">&quot;gamma&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="at">remove =</span> F) <span class="sc">%&gt;%</span></span>
+<span id="cb115-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gamma =</span> <span class="fu">str_remove_all</span>(gamma, <span class="st">&quot;.RData&quot;</span>)</span>
+<span id="cb115-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-19" aria-hidden="true" tabindex="-1"></a>         , <span class="at">gamma =</span> <span class="fu">str_remove_all</span>(gamma, <span class="st">&quot;0&quot;</span>)</span>
+<span id="cb115-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-20" aria-hidden="true" tabindex="-1"></a>         , <span class="at">gamma =</span> <span class="fu">paste0</span>(<span class="st">&quot;.&quot;</span>, gamma)) <span class="sc">%&gt;%</span></span>
+<span id="cb115-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">net =</span> <span class="fu">pmap</span>(<span class="fu">list</span>(file, set, <span class="st">&quot;network&quot;</span>, <span class="st">&quot;graph&quot;</span>), <span class="fu">possibly</span>(loadRData, <span class="cn">NA_real_</span>))</span>
+<span id="cb115-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-22" aria-hidden="true" tabindex="-1"></a>         <span class="co"># , mat = pmap(list(file, set, &quot;cor&quot;, &quot;cor&quot;), possibly(loadRData, NA_real_))</span></span>
+<span id="cb115-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-23" aria-hidden="true" tabindex="-1"></a>         <span class="co"># , centrality = pmap(list(file, set, &quot;centrality&quot;, &quot;cent&quot;), possibly(loadRData, NA_real_))</span></span>
+<span id="cb115-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-24" aria-hidden="true" tabindex="-1"></a>         ) </span>
+<span id="cb115-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-26" aria-hidden="true" tabindex="-1"></a>call_edges_df <span class="ot">&lt;-</span> <span class="cf">function</span>(net, invn){</span>
+<span id="cb115-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(net) <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb115-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ldply</span>(net, <span class="cf">function</span>(x) <span class="fu">getEdges.df</span>(x, invn))</span>
+<span id="cb115-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb115-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-31" aria-hidden="true" tabindex="-1"></a>MT_net_nested_500 <span class="ot">&lt;-</span> MT_net_nested_500 <span class="sc">%&gt;%</span> </span>
+<span id="cb115-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edges.df =</span> <span class="fu">map2</span>(net, inventory, call_edges_df)) <span class="sc">%&gt;%</span> </span>
+<span id="cb115-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>net)</span>
+<span id="cb115-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-34" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(MT_net_nested_500</span>
+<span id="cb115-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb115-35" aria-hidden="true" tabindex="-1"></a>     , <span class="at">file =</span> <span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-age-500/nested-nets-500.RData&quot;</span>)</span></code></pre></div>
+</div>
+<div id="summarize-results" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Summarize Results</h3>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-1" aria-hidden="true" tabindex="-1"></a>sum_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb116-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(from, to, edge) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">upper =</span> <span class="fu">quantile</span>(weight, <span class="at">probs =</span>.<span class="dv">975</span>)</span>
+<span id="cb116-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-4" aria-hidden="true" tabindex="-1"></a>              , <span class="at">lower =</span> <span class="fu">quantile</span>(weight, <span class="at">probs =</span>.<span class="dv">025</span>)</span>
+<span id="cb116-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-5" aria-hidden="true" tabindex="-1"></a>              , <span class="at">estimate =</span> <span class="fu">mean</span>(weight)</span>
+<span id="cb116-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-6" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span></span>
+<span id="cb116-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() </span>
+<span id="cb116-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb116-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-9" aria-hidden="true" tabindex="-1"></a>MT_net_nested_500 <span class="ot">&lt;-</span> MT_net_nested_500  <span class="sc">%&gt;%</span></span>
+<span id="cb116-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edges.df =</span> <span class="fu">map</span>(edges.df, sum_fun))</span>
+<span id="cb116-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-12" aria-hidden="true" tabindex="-1"></a>net_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(d, inventory){</span>
+<span id="cb116-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-13" aria-hidden="true" tabindex="-1"></a>  nitem <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(inventory, <span class="st">&quot;[A-Z a-z]&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb116-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-14" aria-hidden="true" tabindex="-1"></a>  grps <span class="ot">&lt;-</span> <span class="cf">if</span>(nitem <span class="sc">==</span> <span class="dv">20</span>) ipipgroup20 <span class="cf">else</span> <span class="cf">if</span>(nitem <span class="sc">==</span> <span class="dv">50</span>) ipipgroup50 <span class="cf">else</span> ipipgroup100</span>
+<span id="cb116-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-15" aria-hidden="true" tabindex="-1"></a>  iinfo <span class="ot">&lt;-</span> <span class="cf">if</span>(nitem <span class="sc">==</span> <span class="dv">20</span>) ItemInfo20 <span class="cf">else</span> <span class="cf">if</span>(nitem <span class="sc">==</span> <span class="dv">50</span>) ItemInfo50 <span class="cf">else</span> ItemInfo100</span>
+<span id="cb116-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb116-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># graph setups</span></span>
+<span id="cb116-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-18" aria-hidden="true" tabindex="-1"></a>  ipipcolors <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">5</span>,<span class="st">&quot;Set3&quot;</span>)</span>
+<span id="cb116-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-19" aria-hidden="true" tabindex="-1"></a>  edgecolors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;orchid2&quot;</span>, <span class="st">&quot;#08519C&quot;</span>)</span>
+<span id="cb116-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb116-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-21" aria-hidden="true" tabindex="-1"></a>  graph <span class="ot">&lt;-</span> qgraph<span class="sc">::</span><span class="fu">qgraph</span>(d <span class="sc">%&gt;%</span> <span class="fu">select</span>(from, to, estimate)</span>
+<span id="cb116-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-22" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">layout =</span> <span class="st">&quot;spring&quot;</span></span>
+<span id="cb116-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-23" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">node.width =</span> <span class="dv">1</span></span>
+<span id="cb116-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-24" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">edge.width =</span> <span class="dv">2</span></span>
+<span id="cb116-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-25" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">label.font =</span> <span class="dv">2</span></span>
+<span id="cb116-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-26" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">label.cex =</span> .<span class="dv">7</span></span>
+<span id="cb116-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-27" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">labels =</span> T</span>
+<span id="cb116-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-28" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">esize =</span> <span class="dv">3</span></span>
+<span id="cb116-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-29" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">DoNotPlot =</span> T</span>
+<span id="cb116-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-30" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">directed =</span> F</span>
+<span id="cb116-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-31" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">groups =</span> grps</span>
+<span id="cb116-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-32" aria-hidden="true" tabindex="-1"></a>                          , <span class="at">color =</span> ipipcolors)</span>
+<span id="cb116-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-33" aria-hidden="true" tabindex="-1"></a>  graph<span class="sc">$</span>graphAttributes<span class="sc">$</span>Edges<span class="sc">$</span>lty[graph<span class="sc">$</span>Edgelist<span class="sc">$</span>weight <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb116-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-34" aria-hidden="true" tabindex="-1"></a>  graph<span class="sc">$</span>graphAttributes<span class="sc">$</span>Edges<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(graph<span class="sc">$</span>Edgelist<span class="sc">$</span>weight <span class="sc">&lt;</span> <span class="dv">0</span>, </span>
+<span id="cb116-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-35" aria-hidden="true" tabindex="-1"></a>                                              edgecolors[<span class="dv">1</span>], edgecolors[<span class="dv">2</span>])</span>
+<span id="cb116-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-36" aria-hidden="true" tabindex="-1"></a>  dark_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;#9E9AC8&quot;</span>, <span class="st">&quot;#6A51A3&quot;</span>, <span class="st">&quot;#3F007D&quot;</span>)</span>
+<span id="cb116-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-37" aria-hidden="true" tabindex="-1"></a>  graph<span class="sc">$</span>graphAttributes<span class="sc">$</span>Nodes<span class="sc">$</span>label.color[graph<span class="sc">$</span>graphAttributes<span class="sc">$</span>Nodes<span class="sc">$</span>color </span>
+<span id="cb116-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-38" aria-hidden="true" tabindex="-1"></a>                                          <span class="sc">%in%</span> dark_colors] <span class="ot">&lt;-</span> <span class="st">&quot;white&quot;</span></span>
+<span id="cb116-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(graph)</span>
+<span id="cb116-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb116-41"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-42"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-42" aria-hidden="true" tabindex="-1"></a>MT_net_nested_500 <span class="ot">&lt;-</span> MT_net_nested_500 <span class="sc">%&gt;%</span></span>
+<span id="cb116-43"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">net =</span> <span class="fu">map2</span>(edges.df, inventory, net_fun))</span>
+<span id="cb116-44"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-45"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-45" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(MT_net_nested_500</span>
+<span id="cb116-46"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb116-46" aria-hidden="true" tabindex="-1"></a>     , <span class="at">file =</span> <span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-age-500/nested-nets_small.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/02-results/multitrait-age-500/nested-nets_small.RData&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="additional-sensitivity-analyses" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Additional Sensitivity Analyses</h2>
+<div id="forcepd-f" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> forcePD = F</h3>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-1" aria-hidden="true" tabindex="-1"></a>cfun <span class="ot">&lt;-</span> <span class="cf">function</span>(age, set, inventory){</span>
+<span id="cb118-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  loadRData <span class="ot">&lt;-</span> <span class="cf">function</span>(inventory, set, age){</span>
+<span id="cb118-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#loads an RData file, and returns it</span></span>
+<span id="cb118-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-4" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData&quot;</span></span>
+<span id="cb118-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-5" aria-hidden="true" tabindex="-1"></a>                    , inventory, set, age)</span>
+<span id="cb118-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(path)</span>
+<span id="cb118-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(path)</span>
+<span id="cb118-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get</span>(<span class="fu">ls</span>()[<span class="fu">ls</span>() <span class="sc">==</span> <span class="st">&quot;d&quot;</span>])</span>
+<span id="cb118-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb118-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-10" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">loadRData</span>(inventory, set, age)</span>
+<span id="cb118-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-11" aria-hidden="true" tabindex="-1"></a>  cor <span class="ot">&lt;-</span> qgraph<span class="sc">::</span><span class="fu">cor_auto</span>(x, <span class="at">missing =</span> <span class="st">&quot;pairwise&quot;</span>)</span>
+<span id="cb118-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb118-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb118-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-14" aria-hidden="true" tabindex="-1"></a>MT_net_nested2 <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb118-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb118-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-16" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb118-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-17" aria-hidden="true" tabindex="-1"></a>  , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">59</span>, <span class="fl">62.5</span>, <span class="fl">67.5</span>, <span class="fl">72.5</span>, <span class="dv">78</span>))</span>
+<span id="cb118-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-18" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(</span>
+<span id="cb118-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb118-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb118-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-21" aria-hidden="true" tabindex="-1"></a>    , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb118-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-22" aria-hidden="true" tabindex="-1"></a>    , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb118-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb118-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-24" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb118-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cor =</span> <span class="fu">future_pmap</span>(<span class="fu">list</span>(age, set, inventory)</span>
+<span id="cb118-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-26" aria-hidden="true" tabindex="-1"></a>                    , <span class="fu">possibly</span>(cfun, <span class="cn">NA_real_</span>)</span>
+<span id="cb118-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-27" aria-hidden="true" tabindex="-1"></a>                    , <span class="at">.options =</span> <span class="fu">furrr_options</span>(</span>
+<span id="cb118-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, <span class="st">&quot;ItemInfo20&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>)</span>
+<span id="cb118-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-29" aria-hidden="true" tabindex="-1"></a>      , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;psych&quot;</span>, <span class="st">&quot;qgraph&quot;</span>, <span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb118-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb118-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-31" aria-hidden="true" tabindex="-1"></a>    , <span class="at">.progress =</span> T</span>
+<span id="cb118-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-32" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb118-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-33" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb118-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-34" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span>
+<span id="cb118-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-36" aria-hidden="true" tabindex="-1"></a>MT_net_nested2 <span class="ot">&lt;-</span> MT_net_nested2 <span class="sc">%&gt;%</span></span>
+<span id="cb118-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pd =</span> <span class="fu">map_lgl</span>(cor, <span class="fu">possibly</span>(corpcor<span class="sc">::</span>is.positive.definite, <span class="cn">NA_real_</span>)))</span>
+<span id="cb118-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-39" aria-hidden="true" tabindex="-1"></a>MT_net_nested2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(inventory, set, pd) <span class="sc">%&gt;%</span></span>
+<span id="cb118-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb118-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>()</span></code></pre></div>
+</div>
+<div id="n-n-for-60s-group-forcepd-f" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> N = N for 60’s group, forcePD = F</h3>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-1" aria-hidden="true" tabindex="-1"></a>cfun3917 <span class="ot">&lt;-</span> <span class="cf">function</span>(age, set, inventory){</span>
+<span id="cb119-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-2" aria-hidden="true" tabindex="-1"></a>  loadRData <span class="ot">&lt;-</span> <span class="cf">function</span>(inventory, set, age){</span>
+<span id="cb119-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#loads an RData file, and returns it</span></span>
+<span id="cb119-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-4" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData&quot;</span></span>
+<span id="cb119-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-5" aria-hidden="true" tabindex="-1"></a>                    , inventory, set, age)</span>
+<span id="cb119-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(path)</span>
+<span id="cb119-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(path)</span>
+<span id="cb119-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get</span>(<span class="fu">ls</span>()[<span class="fu">ls</span>() <span class="sc">==</span> <span class="st">&quot;d&quot;</span>])</span>
+<span id="cb119-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb119-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-10" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">loadRData</span>(inventory, set, age)</span>
+<span id="cb119-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb119-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-12" aria-hidden="true" tabindex="-1"></a>  sz <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="fu">nrow</span>(x) <span class="sc">&lt;</span> <span class="dv">3917</span>) <span class="fu">nrow</span>(x) <span class="cf">else</span> <span class="dv">3917</span></span>
+<span id="cb119-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-13" aria-hidden="true" tabindex="-1"></a>  rplc <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="fu">nrow</span>(x) <span class="sc">&lt;</span> <span class="dv">3917</span>) T <span class="cf">else</span> F</span>
+<span id="cb119-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb119-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb119-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-16" aria-hidden="true" tabindex="-1"></a>  xl <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(z) x[<span class="fu">sample</span>(<span class="fu">nrow</span>(x), <span class="at">size =</span> sz, <span class="at">replace =</span> rplc),])</span>
+<span id="cb119-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb119-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-18" aria-hidden="true" tabindex="-1"></a>  cor <span class="ot">&lt;-</span> <span class="fu">lapply</span>(xl, <span class="cf">function</span>(z) qgraph<span class="sc">::</span><span class="fu">cor_auto</span>(z, <span class="at">missing =</span> <span class="st">&quot;pairwise&quot;</span>))</span>
+<span id="cb119-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb119-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb119-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-22" aria-hidden="true" tabindex="-1"></a>MT_net_nested5 <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb119-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb119-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-24" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb119-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-25" aria-hidden="true" tabindex="-1"></a>  , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">59</span>, <span class="fl">62.5</span>, <span class="fl">67.5</span>, <span class="fl">72.5</span>, <span class="dv">78</span>))</span>
+<span id="cb119-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-26" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(</span>
+<span id="cb119-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb119-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb119-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-29" aria-hidden="true" tabindex="-1"></a>    , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb119-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-30" aria-hidden="true" tabindex="-1"></a>    , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb119-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb119-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-32" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb119-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cor =</span> <span class="fu">future_pmap</span>(<span class="fu">list</span>(age, set, inventory)</span>
+<span id="cb119-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-34" aria-hidden="true" tabindex="-1"></a>                    , <span class="fu">possibly</span>(cfun3197, <span class="cn">NA_real_</span>)</span>
+<span id="cb119-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-35" aria-hidden="true" tabindex="-1"></a>                    , <span class="at">.options =</span> <span class="fu">furrr_options</span>(</span>
+<span id="cb119-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, <span class="st">&quot;ItemInfo20&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>)</span>
+<span id="cb119-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-37" aria-hidden="true" tabindex="-1"></a>      , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;psych&quot;</span>, <span class="st">&quot;qgraph&quot;</span>, <span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb119-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-38" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb119-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-39" aria-hidden="true" tabindex="-1"></a>    , <span class="at">.progress =</span> T</span>
+<span id="cb119-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-40" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb119-41"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-41" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb119-42"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-42" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span>
+<span id="cb119-43"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-44"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-45"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-45" aria-hidden="true" tabindex="-1"></a>MT_net_nested5 <span class="ot">&lt;-</span> MT_net_nested5 <span class="sc">%&gt;%</span></span>
+<span id="cb119-46"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pd =</span> <span class="fu">map</span>(cor, <span class="sc">~</span><span class="fu">map_lgl</span>(., corpcor<span class="sc">::</span>is.positive.definite)))</span>
+<span id="cb119-47"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-48"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-48" aria-hidden="true" tabindex="-1"></a>MT_net_nested5 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">perc =</span> <span class="fu">map_dbl</span>(pd, <span class="sc">~</span><span class="fu">sum</span>(.)<span class="sc">/</span><span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb119-49"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inventory, set) <span class="sc">%&gt;%</span> </span>
+<span id="cb119-50"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb119-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_at</span>(<span class="fu">vars</span>(perc), <span class="fu">lst</span>(min, max, mean, median))</span></code></pre></div>
+</div>
+<div id="n-1000-forcepd-f" class="section level3" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> N = 1000, forcePD = F</h3>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-1" aria-hidden="true" tabindex="-1"></a>cfun1000 <span class="ot">&lt;-</span> <span class="cf">function</span>(age, set, inventory){</span>
+<span id="cb120-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  loadRData <span class="ot">&lt;-</span> <span class="cf">function</span>(inventory, set, age){</span>
+<span id="cb120-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#loads an RData file, and returns it</span></span>
+<span id="cb120-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-4" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData&quot;</span></span>
+<span id="cb120-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-5" aria-hidden="true" tabindex="-1"></a>                    , inventory, set, age)</span>
+<span id="cb120-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(path)</span>
+<span id="cb120-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(path)</span>
+<span id="cb120-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get</span>(<span class="fu">ls</span>()[<span class="fu">ls</span>() <span class="sc">==</span> <span class="st">&quot;d&quot;</span>])</span>
+<span id="cb120-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb120-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-10" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">loadRData</span>(inventory, set, age)</span>
+<span id="cb120-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-12" aria-hidden="true" tabindex="-1"></a>  sz <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="fu">nrow</span>(x) <span class="sc">&lt;</span> <span class="dv">1000</span>) <span class="fu">nrow</span>(x) <span class="cf">else</span> <span class="dv">1000</span></span>
+<span id="cb120-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-13" aria-hidden="true" tabindex="-1"></a>  rplc <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="fu">nrow</span>(x) <span class="sc">&lt;</span> <span class="dv">1000</span>) T <span class="cf">else</span> F</span>
+<span id="cb120-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb120-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-16" aria-hidden="true" tabindex="-1"></a>  xl <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(z) x[<span class="fu">sample</span>(<span class="fu">nrow</span>(x), <span class="at">size =</span> sz, <span class="at">replace =</span> rplc),])</span>
+<span id="cb120-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-18" aria-hidden="true" tabindex="-1"></a>  cor <span class="ot">&lt;-</span> <span class="fu">lapply</span>(xl, <span class="cf">function</span>(z) qgraph<span class="sc">::</span><span class="fu">cor_auto</span>(z, <span class="at">missing =</span> <span class="st">&quot;pairwise&quot;</span>))</span>
+<span id="cb120-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb120-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb120-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-22" aria-hidden="true" tabindex="-1"></a>MT_net_nested4 <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb120-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb120-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-24" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb120-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-25" aria-hidden="true" tabindex="-1"></a>  , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">59</span>, <span class="fl">62.5</span>, <span class="fl">67.5</span>, <span class="fl">72.5</span>, <span class="dv">78</span>))</span>
+<span id="cb120-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-26" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(</span>
+<span id="cb120-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb120-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb120-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-29" aria-hidden="true" tabindex="-1"></a>    , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb120-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-30" aria-hidden="true" tabindex="-1"></a>    , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb120-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb120-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-32" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb120-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cor =</span> <span class="fu">future_pmap</span>(<span class="fu">list</span>(age, set, inventory)</span>
+<span id="cb120-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-34" aria-hidden="true" tabindex="-1"></a>                    , <span class="fu">possibly</span>(cfun3197, <span class="cn">NA_real_</span>)</span>
+<span id="cb120-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-35" aria-hidden="true" tabindex="-1"></a>                    , <span class="at">.options =</span> <span class="fu">furrr_options</span>(</span>
+<span id="cb120-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, <span class="st">&quot;ItemInfo20&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>)</span>
+<span id="cb120-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-37" aria-hidden="true" tabindex="-1"></a>      , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;psych&quot;</span>, <span class="st">&quot;qgraph&quot;</span>, <span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb120-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-38" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb120-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-39" aria-hidden="true" tabindex="-1"></a>    , <span class="at">.progress =</span> T</span>
+<span id="cb120-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-40" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb120-41"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-41" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb120-42"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-42" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span>
+<span id="cb120-43"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-44"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-44" aria-hidden="true" tabindex="-1"></a>MT_net_nested4 <span class="ot">&lt;-</span> MT_net_nested4 <span class="sc">%&gt;%</span></span>
+<span id="cb120-45"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pd =</span> <span class="fu">map</span>(cor, <span class="sc">~</span><span class="fu">map_lgl</span>(., corpcor<span class="sc">::</span>is.positive.definite)))</span>
+<span id="cb120-46"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-47"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-47" aria-hidden="true" tabindex="-1"></a>MT_net_nested4 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">perc =</span> <span class="fu">map_dbl</span>(pd, <span class="sc">~</span><span class="fu">sum</span>(.)<span class="sc">/</span><span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb120-48"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inventory, set) <span class="sc">%&gt;%</span> </span>
+<span id="cb120-49"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb120-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_at</span>(<span class="fu">vars</span>(perc), <span class="fu">lst</span>(min, max, mean, median))</span></code></pre></div>
+</div>
+<div id="remove-multicollinear-items-forcepd-f" class="section level3" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Remove Multicollinear Items, forcePD = F</h3>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-1" aria-hidden="true" tabindex="-1"></a>c_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(age, set, inventory){</span>
+<span id="cb121-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  loadRData <span class="ot">&lt;-</span> <span class="cf">function</span>(inventory, set, age){</span>
+<span id="cb121-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#loads an RData file, and returns it</span></span>
+<span id="cb121-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-4" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData&quot;</span></span>
+<span id="cb121-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-5" aria-hidden="true" tabindex="-1"></a>                    , inventory, set, age)</span>
+<span id="cb121-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(path)</span>
+<span id="cb121-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(path)</span>
+<span id="cb121-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get</span>(<span class="fu">ls</span>()[<span class="fu">ls</span>() <span class="sc">==</span> <span class="st">&quot;d&quot;</span>])</span>
+<span id="cb121-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb121-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-10" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">loadRData</span>(inventory, set, age)</span>
+<span id="cb121-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb121-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-12" aria-hidden="true" tabindex="-1"></a>  cr <span class="ot">&lt;-</span> <span class="fu">cor_auto</span>(x)</span>
+<span id="cb121-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-13" aria-hidden="true" tabindex="-1"></a>  cr[<span class="fu">upper.tri</span>(cr, <span class="at">diag =</span> T)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb121-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-14" aria-hidden="true" tabindex="-1"></a>  cr[<span class="fu">abs</span>(cr) <span class="sc">&lt;=</span> .<span class="dv">65</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb121-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-15" aria-hidden="true" tabindex="-1"></a>  cr_red <span class="ot">&lt;-</span> cr <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb121-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="st">&quot;V1&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb121-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;V2&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;r&quot;</span>, <span class="at">cols =</span> <span class="sc">-</span>V1, <span class="at">values_drop_na =</span> T)</span>
+<span id="cb121-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-18" aria-hidden="true" tabindex="-1"></a>  rem <span class="ot">&lt;-</span> <span class="fu">unique</span>(cr_red<span class="sc">$</span>V1)</span>
+<span id="cb121-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(rem) <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb121-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-20" aria-hidden="true" tabindex="-1"></a>    rem <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">colnames</span>(x) <span class="sc">%in%</span> rem)</span>
+<span id="cb121-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-21" aria-hidden="true" tabindex="-1"></a>    x2 <span class="ot">&lt;-</span> x[, <span class="sc">-</span>rem]</span>
+<span id="cb121-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-22" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb121-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-23" aria-hidden="true" tabindex="-1"></a>    x2 <span class="ot">&lt;-</span> x</span>
+<span id="cb121-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb121-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-25" aria-hidden="true" tabindex="-1"></a>  cr2 <span class="ot">&lt;-</span> <span class="fu">cor_auto</span>(x2)</span>
+<span id="cb121-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">cr =</span> cr2, <span class="at">rem =</span> rem))</span>
+<span id="cb121-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb121-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb121-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-30" aria-hidden="true" tabindex="-1"></a>MT_net_nested6 <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb121-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb121-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-32" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb121-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-33" aria-hidden="true" tabindex="-1"></a>  , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">59</span>, <span class="fl">62.5</span>, <span class="fl">67.5</span>, <span class="fl">72.5</span>, <span class="dv">78</span>))</span>
+<span id="cb121-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-34" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(</span>
+<span id="cb121-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb121-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb121-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-37" aria-hidden="true" tabindex="-1"></a>    , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb121-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-38" aria-hidden="true" tabindex="-1"></a>    , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb121-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-39" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb121-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-40" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb121-41"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set <span class="sc">==</span> <span class="st">&quot;decades&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb121-42"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cor =</span> <span class="fu">future_pmap</span>(<span class="fu">list</span>(age, set, inventory)</span>
+<span id="cb121-43"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-43" aria-hidden="true" tabindex="-1"></a>                    , c_fun</span>
+<span id="cb121-44"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-44" aria-hidden="true" tabindex="-1"></a>                    , <span class="at">.options =</span> <span class="fu">furrr_options</span>(</span>
+<span id="cb121-45"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, <span class="st">&quot;ItemInfo20&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>)</span>
+<span id="cb121-46"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-46" aria-hidden="true" tabindex="-1"></a>      , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;psych&quot;</span>, <span class="st">&quot;qgraph&quot;</span>, <span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb121-47"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-47" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb121-48"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-48" aria-hidden="true" tabindex="-1"></a>    , <span class="at">.progress =</span> T</span>
+<span id="cb121-49"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-49" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb121-50"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-50" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb121-51"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-51" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span>
+<span id="cb121-52"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-53"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-53" aria-hidden="true" tabindex="-1"></a>MT_net_nested6 <span class="sc">%&gt;%</span></span>
+<span id="cb121-54"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rem =</span> <span class="fu">map</span>(cor, <span class="sc">~</span>(.)<span class="sc">$</span>rem)</span>
+<span id="cb121-55"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-55" aria-hidden="true" tabindex="-1"></a>         , <span class="at">cor =</span> <span class="fu">map</span>(cor, <span class="sc">~</span>(.)<span class="sc">$</span>cr)</span>
+<span id="cb121-56"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-56" aria-hidden="true" tabindex="-1"></a>         , <span class="at">nrem =</span> <span class="fu">map_dbl</span>(rem, length)</span>
+<span id="cb121-57"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-57" aria-hidden="true" tabindex="-1"></a>         , <span class="at">pd =</span> <span class="fu">map_lgl</span>(cor, corpcor<span class="sc">::</span>is.positive.definite)) <span class="sc">%&gt;%</span></span>
+<span id="cb121-58"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-58" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(inventory == &quot;IPIP50&quot;) </span></span>
+<span id="cb121-59"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inventory, set, pd) <span class="sc">%&gt;%</span></span>
+<span id="cb121-60"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb121-61"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inventory, set) <span class="sc">%&gt;%</span></span>
+<span id="cb121-62"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb121-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code></pre></div>
+</div>
+<div id="remove-multicollinear-items-forcepd-f-n-n-for-60s-group" class="section level3" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Remove Multicollinear Items, forcePD = F, N = N for 60’s group</h3>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-1" aria-hidden="true" tabindex="-1"></a>c_fun3917 <span class="ot">&lt;-</span> <span class="cf">function</span>(age, set, inventory){</span>
+<span id="cb122-2"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  loadRData <span class="ot">&lt;-</span> <span class="cf">function</span>(inventory, set, age){</span>
+<span id="cb122-3"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#loads an RData file, and returns it</span></span>
+<span id="cb122-4"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-4" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;/Volumes/Emorie/projects/age nets/SAPA/01-data/%s/%s/%s.RData&quot;</span></span>
+<span id="cb122-5"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-5" aria-hidden="true" tabindex="-1"></a>                    , inventory, set, age)</span>
+<span id="cb122-6"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(path)</span>
+<span id="cb122-7"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(path)</span>
+<span id="cb122-8"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get</span>(<span class="fu">ls</span>()[<span class="fu">ls</span>() <span class="sc">==</span> <span class="st">&quot;d&quot;</span>])</span>
+<span id="cb122-9"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb122-10"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-10" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">loadRData</span>(inventory, set, age)</span>
+<span id="cb122-11"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb122-12"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-12" aria-hidden="true" tabindex="-1"></a>  sz <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="fu">nrow</span>(x) <span class="sc">&lt;</span> <span class="dv">3917</span>) <span class="fu">nrow</span>(x) <span class="cf">else</span> <span class="dv">3917</span></span>
+<span id="cb122-13"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-13" aria-hidden="true" tabindex="-1"></a>  rplc <span class="ot">&lt;-</span> <span class="cf">if</span>(<span class="fu">nrow</span>(x) <span class="sc">&lt;</span> <span class="dv">3917</span>) T <span class="cf">else</span> F</span>
+<span id="cb122-14"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb122-15"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb122-16"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-16" aria-hidden="true" tabindex="-1"></a>  xl <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(z) x[<span class="fu">sample</span>(<span class="fu">nrow</span>(x), <span class="at">size =</span> sz, <span class="at">replace =</span> rplc),])</span>
+<span id="cb122-17"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb122-18"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-18" aria-hidden="true" tabindex="-1"></a>  crl <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(z){</span>
+<span id="cb122-19"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-19" aria-hidden="true" tabindex="-1"></a>    cr <span class="ot">&lt;-</span> <span class="fu">cor_auto</span>(xl[[z]])</span>
+<span id="cb122-20"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-20" aria-hidden="true" tabindex="-1"></a>    cr[<span class="fu">upper.tri</span>(cr, <span class="at">diag =</span> T)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb122-21"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-21" aria-hidden="true" tabindex="-1"></a>    cr[<span class="fu">abs</span>(cr) <span class="sc">&lt;=</span> .<span class="dv">65</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb122-22"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-22" aria-hidden="true" tabindex="-1"></a>    cr_red <span class="ot">&lt;-</span> cr <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb122-23"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rownames_to_column</span>(<span class="st">&quot;V1&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb122-24"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;V2&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;r&quot;</span>, <span class="at">cols =</span> <span class="sc">-</span>V1, <span class="at">values_drop_na =</span> T)</span>
+<span id="cb122-25"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-25" aria-hidden="true" tabindex="-1"></a>    rem <span class="ot">&lt;-</span> <span class="fu">unique</span>(cr_red<span class="sc">$</span>V1)</span>
+<span id="cb122-26"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">length</span>(rem) <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb122-27"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-27" aria-hidden="true" tabindex="-1"></a>      rem <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">colnames</span>(xl[[z]]) <span class="sc">%in%</span> rem)</span>
+<span id="cb122-28"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-28" aria-hidden="true" tabindex="-1"></a>      x2 <span class="ot">&lt;-</span> xl[[z]][, <span class="sc">-</span>rem]</span>
+<span id="cb122-29"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-29" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb122-30"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-30" aria-hidden="true" tabindex="-1"></a>      x2 <span class="ot">&lt;-</span> xl[[z]]</span>
+<span id="cb122-31"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-31" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb122-32"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-32" aria-hidden="true" tabindex="-1"></a>    cr2 <span class="ot">&lt;-</span> <span class="fu">cor_auto</span>(x2)</span>
+<span id="cb122-33"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-33" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb122-34"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb122-35"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-36"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-36" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="fu">multisession</span>(<span class="at">workers =</span> 12L))</span>
+<span id="cb122-37"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-37" aria-hidden="true" tabindex="-1"></a>MT_net_nested8 <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb122-38"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb122-39"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-39" aria-hidden="true" tabindex="-1"></a>  , <span class="at">set =</span> <span class="st">&quot;age&quot;</span></span>
+<span id="cb122-40"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-40" aria-hidden="true" tabindex="-1"></a>  , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">59</span>, <span class="fl">62.5</span>, <span class="fl">67.5</span>, <span class="fl">72.5</span>, <span class="dv">78</span>))</span>
+<span id="cb122-41"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-41" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(</span>
+<span id="cb122-42"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb122-43"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">inventory =</span> <span class="fu">c</span>(<span class="st">&quot;IPIP20&quot;</span>, <span class="st">&quot;IPIP50&quot;</span>, <span class="st">&quot;IPIP100&quot;</span>)</span>
+<span id="cb122-44"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-44" aria-hidden="true" tabindex="-1"></a>    , <span class="at">set =</span> <span class="st">&quot;decades&quot;</span></span>
+<span id="cb122-45"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-45" aria-hidden="true" tabindex="-1"></a>    , <span class="at">age =</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb122-46"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-46" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb122-47"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-47" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb122-48"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(set <span class="sc">==</span> <span class="st">&quot;decades&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb122-49"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(inventory <span class="sc">==</span> <span class="st">&quot;IPIP100&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb122-50"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cor =</span> <span class="fu">future_pmap</span>(<span class="fu">list</span>(age, set, inventory)</span>
+<span id="cb122-51"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-51" aria-hidden="true" tabindex="-1"></a>                    , c_fun3917</span>
+<span id="cb122-52"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-52" aria-hidden="true" tabindex="-1"></a>                    , <span class="at">.options =</span> <span class="fu">furrr_options</span>(</span>
+<span id="cb122-53"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-53" aria-hidden="true" tabindex="-1"></a>      <span class="at">globals =</span> <span class="fu">c</span>(<span class="st">&quot;ipipgroup20&quot;</span>, <span class="st">&quot;ipipgroup50&quot;</span>, <span class="st">&quot;ipipgroup100&quot;</span>, <span class="st">&quot;ItemInfo20&quot;</span>, <span class="st">&quot;ItemInfo50&quot;</span>, <span class="st">&quot;ItemInfo100&quot;</span>)</span>
+<span id="cb122-54"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-54" aria-hidden="true" tabindex="-1"></a>      , <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;psych&quot;</span>, <span class="st">&quot;qgraph&quot;</span>, <span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>)</span>
+<span id="cb122-55"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-55" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb122-56"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-56" aria-hidden="true" tabindex="-1"></a>    , <span class="at">.progress =</span> T</span>
+<span id="cb122-57"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-57" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb122-58"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-58" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb122-59"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-59" aria-hidden="true" tabindex="-1"></a><span class="fu">closeAllConnections</span>()</span>
+<span id="cb122-60"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-61"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-61" aria-hidden="true" tabindex="-1"></a>MT_net_nested8 <span class="sc">%&gt;%</span></span>
+<span id="cb122-62"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(MT_net_nested8) <span class="sc">%&gt;%</span></span>
+<span id="cb122-63"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pd =</span> <span class="fu">map</span>(cor, <span class="sc">~</span><span class="fu">map_lgl</span>(., corpcor<span class="sc">::</span>is.positive.definite))) <span class="sc">%&gt;%</span> </span>
+<span id="cb122-64"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc =</span> <span class="fu">map_dbl</span>(pd, <span class="sc">~</span><span class="fu">sum</span>(.)<span class="sc">/</span><span class="dv">10</span>),</span>
+<span id="cb122-65"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-65" aria-hidden="true" tabindex="-1"></a>         <span class="at">perc =</span> <span class="fu">ifelse</span>(perc <span class="sc">&gt;=</span> .<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb122-66"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-66" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(inventory != &quot;IPIP100&quot;) %&gt;%</span></span>
+<span id="cb122-67"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inventory, set, perc) <span class="sc">%&gt;%</span></span>
+<span id="cb122-68"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb122-69"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inventory, set) <span class="sc">%&gt;%</span></span>
+<span id="cb122-70"><a href="fit-the-multi-trait-networks-mtnetworks.html#cb122-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc2 =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code></pre></div>
 
-MT_net_nested_gr &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">age_group =</span> <span class="kw">names</span>(allcorsNgraphs20gr), 
-    <span class="dt">results =</span> allcorsNgraphs20gr,  <span class="dt">cols =</span> <span class="kw">list</span>(all_cols20), <span class="dt">inventory =</span> <span class="st">&quot;IPIP20&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">age_group =</span> <span class="kw">names</span>(allcorsNgraphs50gr), <span class="dt">results =</span> allcorsNgraphs50gr, 
-    <span class="dt">cols =</span> <span class="kw">list</span>(all_cols50), <span class="dt">inventory =</span> <span class="st">&quot;IPIP50&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">age_group =</span> <span class="kw">names</span>(allcorsNgraphs100gr), <span class="dt">results =</span> allcorsNgraphs100gr, 
-    <span class="dt">cols =</span> <span class="kw">list</span>(all_cols100), <span class="dt">inventory =</span> <span class="st">&quot;IPIP100&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mat =</span> <span class="kw">map</span>(results, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),
-         <span class="dt">net =</span> <span class="kw">map</span>(results, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># run correlations and networks for 20&#39;s</span>
-corsNgraphsgr  &lt;-<span class="st"> </span>data50 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">as.numeric</span>(age) <span class="op">&lt;</span><span class="st"> </span><span class="dv">80</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>age2, <span class="op">-</span>age) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(age_groups) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">net =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="kw">EDBqgraphAvLayout</span>(., ItemInfo50, ipipgroup50))) <span class="op">%&gt;%</span>
-<span class="st">         </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols50))
-<span class="co"># save(MT_net_nested, MT_net_nested_gr, file = sprintf(&quot;%s/results/mt_nested_nets.RData&quot;, data_path))</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="kw">sprintf</span>(<span class="st">&quot;%s/results/mt_nested_nets.RData?raw=true&quot;</span>, data_path)))
-getEdges.df &lt;-<span class="st"> </span><span class="cf">function</span>(x, cols) {
-    y &lt;-<span class="st"> </span>qgraph<span class="op">::</span><span class="kw">getWmat</span>(x)
-    y[<span class="kw">upper.tri</span>(y, <span class="dt">diag =</span> T)] &lt;-<span class="st"> </span><span class="ot">NA</span>
-    <span class="kw">colnames</span>(y) &lt;-<span class="st"> </span>cols; <span class="kw">rownames</span>(y) &lt;-<span class="st"> </span>cols
-    nvar &lt;-<span class="st"> </span><span class="kw">dim</span>(y)[<span class="dv">2</span>]
-    df &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(y) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">from =</span> <span class="kw">row.names</span>(y)) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">gather</span>(<span class="dt">key =</span> to, <span class="dt">value =</span> weight, <span class="dv">1</span><span class="op">:</span>nvar) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">edge =</span> <span class="kw">paste</span>(from, to, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight))
-    <span class="kw">return</span>(df)
-}
-
-MT_net_nested &lt;-<span class="st"> </span>MT_net_nested <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">edges.df =</span> <span class="kw">map2</span>(net, cols, getEdges.df),
-         <span class="dt">cors.df =</span> <span class="kw">map2</span>(mat, cols, getEdges.df))
-
-MT_net_nested_gr &lt;-<span class="st"> </span>MT_net_nested_gr <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">edges.df =</span> <span class="kw">map2</span>(net, cols, getEdges.df),
-         <span class="dt">cors.df =</span> <span class="kw">map2</span>(mat, cols, getEdges.df))
-
-ex_fun &lt;-<span class="st"> </span><span class="cf">function</span>(x){x[[<span class="dv">1</span>]]}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corsNgraphsgr &lt;-<span class="st"> </span>corsNgraphsgr <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cols =</span> <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(.), <span class="cf">function</span>(x)all_cols50),
-         <span class="dt">mat =</span> <span class="kw">map</span>(net, <span class="cf">function</span>(x) x[[<span class="dv">1</span>]]),
-         <span class="dt">net =</span> <span class="kw">map</span>(net, <span class="cf">function</span>(x) x[[<span class="dv">2</span>]]), 
-         <span class="dt">edges.df =</span> <span class="kw">map2</span>(net, cols, getEdges.df),
-         <span class="dt">cors.df =</span> <span class="kw">map2</span>(mat, cols, getEdges.df))</code></pre></div>
-
+</div>
 </div>
 </div>
             </section>
@@ -315,16 +917,17 @@ ex_fun &lt;-<span class="st"> </span><span class="cf">function</span>(x){x[[<spa
         </div>
       </div>
 <a href="workspace.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="STnetworks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="single-trait-networks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -332,12 +935,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -352,7 +955,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": ["age_nets.pdf", "age_nets.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

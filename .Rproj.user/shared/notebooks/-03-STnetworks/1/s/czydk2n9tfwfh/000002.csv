@@ -1,0 +1,5 @@
+"0","rm(ls()[(grepl(""data"", ls()) | grepl(""ipip"", tolower(ls()))) & ! grepl(""colors"", ls())])
+"
+"2","Error in rm(ls()[(grepl(""data"", ls()) | grepl(""ipip"", tolower(ls()))) &  : 
+  ... must contain names or character strings
+"

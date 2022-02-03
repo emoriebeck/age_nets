@@ -1,0 +1,310 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# Background on the SAPA Project {#background}
+
+## Packages
+```{r packages, message=FALSE, warning = FALSE}
+library(qgraph)
+library(bootnet)
+library(ggplot2)
+library(psych)
+library(paran)
+library(RColorBrewer)
+library(knitr)
+library(kableExtra)
+library(parallel)
+library(broom)
+library(igraph)
+library(gridExtra)
+library(data.table)
+library(plyr)
+library(tidyverse)
+library(furrr)
+```
+
+## Methods  
+
+All of the data being pulled in have previously been cleaned.  There are two big files --- one from 2006 to 2010 and a second from 2010 to now.  
+
+### 2006 to 2010  
+
+The older data set is based on the predecessor platform to SAPA (a 50-item survey, created by William Revelle and hosted at www.personalityproject.org).  There are a couple of issues with this sample.  First, there was much less demographic information collected at that time (age, gender, ethnicity, education, and a few others).  Second, it only sampled 50 items from the IPIP100 (each participant got 2 of 4 25-item blocks) and a preliminary set of ICAR items, most of which have since been deprecated.  Third, there were two technical problems that caused a complete lack of data collection for one of the IPIP items (q\_55) and a partial lack of data collection for two others (q\_316 and q\_995).  Still, these data remain quite useful in that they include responses on 99 of the 100 IPIP items from about 114k participants.
+
+The following code chunk pulls in the first sample and describes it.  Note that only 99 variables are listed because item q\_55 is empty.
+
+```{r, Step1, eval=TRUE, echo=TRUE, results='markup', fig.show="hide", tidy=TRUE, message=FALSE, warning=FALSE} 
+data_path <- "https://github.com/emoriebeck/age_nets/blob/master"
+load(url(sprintf("%s/data/SAPAdata4apr2006to18aug2010.rdata?raw=true", data_path)))
+
+dim(taFinal)	# Participants who did not answer any IPIP100 items removed.
+# Identify Ps who didnt answer any IPIP100 items
+empty <- rowSums(subset(taFinal, select = c(q_76:q_1989)),na.rm=TRUE)
+taFinal <- taFinal[empty>0,]
+dim(taFinal)	# Participants who did not answer any IPIP100 items removed.
+
+describe(subset(taFinal, select = c(q_76:q_1989)), fast=TRUE)
+# table by gender
+table(taFinal$gender)
+
+# describe the age distribution
+describe(taFinal$age, fast=TRUE)
+
+# how many countries are represented?
+length(table(taFinal$country))
+# show the top 25 countries
+sort(table(taFinal$country), decreasing=TRUE)[1:25]
+
+# show the US states, in order
+sort(table(taFinal$state), decreasing=TRUE)[1:51]
+
+# table by ethnicity
+table(taFinal$ethnic)
+
+# table by education
+table(taFinal$education)
+```
+
+
+### 2010 to 2017}
+
+From August 18, 2010 to February 7, 2017, the data were collected from the SAPA-Project.org.  While many more variables (including many more demographic variables) were collected in this sample, the data are pared down to match the older set.  It should also be noted that large subsets of these data have previously been placed in the public domain (see https://dataverse.harvard.edu/dataverse/SAPA-Project).
+
+Here, we pull in the second sample, subset it, and describe the result.
+
+```{r Step2, eval=TRUE, echo=TRUE, results='markup', fig.show="hide", tidy=TRUE, message=FALSE, warning=FALSE} 
+load(url(sprintf("%s/data/SAPAdata18aug2010thru7feb2017.rdata?raw=true", data_path)))
+
+dim(SAPAdata18aug2010thru7feb2017)	# Participants who did not answer any IPIP100 items removed.
+# Identify Ps who didnt answer any IPIP100 items
+empty <- rowSums(subset(SAPAdata18aug2010thru7feb2017, select = c(q_55:q_1989)), na.rm=TRUE)
+SAPAdata18aug2010thru7feb2017 <- SAPAdata18aug2010thru7feb2017[empty>0,]
+dim(SAPAdata18aug2010thru7feb2017)	# Participants who did not answer any IPIP100 items removed.
+
+SAPAdata18aug2010thru7feb2017 <- SAPAdata18aug2010thru7feb2017 %>% 
+  select(one_of(c("q_55", colnames(taFinal)))) %>%
+  select(RID:education, q_55, everything())
+
+describe(subset(SAPAdata18aug2010thru7feb2017, select = c(q_55:q_1989)), fast=TRUE)
+# table by gender
+table(SAPAdata18aug2010thru7feb2017$gender)
+
+# describe the age distribution
+describe(SAPAdata18aug2010thru7feb2017$age, fast=TRUE)
+
+# how many countries are represented?
+length(table(SAPAdata18aug2010thru7feb2017$country))
+# show the top 25 countries
+sort(table(SAPAdata18aug2010thru7feb2017$country), decreasing=TRUE)[1:25]
+
+# show the US states, in order
+state <- subset(SAPAdata18aug2010thru7feb2017, country=="USA")
+sort(table(state$state), decreasing=TRUE)[1:51]
+
+# table by ethnicity
+table(SAPAdata18aug2010thru7feb2017$ethnic)
+
+# table by education
+table(SAPAdata18aug2010thru7feb2017$education)
+```
+
+### Merge the datasets and Describe
+
+Now we will combine both of the samples and describe them with proper tables and figures before converting the demographics into numeric variables.
+
+```{r Step3, eval=TRUE, echo=TRUE, results='markup', fig.show="hide", tidy=TRUE, message=FALSE, warning=FALSE} 
+fullSample <- taFinal %>% select(-contains("iq_")) %>% full_join(SAPAdata18aug2010thru7feb2017) %>%
+  select(RID:education, q_55, everything())
+
+rm(SAPAdata18aug2010thru7feb2017, taFinal)
+gc()
+
+# n is total Ps in the full sample
+n <- dim(fullSample)[1]
+ntext <- prettyNum(n, big.mark=",", scientific=F)
+ntext
+
+# percent female
+femalePerc <- 100 * round((table(fullSample$gender)/sum(table(fullSample$gender)))["female"], 3)
+femalePerc
+
+# describe the age distribution
+(fullSampleAge <- psych::describe(fullSample[,"age"]))
+
+(MeanAge <- fullSampleAge$mean)
+(SDAge <- fullSampleAge$sd)
+(MedianAge <- fullSampleAge$median)
+(MinAge <- fullSampleAge$min)
+(MaxAge <- fullSampleAge$max)
+
+# percent U.S.
+(USperc <- 100 * round((table(fullSample$country)/sum(table(fullSample$country)))["USA"], 3))
+# total U.S.
+(UScounttext <- prettyNum((table(fullSample$country))["USA"], big.mark=",", scientific=F))
+
+# number of countries with P>0
+countryTable <- sort(table(fullSample$country), decreasing=TRUE)
+countryCount <- length(countryTable)
+
+# number of countries with P>199
+countryCount200 <- subset(countryTable, countryTable > 199)
+length(countryCount200)
+
+# show the top 25 countries
+sort(table(fullSample$country), decreasing=TRUE)[1:25]
+
+(countrytext <- prettyNum(sum(table(fullSample$country)), big.mark=",", scientific=F))
+
+# show the US states, in order
+state <- subset(fullSample, country=="USA")
+sort(table(state$state), decreasing=TRUE)[1:51]
+
+education <- data.frame(table(fullSample$education))
+colnames(education) <- c("Educational Level", "Participants")
+(college <- prettyNum(round(education[4,2]/sum(education[,2])*100,0), big.mark=",", scientific=F))
+
+ethnic <- data.frame(table(fullSample$race))
+colnames(ethnic) <- c("Ethnicity/Race", "Participants"); ethnic
+```
+
+
+
+```{rStep4, eval=TRUE, echo=FALSE, results='hide', fig.show="hide", tidy=TRUE, message=FALSE, warning=FALSE, fig.cap="Supplementary Figure 1. Age as a function of gender"} 
+# plot age by gender
+with(fullSample, bi.bars(as.numeric(fullSample$age), fullSample$gender, ylab="Age", main = ""))
+```
+
+```{r}
+# fullSample <- IPIP100items04apr2006thru7feb2017
+fullSample %>% 
+  filter(!is.na(country)) %>%
+  group_by(country) %>% 
+  summarize(n = n()) %>%
+  arrange(desc(n)) %>%
+  filter(row_number() %in% 1:25) %>%
+  kable(., "html", booktabs = T, escape = F,
+        caption = "Sample Sizes in Top 25 Countries",
+        col.names = c("Country", "Frequency")) %>%
+  kable_styling(full_width = F)
+```
+
+
+```{r}
+ethnic %>%
+  arrange(desc(Participants)) %>%
+  kable(., "html", booktabs = T, escape = F,
+        caption = "Race/Ethnicity Among U.S. Participants in the full sample") %>%
+  kable_styling(full_width = F)
+```
+
+```{r}
+levs <- tibble(old = c("less12yrs", "Less than 12 years", "HSgrad", "High school graduate", "SomeCollege", 
+                 "Some college did not graduate", "CurrentInUniv", "Currently attending college",
+                 "CollegeDegree", "College graduate", "InGradOrProSchool", "Graduate or professional degree",
+                 "GradOrProDegree"),
+               new = c(rep("Less than 12 years", 2), rep("High school graduate", 2), 
+                       rep("Some college/university, but did not graduate", 2),
+                       rep("Currently in college/university", 2), rep("College/university degree", 2),
+                       "Currently in graduate or professional school", 
+                       rep("Graduate or professional school degree", 2)))
+education %>%
+  mutate(`Educational Level` = mapvalues(`Educational Level`, levs$old, levs$new)) %>%
+  group_by(`Educational Level`) %>%
+  summarize(Participants = sum(Participants)) %>%
+  ungroup() %>%
+  mutate(`Educational Level` = factor(`Educational Level`, levels = unique(levs$new))) %>%
+  arrange(`Educational Level`) %>%
+  kable(., "html", booktabs = T, escape = F,
+        caption = "Educational Attainment Level in the full sample") %>%
+  kable_styling(full_width = F)
+```
+
+
+It's also useful to describe the extent of the missingness in the data (for the IPIP100 variables) and the number of pairwise administrations across the items.  While we're at it, we'll also bootstrap estimates of the standard errors of the item-level correlations.
+
+```{rStep6, eval=TRUE, echo=TRUE, results='markup', fig.show="hide", tidy=TRUE, message=FALSE, warning=FALSE} 
+items <- colnames(subset(fullSample, select = c(q_55:q_1989)))
+
+not_na_count <- apply(fullSample[,items], 1, function(x) sum(!is.na(x)))
+
+partAdminsMean <- round(mean(not_na_count), 0)
+partAdminsMean <- prettyNum(partAdminsMean, big.mark=",", scientific=F)
+
+partAdminsMedian <- round(median(not_na_count), 0)
+partAdminsMedian <- prettyNum(partAdminsMedian, big.mark=",", scientific=F)
+
+partAdminsSD <- round(sd(not_na_count), 0)
+partAdminsSD <- prettyNum(partAdminsSD, big.mark=",", scientific=F)
+
+described <- describe(fullSample[,items])
+
+AdminsMean <- round(mean(described$n), 0)
+AdminsMean <- prettyNum(AdminsMean, big.mark=",", scientific=F)
+
+AdminsMedian <- round(median(described$n), 0)
+AdminsMedian <- prettyNum(AdminsMedian, big.mark=",", scientific=F)
+
+AdminsSD <- round(sd(described$n), 0)
+AdminsSD <- prettyNum(AdminsSD, big.mark=",", scientific=F)
+
+# The mean, median and sd of administrations of items
+AdminsMean
+AdminsMedian
+AdminsSD
+rm(described)
+
+pwiseAdmins1 <- pairwiseDescribe(fullSample[,items])
+pwiseAdmins <- prettyNum(pwiseAdmins1, big.mark=",", scientific=F)
+
+pwiseAdminsMean <- round(pwiseAdmins1$mean, 0)
+pwiseAdminsMean <- prettyNum(pwiseAdminsMean, big.mark=",", scientific=F)
+
+pwiseAdminsMedian <- round(pwiseAdmins1$median, 0)
+pwiseAdminsMedian <- prettyNum(pwiseAdminsMedian, big.mark=",", scientific=F)
+
+pwiseAdminsSD <- round(pwiseAdmins1$sd, 0)
+pwiseAdminsSD <- prettyNum(pwiseAdminsSD, big.mark=",", scientific=F)
+
+pwiseAdminsMin <- round(pwiseAdmins1$min, 0)
+pwiseAdminsMin <- prettyNum(pwiseAdminsMin, big.mark=",", scientific=F)
+
+# The mean, median and sd of pairwise administrations of items
+pwiseAdminsMean
+pwiseAdminsMedian
+pwiseAdminsSD
+
+#rm(pwiseAdmins1)
+```
+
+```{rStep7, eval=FALSE, echo=TRUE, results='markup', fig.show="hide", tidy=TRUE, message=FALSE, warning=FALSE} 
+# the CIs around the rs
+IPIP100CorCI <- cor.ci(fullSample[,items], p=.05, n.iter = 100, overlap=FALSE, plot = FALSE, poly = FALSE)
+save(IPIP100CorCI, file = "~/Downloads/cor_stab.RData")
+```
+
+```{r, fig.cap="Supplementary Figure 2. Standard error of item-level correlations"}
+load(url(sprintf("%s/results/cor_stab.RData?raw=true", data_path)))
+plot(density(IPIP100CorCI$sds), main="", ylab="Frequency", xlab="Standard error of item-level correlations", xlim= c(0,.02), ylim = c(0,1000))
+```
+
+Clean up some of the helper objects and save the data for further analysis later.
+
+```{rStep8, eval=FALSE, echo=TRUE, results='markup', fig.show="hide", tidy=TRUE, message=FALSE, warning=FALSE} 
+IPIP100items04apr2006thru7feb2017 <- fullSample
+
+ItemInfo100 <- ItemInfo[items,1:2]
+
+keys.list.trimmed <- keys.list[c("IPIP100agreeableness20","IPIP100conscientiousness20", "IPIP100extraversion20", "IPIP100intellect20", "IPIP100EmotionalStability20")]
+
+ItemLists.trimmed <- ItemLists[c("IPIP100agreeableness20","IPIP100conscientiousness20", "IPIP100extraversion20", "IPIP100intellect20", "IPIP100EmotionalStability20")]
+
+save(IPIP100items04apr2006thru7feb2017, ItemInfo100, ItemLists.trimmed, keys.list.trimmed, file=paste(data_path, "IPIP100items04apr2006thru7feb2017.rdata", sep=""))
+```
+
+```{r}
+rm(list = c("fullSample","state","empty"))
+gc()
+```
+

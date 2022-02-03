@@ -1,0 +1,172 @@
+# Fit the Multi-Trait Networks {MTnetworks}
+## Multi-Trait Networks  
+First, we have to do some prep to get the data into list form to run parLapply on the function to fit the networks.  
+```{r data frames, eval = T}
+# create monochromatic purple color theme for node groups
+ipipcolors <- RColorBrewer::brewer.pal(5,"Set3")
+
+# remove unnecessary demographics from data
+data20 <- ipip20 %>% select(-RID, -gender) 
+colnames(data20)[2:21] <- all_cols20
+
+data50 <- ipip50 %>% select(-RID, -gender) 
+colnames(data50)[2:51] <- c(a, c, n, e, o)
+
+data100 <- ipip100 %>% select(-RID, -gender) 
+colnames(data100)[2:101] <- all_cols100
+```
+
+Before we can run the networks, we are going to group them in two ways, once by decade and once by year. 
+```{r data lists}
+# transform data to list for use in parLapply for year by year groups
+datalist20 <- dlply(select(data20, -age, -age_groups), .(age2))
+datalist50 <- dlply(select(data50, -age, -age_groups), .(age2))
+datalist100 <- dlply(select(data100,-age, -age_groups), .(age2))
+
+# transform data to list for use in parLapply for decade groups
+datalist20gr <- dlply(select(data20, -age, -age2), .(age_groups))
+datalist50gr <- dlply(select(data50, -age, -age2), .(age_groups))
+datalist100gr <- dlply(select(data100,-age, -age2), .(age_groups))
+
+# remove the age group column
+datalist20gr <- llply(datalist20gr, function(x) x %>% select(-age_groups))
+datalist50gr <- llply(datalist50gr, function(x) x %>% select(-age_groups))
+datalist100gr <- llply(datalist100gr, function(x) x %>% select(-age_groups))
+
+# remove the later decades with a small sample size
+datalist20gr  <- datalist20gr[!names(datalist20gr) %in% 80:90]
+datalist50gr  <- datalist50gr[!names(datalist50gr) %in% 80:90]
+datalist100gr <- datalist100gr[!names(datalist100gr) %in% 80:90]
+
+# create group membership list based on item codes
+ipipgroup20 <- list(a = seq(1,4,1),
+                    c = seq(5,8,1),
+                    n = seq(9,12,1),
+                    e = seq(13,16,1),
+                    o = seq(17,20,1)) 
+
+ipipgroup50 <- list(a = seq(1,10,1),
+                    c = seq(11,20,1),
+                    n = seq(21,30,1),
+                    e = seq(31,40,1),
+                    o = seq(41,50,1)) 
+
+ipipgroup100 <- list(a = seq(1,20,1),
+                     c = seq(21,40,1),
+                     n = seq(41,60,1),
+                     e = seq(61,80,1),
+                     o = seq(81,100,1))
+```
+
+Now we can run the networks.  
+```{r run mt nets, eval = F}
+# Calculate the number of cores
+no_cores <- detectCores() - 1
+
+# Initiate cluster
+cl <- makeCluster(no_cores)
+# import global env variables for parallel computing
+clusterExport(cl, varlist = c("ipipgroup20", "ipipgroup50", "ipipgroup100", 
+                              "ipipcolors", "datalist50", "ItemInfo50", "ItemInfo100",
+                              "ItemInfo20"))
+# # calculate pairwise cors
+# run the by year networks  
+allcorsNgraphs20  <- parLapply(cl, datalist20,   EDBqgraph20n)
+allcorsNgraphs50  <- parLapply(cl, datalist50,   EDBqgraph50n)
+allcorsNgraphs100 <- parLapply(cl, datalist100, EDBqgraph100n)
+
+# run the by decade networks
+allcorsNgraphs20gr  <- parLapply(cl, datalist20gr,   EDBqgraph20n)
+allcorsNgraphs50gr  <- parLapply(cl, datalist50gr,   EDBqgraph50n)
+allcorsNgraphs100gr <- parLapply(cl, datalist100gr, EDBqgraph100n)
+
+# run centrality on the networks
+allcentrality20  <- parLapply(cl, llply(allcorsNgraphs20,  `[[`,2), function(x) qgraph::centrality_auto(x))
+allcentrality50  <- parLapply(cl, llply(allcorsNgraphs50,  `[[`,2), function(x) qgraph::centrality_auto(x))
+allcentrality100 <- parLapply(cl, llply(allcorsNgraphs100, `[[`,2), function(x) qgraph::centrality_auto(x))
+stopCluster(cl) # end parallel computing session
+
+# save(allcorsNgraphs20, allcorsNgraphs50, allcorsNgraphs100,
+#      allcorsNgraphs20gr, allcorsNgraphs50gr, allcorsNgraphs100gr,
+#      allcentrality20, allcentrality50, allcentrality100, 
+#      file = "~/Box/networks/SAPA/allcors.RData")
+```
+
+
+Now, to avoid redundancy, we will make create a `tibble` with the networks and centrality stored as list columns, which will make it easier to run functions on them efficiently.  
+```{r mt nets nested, eval = F}
+MT_net_nested <- 
+  tibble(inventory = "IPIP20",
+         age = names(allcorsNgraphs20),
+         results = allcorsNgraphs20,
+         centrality = allcentrality20) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols20)) %>%
+  bind_rows(tibble(inventory = "IPIP50",
+         age = names(allcorsNgraphs50),
+         results = allcorsNgraphs50,
+         centrality = allcentrality50) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols50))) %>%
+  bind_rows(tibble(inventory = "IPIP100",
+         age = names(allcorsNgraphs100),
+         results = allcorsNgraphs100,
+         centrality = allcentrality100) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols100))) %>%
+  mutate(mat = map(results, ~.[[1]]),
+         net = map(results, ~.[[2]]))
+
+MT_net_nested_gr <- tibble(age_group = names(allcorsNgraphs20gr), 
+    results = allcorsNgraphs20gr,  cols = list(all_cols20), inventory = "IPIP20") %>%
+  bind_rows(tibble(age_group = names(allcorsNgraphs50gr), results = allcorsNgraphs50gr, 
+    cols = list(all_cols50), inventory = "IPIP50")) %>%
+  bind_rows(tibble(age_group = names(allcorsNgraphs100gr), results = allcorsNgraphs100gr, 
+    cols = list(all_cols100), inventory = "IPIP100")) %>%
+  mutate(mat = map(results, function(x) x[[1]]),
+         net = map(results, function(x) x[[2]]))
+```
+
+```{r decades, eval = F}
+# run correlations and networks for 20's
+corsNgraphsgr  <- data50 %>%
+  filter(as.numeric(age) < 80) %>%
+  select(-age2, -age) %>%
+  group_by(age_groups) %>%
+  nest() %>%
+  mutate(net = map(data, ~EDBqgraphAvLayout(., ItemInfo50, ipipgroup50))) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols50))
+# save(MT_net_nested, MT_net_nested_gr, file = sprintf("%s/results/mt_nested_nets.RData", data_path))
+```
+
+```{r extract edges}
+load(url(sprintf("%s/results/mt_nested_nets.RData?raw=true", data_path)))
+getEdges.df <- function(x, cols) {
+    y <- qgraph::getWmat(x)
+    y[upper.tri(y, diag = T)] <- NA
+    colnames(y) <- cols; rownames(y) <- cols
+    nvar <- dim(y)[2]
+    df <- tbl_df(y) %>%
+      mutate(from = row.names(y)) %>%
+      gather(key = to, value = weight, 1:nvar) %>%
+      mutate(edge = paste(from, to, sep = "_")) %>%
+      filter(!is.na(weight))
+    return(df)
+}
+
+MT_net_nested <- MT_net_nested %>%
+  mutate(edges.df = map2(net, cols, getEdges.df),
+         cors.df = map2(mat, cols, getEdges.df))
+
+MT_net_nested_gr <- MT_net_nested_gr %>%
+  mutate(edges.df = map2(net, cols, getEdges.df),
+         cors.df = map2(mat, cols, getEdges.df))
+
+ex_fun <- function(x){x[[1]]}
+```
+
+```{r corsngraphsgr, eval = F}
+corsNgraphsgr <- corsNgraphsgr %>%
+  mutate(cols = lapply(1:nrow(.), function(x)all_cols50),
+         mat = map(net, function(x) x[[1]]),
+         net = map(net, function(x) x[[2]]), 
+         edges.df = map2(net, cols, getEdges.df),
+         cors.df = map2(mat, cols, getEdges.df))
+```

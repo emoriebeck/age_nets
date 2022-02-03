@@ -1,0 +1,1123 @@
+---
+title: "SAPA Cross Sectional Development"
+author: "Emorie D Beck"
+date: "\today"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Workspace
+
+## Packages
+```{r, message=FALSE, warning = FALSE}
+library(qgraph)
+library(bootnet)
+library(ggplot2)
+library(psych)
+library(RColorBrewer)
+library(parallel)
+library(broom)
+library(igraph)
+library(gridExtra)
+library(data.table)
+library(plyr)
+library(tidyverse)
+```
+
+## Load and Clean Data
+```{r}
+data_path <- "~/Box/networks"
+load("~/Box/networks/SAPA/SAPAdata18aug2010thru7feb2017.rdata")
+load("~/Box/networks/IPIP100items04apr2006thru7feb2017.rdata")
+# load("~/Box/networks/SAPA/allcors.RData")
+# load("~/Box/networks/SAPA/traitcors.RData")
+load("~/Box/networks/SAPA/nested_nets.RData")
+load("~/Box/networks/SAPA/communities.RData")
+
+IPIP100items04apr2006thru7feb2017 <- 
+  IPIP100items04apr2006thru7feb2017 %>% group_by(RID) %>% filter(n() == 1)
+
+# load custom themes for qgraph
+source("~/Box/networks/custom_qgraph.R")
+
+# get item #'s for miniipip20 items
+ipip20_items <- melt(ItemLists) %>%
+  filter(grepl("miniIPIP20", L1) == T & L1 != "miniIPIP20") %>%
+  mutate(value = as.character(value)) %>%
+  arrange(L1) %>%
+  group_by(L1) %>%
+  mutate(name = seq(1,n(),1),
+         name = paste(L1, name, sep = "_")) %>%
+  ungroup()
+
+# get item #'s for ipip50 items
+ipip50_items <- melt(ItemLists) %>%
+  filter(grepl("IPIP50", L1) == T & L1 != "IPIP50") %>%
+  mutate(value = as.character(value)) %>%
+  arrange(L1)
+ipip50_items <- ipip50_items %>%
+  group_by(L1) %>%
+  mutate(name = seq(1,n(),1),
+         name = paste(L1, name, sep = "_")) %>%
+  ungroup()
+
+# get item #'s for the ipip100 items
+ipip100_items <- melt(ItemLists) %>%
+  filter(grepl("IPIP100", L1) == T & L1 != "IPIP100") %>%
+  mutate(value = as.character(value)) %>%
+  rbind(c("q_55", "IPIP100extraversion20")) %>%
+  arrange(L1) %>%
+  group_by(L1) %>%
+  mutate(name = seq(1,n(),1),
+         name = paste(L1, name, sep = "_")) %>%
+  ungroup()
+
+## Get item content
+#ipip20
+ItemInfo20 <- ItemInfo100 %>%
+  filter(rownames(.) %in% ipip20_items$value) %>%
+  separate(IPIP100, into = c("Inventory", "Factor")) %>%
+  mutate(Factor = factor(Factor, levels = c("A", "C", "ES", "E", "I")),
+         Factor = recode(Factor,`A` = "agreeableness", `E` = "extraversion",
+                        `ES` = "emotionalstability",`I` = "intellect", 
+                        `C` = "conscientiousness")) %>%
+  arrange(Factor)
+
+#ipip50
+ItemInfo50 <- ItemInfo100 %>%
+  filter(rownames(.) %in% ipip50_items$value) %>%
+  separate(IPIP100, into = c("Inventory", "Factor")) %>%
+  mutate(Factor = factor(Factor, levels = c("A", "C", "ES", "E", "I")),
+         Factor = recode(Factor,`A` = "agreeableness", `E` = "extraversion",
+                        `ES` = "emotionalstability",`I` = "intellect", 
+                        `C` = "conscientiousness")) %>%
+  arrange(Factor)
+
+#ipip100
+ItemInfo100 <- ItemInfo100 %>%
+  filter(rownames(.) %in% ipip100_items$value) %>%
+  separate(IPIP100, into = c("Inventory", "Factor")) %>%
+  mutate(Factor = factor(Factor, levels = c("A", "C", "ES", "E", "I")),
+         Factor = recode(Factor,`A` = "agreeableness", `E` = "extraversion",
+                        `ES` = "emotionalstability",`I` = "intellect", 
+                        `C` = "conscientiousness")) %>%
+  arrange(Factor)
+
+# get column names for ipip20 items in IPIP data
+ipip20_cols <- c("RID", "age", "gender", 
+                  ipip20_items$value[ipip20_items$value %in%
+                  colnames(IPIP100items04apr2006thru7feb2017)])
+# get column names for ipip50 items in IPIP data
+ipip50_cols <- c("RID", "age", "gender", 
+                  ipip50_items$value[ipip50_items$value %in%
+                  colnames(IPIP100items04apr2006thru7feb2017)])
+# get column names for ipip100 items in IPIP data
+ipip100_cols <- c("RID", "age", "gender", 
+                  ipip100_items$value[ipip100_items$value %in%
+                  colnames(IPIP100items04apr2006thru7feb2017)])
+
+# subset IPIP50 & IPIP100 SAPA data
+ipip20  <- IPIP100items04apr2006thru7feb2017[, ipip20_cols]
+ipip50  <- IPIP100items04apr2006thru7feb2017[, ipip50_cols]
+ipip100 <- IPIP100items04apr2006thru7feb2017[, ipip100_cols]
+
+# rename columns by trait
+colnames(ipip20)[4:23]   <- ipip20_items$name
+colnames(ipip50)[4:53]   <- ipip50_items$name
+colnames(ipip100)[4:103] <- ipip100_items$name
+
+e <- c("quiet", "life_party", "draw_attention", "center_attention", "dont_talk",
+       "comfortable_others", "little2say", "background", "start_convo", "talk@parties")
+a <- c("int_people", "-int_problems", "-int_others", "-concern", "others_emotions", 
+       "soft_heart", "insult", "ease", "sympathize", "time4others")
+c <- c("prepared", "exacting", "schedule", "chores", "leave_belongings", "order", 
+       "make_mess", "forget_place", "details", "shirk_duties")
+n <- c("disturbed", "relaxed", "change_mood", "irritated", "stressed", "upset",
+       "mood_swings", "often_blue", "seldon_blue", "worry")
+o <- c("ideas", "not_abstract", "quick_understand", "no_imagination", "rich_vocab", 
+       "imagination", "diff_abstract", "exc_ideas", "reflect", "diff_words")
+
+all_cols20 <- paste(rep(c("a", "c", "n", "e", "o"), each = 4), c(paste("0", seq(1,4,1), sep = "")), sep = "")
+all_cols50 <- paste(rep(c("a", "c", "n", "e", "o"), each = 10), c(paste("0", seq(1,9,1), sep = ""), "10"), sep = "")
+all_cols100 <- paste(rep(c("a", "c", "n", "e", "o"), each = 20), c(paste("0", seq(1,9,1), sep = ""), seq(10,20,1)), sep = "")
+
+# create new age variable since sample sizes too small for older ages
+# necessary to have all pairwise observations for correlations
+recode_age <- function(df){
+  df$age2 <- df$age
+  df$age2[df$age >= 60 & df$age < 65] <- 62.5
+  df$age2[df$age >= 65 & df$age < 70] <- 67.5
+  df$age2[df$age >= 70 & df$age < 75] <- 72.5
+  df$age2[df$age >= 75] <- 78 # based on median of sample >= 75
+  df$age2 <- factor(df$age2)
+  df <- df %>% 
+    mutate(age_groups = mapvalues(age, 10:79, rep(1:7, each = 10), warn_missing = F)) %>% 
+    tbl_df
+}
+
+ipip20  <- recode_age(ipip20)
+ipip50  <- recode_age(ipip50)
+ipip100 <- recode_age(ipip100)
+```
+
+# Fit the Networks  
+## Multi-Trait Networks
+```{r, eval = T}
+# mod <- lav2lvnet(B5.model, ipip50[,4:103])
+
+# create monochromatic purple color theme for node groups
+ipipcolors <- RColorBrewer::brewer.pal(5,"Set3")
+
+
+# remove unnecessary demographics from data
+data20 <- ipip20 %>% select(-RID, -gender) 
+colnames(data20)[2:21] <- all_cols20
+
+data50 <- ipip50 %>% select(-RID, -gender) 
+colnames(data50)[2:51] <- c(a, c, n, e, o)
+
+data100 <- ipip100 %>% select(-RID, -gender) 
+colnames(data100)[2:101] <- all_cols100
+
+# transform data to list for use in parLapply
+datalist20 <- dlply(select(data20, -age, -age_groups), .(age2))
+datalist50 <- dlply(select(data50, -age, -age_groups), .(age2))
+datalist100 <- dlply(select(data100,-age, -age_groups), .(age2))
+
+# transform data to list for use in parLapply
+datalist20gr <- dlply(select(data20, -age, -age2), .(age_groups))
+datalist50gr <- dlply(select(data50, -age, -age2), .(age_groups))
+datalist100gr <- dlply(select(data100,-age, -age2), .(age_groups))
+
+datalist20gr <- llply(datalist20gr, function(x) x %>% select(-age_groups))
+datalist50gr <- llply(datalist50gr, function(x) x %>% select(-age_groups))
+datalist100gr <- llply(datalist100gr, function(x) x %>% select(-age_groups))
+
+datalist20gr  <- datalist20gr[!names(datalist20gr) %in% 80:90]
+datalist50gr  <- datalist50gr[!names(datalist50gr) %in% 80:90]
+datalist100gr <- datalist100gr[!names(datalist100gr) %in% 80:90]
+
+# create group membership list based on item codes
+ipipgroup20 <- list(a = seq(1,4,1),
+                    c = seq(5,8,1),
+                    n = seq(9,12,1),
+                    e = seq(13,16,1),
+                    o = seq(17,20,1)) 
+
+ipipgroup50 <- list(a = seq(1,10,1),
+                    c = seq(11,20,1),
+                    n = seq(21,30,1),
+                    e = seq(31,40,1),
+                    o = seq(41,50,1)) 
+
+ipipgroup100 <- list(a = seq(1,20,1),
+                     c = seq(21,40,1),
+                     n = seq(41,60,1),
+                     e = seq(61,80,1),
+                     o = seq(81,100,1))
+```
+
+```{r, eval = F}
+# Calculate the number of cores
+no_cores <- detectCores() - 1
+
+# Initiate cluster
+cl <- makeCluster(no_cores)
+# import global env variables for parallel computing
+clusterExport(cl, varlist = c("ipipgroup20", "ipipgroup50", "ipipgroup100", 
+                              "ipipcolors", "datalist50", "ItemInfo50", "ItemInfo100",
+                              "ItemInfo20"))
+# # calculate pairwise cors
+# allcorsNgraphs20  <- parLapply(cl, datalist20,   EDBqgraph20n)
+# allcorsNgraphs50  <- parLapply(cl, datalist50,   EDBqgraph50n)
+# allcorsNgraphs100 <- parLapply(cl, datalist100, EDBqgraph100n)
+allcorsNgraphs20gr  <- parLapply(cl, datalist20gr,   EDBqgraph20n)
+allcorsNgraphs50gr  <- parLapply(cl, datalist50gr,   EDBqgraph50n)
+allcorsNgraphs100gr <- parLapply(cl, datalist100gr, EDBqgraph100n)
+#allefa <- parLapply(cl, llply(allcorsNgraphs50, `[[`, 1), function(x){qgraph::qgraph.efa(x, factors = 5, rotation = "varimax", groups = ipipgroup, minimum=0.2,cut=0.4, vsize=c(3,7),borders=FALSE,vTrans=200)})
+# plot networks
+# allcentrality20  <- parLapply(cl, llply(allcorsNgraphs20,  `[[`,2), function(x) qgraph::centrality_auto(x))
+# allcentrality50  <- parLapply(cl, llply(allcorsNgraphs50,  `[[`,2), function(x) qgraph::centrality_auto(x))
+# allcentrality100 <- parLapply(cl, llply(allcorsNgraphs100, `[[`,2), function(x) qgraph::centrality_auto(x))
+stopCluster(cl) # end parallel computing session
+
+save(allcorsNgraphs20, allcorsNgraphs50, allcorsNgraphs100,
+     allcorsNgraphs20gr, allcorsNgraphs50gr, allcorsNgraphs100gr,
+     allcentrality20, allcentrality50, allcentrality100, 
+     file = "~/Box/networks/SAPA/allcors.RData")
+
+MT_net_nested <- 
+  tibble(inventory = "IPIP20",
+         age = names(allcorsNgraphs20),
+         results = allcorsNgraphs20,
+         centrality = allcentrality20) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols20)) %>%
+  bind_rows(tibble(inventory = "IPIP50",
+         age = names(allcorsNgraphs50),
+         results = allcorsNgraphs50,
+         centrality = allcentrality50) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols50))) %>%
+  bind_rows(tibble(inventory = "IPIP100",
+         age = names(allcorsNgraphs100),
+         results = allcorsNgraphs100,
+         centrality = allcentrality100) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols100))) %>%
+  mutate(mat = map(results, ~.[[1]]),
+         net = map(results, ~.[[2]]))
+
+# run correlations and networks for 20's
+corsNgraphsgr  <- data50 %>%
+  filter(as.numeric(age) < 80) %>%
+  select(-age2, -age) %>%
+  group_by(age_groups) %>%
+  nest() %>%
+  mutate(net = map(data, ~EDBqgraphAvLayout(., ItemInfo50, ipipgroup50))) %>%
+         mutate(cols = lapply(1:nrow(.), function(x)all_cols50))
+# run correlations and networks for 60's
+corsNgraphs60s  <- data50 %>%
+  filter(as.numeric(age) >= 60 & as.numeric(age) < 70) %>%
+  select(-age2, -age) %>%
+  EDBqgraphAvLayout(., ItemInfo50, ipipgroup50)
+```
+
+```{r}
+getEdges.df <- function(x, cols) {
+    y <- qgraph::getWmat(x)
+    y[upper.tri(y, diag = T)] <- NA
+    colnames(y) <- cols; rownames(y) <- cols
+    nvar <- dim(y)[2]
+    df <- tbl_df(y) %>%
+      mutate(from = row.names(y)) %>%
+      gather(key = to, value = weight, 1:nvar) %>%
+      mutate(edge = paste(from, to, sep = "_")) %>%
+      filter(!is.na(weight))
+    return(df)
+}
+
+edges.df20s <- getEdges.df(corsNgraphs20s[[2]], all_cols50) %>%
+  mutate(from = factor(from, levels = all_cols50),
+         to = factor(to, levels = all_cols50),
+         cortype = "pcor", age = "20s")
+
+edges.df60s <- getEdges.df(corsNgraphs60s[[2]], all_cols50) %>%
+  mutate(from = factor(from, levels = all_cols50),
+         to = factor(to, levels = all_cols50),
+         cortype = "pcor", age = "60s") 
+
+MT_net_nested <- MT_net_nested %>%
+  mutate(edges.df = map2(net, cols, getEdges.df),
+         cors.df = map2(mat, cols, getEdges.df))
+ex_fun <- function(x){x[[1]]}
+corsNgraphsgr <- corsNgraphsgr %>%
+  mutate(cols = lapply(1:nrow(.), function(x)all_cols50),
+         mat = map(net, function(x) x[[1]]),
+         net = map(net, function(x) x[[2]]), 
+         edges.df = map2(net, cols, getEdges.df),
+         cors.df = map2(mat, cols, getEdges.df))
+```
+
+```{r}
+# between v. within edge strength for multitrait
+MT_net_nested %>% filter(inventory == "IPIP50") %>% unnest(edges.df) %>%
+  separate(from, c("from_trait", "from_item"), 1) %>%
+  separate(to, c("to_trait", "to_item"), 1) %>%
+  unite(traits, from_trait, to_trait, remove = F) %>%
+  mutate(comp = ifelse(from_trait == to_trait, "within", "between")) %>%
+  group_by(age, traits, comp) %>%
+  summarize(mean = fisherz2r(mean(fisherz(abs(weight)), na.rm = T))) %>%
+  ungroup() %>% group_by(age, comp) %>%
+  mutate(gmean = fisherz2r(mean(fisherz(mean), na.rm = T))) %>%
+  ggplot(aes(x = age, y = mean)) + 
+    geom_line(aes(linetype = comp, group = traits), alpha = .2) + 
+    geom_line(aes(x =age, y = gmean, color = comp,  group = comp), size = 2) + 
+    labs(x = "Age", y = "Mean Edge Weight", color = "Edge\nType", linetype = "Edge\nType") + 
+    #ylim(0,.6) + 
+    theme_classic() + 
+    theme(axis.text = element_text(face = "bold"),
+          axis.text.x = element_text(size = rel(.8), angle = 90))
+```
+
+## Single Trait Networks  
+```{r, eval = F}
+ST_net_nested <- ipip20 %>% mutate(inventory = "IPIP20") %>%
+  setNames(c("RID", "age", "gender", all_cols20, "age2", "inventory")) %>%
+  gather(key = item, value = value, -RID, -age, -gender, -inventory, na.rm = T) %>%
+full_join(
+  ipip50 %>% mutate(inventory = "IPIP50") %>% 
+  setNames(c("RID", "age", "gender", all_cols50, "age2", "inventory")) %>%
+  gather(key = item, value = value, -RID, -age, -gender, -inventory, na.rm = T)
+) %>%
+full_join(
+  ipip100 %>% mutate(inventory = "IPIP100") %>%
+  setNames(c("RID", "age", "gender", all_cols100, "age2", "inventory")) %>%
+  gather(key = item, value = value, -RID, -age, -gender, -inventory, na.rm = T)
+) %>% tbl_df %>%
+  separate(item, c("trait", "number"), 1, remove = F) %>%
+  select(inventory, RID, age, trait, item, value) %>%
+  group_by(inventory, age, trait) %>%
+  nest() %>%
+  mutate(data = map(data, function(x){x %>% spread(key = item, value = value)}),
+         cols = map(data, colnames), 
+         results  = map(data, EDBqgraph2),
+         mat = map(results, ~.[[1]]),
+         net = map(results, ~.[[2]]),
+         centrality = map(net, centrality_auto)) 
+save(MT_net_nested, ST_net_nested, file = "~/Box/networks/SAPA/nested_nets.RData")
+save(corsNgraphs20s, corsNgraphs60s, corsNgraphsgr, file = "~/Box/networks/SAPA/age_nets.RData")
+```
+
+```{r}
+ST_net_nested <- ST_net_nested %>%
+  mutate(edges.df = map2(net, cols, getEdges.df),
+         cors.df = map2(mat, cols, getEdges.df))
+```
+
+## Edge Comparisons
+### Bivariate Correlations
+```{r}
+long_fun <- function(mat, inventory){
+  if(inventory == "IPIP50"){
+    colnames(mat) <- all_cols50; rownames(mat) <- all_cols50
+  }
+ mat[upper.tri(mat, diag = T)] <- NA
+ mat %>% data.frame %>%
+   mutate(V1 = rownames(.)) %>%
+   gather(key = V2, value = r, -V1, na.rm = T) %>%
+   separate(V1, c("trait1", "item1"), 1) %>%
+   separate(V2, c("trait2", "item2"), 1) %>%
+   unite(traits, trait1, trait2, remove = F) %>%
+   mutate(type = ifelse(trait1 == trait2, "within", "between")) %>%
+   group_by(traits, type) %>%
+   summarize(mean = fisherz2r(mean(fisherz(abs(r)), na.rm = T))) %>%
+   ungroup() %>% group_by(type) %>%
+   mutate(gmean = fisherz2r(mean(fisherz(mean), na.rm = T)))
+}
+
+MT_net_nested %>%
+  mutate(iir = map2(mat, inventory, long_fun)) %>%
+  unnest(iir) %>%
+  ggplot(aes(x = as.numeric(age), y = mean)) + 
+    geom_line(aes(linetype = type, group = traits), alpha = .2) + 
+    geom_line(aes(x = as.numeric(age), y = gmean, color = type,  group = type), size = 2) + 
+    labs(x = "Age", y = "Mean Edge Weight", color = "Edge\nType", linetype = "Edge\nType") + 
+    #ylim(0,.6) + 
+  facet_wrap(~inventory, nrow = 3) +
+    theme_classic() + 
+    theme(axis.text = element_text(face = "bold"),
+          axis.text.x = element_text(size = rel(.8), angle = 90))
+```
+
+### Partial Correlations
+```{r}
+trait.edges.sum <- ST_net_nested %>%
+  unnest(edges.df) %>%
+  group_by(inventory, age, Trait) %>%
+  summarize(mean = fisherz2r(mean(fisherz(abs(weight)), na.rm = T))) %>%
+  ungroup() %>% group_by(age) %>%
+  mutate(type = "Single Trait", comp = "ST-within",
+         gmean = fisherz2r(mean(fisherz(mean), na.rm = T)), 
+         traits = Trait)
+
+trait.edges.sum50 <- trait.edges.df %>%
+  group_by(.id, traits) %>%
+  summarize(mean = fisherz2r(mean(fisherz(abs(weight)), na.rm = T))) %>%
+  ungroup() %>% group_by(.id) %>%
+  mutate(type = "Single Trait", comp = "ST-within",
+         gmean = fisherz2r(mean(fisherz(mean), na.rm = T)))
+
+trait.edges.sum50 %>%
+  ggplot(aes(x = .id, y = mean, group = traits)) + 
+    geom_line(aes(color = traits), size = .5) + 
+    theme_bw()
+  
+edges.sum <- MT_net_nested %>%
+  unnest(edges.df) %>%
+  separate(from, c("from_trait", "from_item"), 1) %>%
+  separate(to, c("to_trait", "to_item"), 1) %>%
+  unite(traits, from_trait, to_trait, remove = F) %>%
+  mutate(comp = ifelse(from_trait == to_trait, "MT-within", "MT-between")) %>%
+  group_by(inventory, age, traits, comp, from_trait, to_trait) %>%
+  summarize(n = n(), mean = fisherz2r(mean(fisherz(abs(weight)), na.rm = T))) %>%
+  ungroup() %>% group_by(inventory, age, from_trait, comp) %>%
+  mutate(traitMean1 = fisherz2r(mean(fisherz(mean), na.rm = T))) %>%
+  ungroup() %>% group_by(inventory, age, to_trait, comp) %>%
+  mutate(traitMean2 = fisherz2r(mean(fisherz(mean), na.rm = T))) %>%
+  ungroup() %>% 
+  mutate(traitMean = fisherz2r(rowMeans(cbind(fisherz(traitMean1), fisherz(traitMean2)), na.rm = T))) %>%
+  ungroup() %>% group_by(inventory, age, comp) %>%
+  mutate(type = "Multi Trait", 
+         gmean = fisherz2r(mean(fisherz(mean), na.rm = T))) %>%
+  arrange(age, comp, from_trait) %>% 
+  mutate(Trait = ifelse(comp == "MT-within", toupper(from_trait), NA))
+
+edges.sum$traitMean <- with(edges.sum, rowMeans(cbind(traitMean1, traitMean2), na.rm = T))
+
+edges.sum %>%
+  filter(comp != "MT-between" & inventory == "IPIP50") %>%
+  ggplot(aes(x = as.numeric(age), y = mean, group = comp)) + 
+      geom_line(data = filter(edges.sum, comp == "MT-within" & inventory == "IPIP50"), aes(color = Trait, linetype = type)) + 
+      geom_line(data = trait.edges.sum %>% filter(inventory == "IPIP50"), 
+                aes(color = Trait, linetype = type)) + 
+      scale_x_continuous(limits = c(14,80), breaks = seq(15, 80,5)) + 
+      scale_linetype_manual(values = c("dotted", "solid")) +
+      guides(color = F) +
+      facet_wrap(~Trait, nrow = 3) + 
+      labs(x = "Age", y = "Average Edge Weight", color = "Big5\nTrait", linetype = "Network\nType") + 
+      theme_classic() + 
+      theme(axis.text.x = element_text(size = rel(.5), face = "bold", angle = 90),
+            axis.text.y = element_text(face = "bold"),
+            legend.position = c(.75,.15),
+            legend.key.size = unit(.5, "cm"), 
+            legend.text = element_text(size = rel(.75)),
+            legend.title = element_text(size = rel(.75), face = "bold"))
+  
+edges.sum %>%
+  full_join(trait.edges.sum)  %>% 
+  filter(inventory == "IPIP50") %>%
+  ggplot(aes(x = age, y = mean, group = traits)) + 
+      geom_line(data = edges.sum %>% filter(inventory == "IPIP50"), aes(color = traits, linetype = comp)) + 
+      geom_line(data = trait.edges.sum %>% filter(inventory == "IPIP50"), aes(color = traits, linetype = comp)) + 
+      scale_linetype_manual(values = c("dotted", "solid", "dashed")) + 
+      facet_grid(inventory~type) + 
+      theme_classic() + 
+      theme(axis.text.x = element_text(size = rel(.75), face = "bold", angle = 90),
+            axis.text.y = element_text(face = "bold"))
+
+edges.sum %>%
+  full_join(trait.edges.sum) %>%
+  filter(comp != "MT-between" & inventory == "IPIP50") %>%
+  ggplot(aes(x = as.numeric(age), y = mean, group = comp)) + 
+      geom_line(data = filter(edges.sum, comp == "MT-within" & inventory == "IPIP50"), aes(color = Trait, linetype = type)) + 
+      geom_line(data = trait.edges.sum %>% filter(inventory == "IPIP50"), aes(color = Trait, linetype = type)) + 
+      scale_x_continuous(limits = c(14,80), breaks = seq(15, 80,5)) + 
+      scale_linetype_manual(values = c("dotted", "solid")) +
+      guides(color = F) +
+      facet_wrap(~Trait, nrow = 3) + 
+      labs(x = "Age", y = "Average Edge Weight", color = "Big5\nTrait", linetype = "Network\nType") + 
+      theme_classic() + 
+      theme(axis.text.x = element_text(size = rel(.5), face = "bold", angle = 90),
+            axis.text.y = element_text(face = "bold"),
+            legend.position = c(.75,.15),
+            legend.key.size = unit(.5, "cm"), 
+            legend.text = element_text(size = rel(.75)),
+            legend.title = element_text(size = rel(.75), face = "bold"))
+ggsave("~/Box/networks/SAPA/photos/by_trait_differentiation_coherence_line_graph.png", width = 5, height = 4)
+
+edges.sum %>%
+  full_join(trait.edges.sum) %>% filter(inventory == "IPIP50") %>%
+  ggplot(aes(x = as.numeric(age), y = mean)) + 
+      geom_smooth(data = edges.sum %>% filter(inventory == "IPIP50"), span = .3,
+                aes(group = traits), alpha = .1, color = "gray", size = .2, se = F) + 
+      geom_smooth(data = edges.sum %>% filter(inventory == "IPIP50"), size = 1, 
+                aes(y = gmean, group = comp, color = comp), se = F, span = .3) +
+      # geom_line(data = trait.edges.sum %>% filter(inventory == "IPIP50"), 
+      #           aes(group = traits), alpha = .1) + 
+      # geom_line(data = trait.edges.sum %>% filter(inventory == "IPIP50"), size = 1,
+      #           aes(y = gmean, group = comp,  color = comp)) + 
+      scale_x_continuous(limits = c(14,80), breaks = seq(15,80,5)) +
+      scale_y_continuous(limits = c(0,.2), breaks = seq(0,.2, .05)) +
+      scale_linetype_manual(values = c("solid", "dashed")) + 
+      scale_color_manual(values = c("royalblue1", "mediumseagreen")) +
+      labs(x = "Age", y = "Average Edge Weight",  color = "Relationship\nType") + 
+      guides(linetype = F) + 
+      theme_classic() + 
+      theme(axis.text.x = element_text(size = rel(.75), face = "bold", angle = 90),
+            axis.text.y = element_text(face = "bold"),
+            legend.key.size = unit(.25, "cm"), 
+            legend.text = element_text(size = rel(.5)),
+            legend.title = element_text(size = rel(.5), face = "bold"),
+            legend.position = c(.1, .8))
+ggsave("~/Box/networks/SAPA/photos/differentiation_coherence_line_graph.png", width = 5, height = 4)
+```
+
+# Fit Linear Models of Edges  
+## Multi-Trait
+```{r}
+reg_fun <- function(df){lm(weight ~ as.numeric(age), data = df)}
+
+pred_fun <- function(x,y){x %>% mutate(pred = predict(y, newdata = .))}
+
+regPlot_fun <- function(df, edge){
+  ggplot(df, aes(x = as.numeric(age), y = weight)) + 
+    geom_point() + 
+    geom_smooth(method = "lm") + 
+    labs(x = "Age", y = "Edge Weight", title = edge) + 
+    geom_line() + 
+    theme_bw()
+}
+
+MTnet_reg <- 
+  MT_net_nested %>% 
+  unnest(edges.df) %>% 
+  group_by(inventory, edge) %>% 
+  nest() %>% 
+  mutate(model = map(data, reg_fun), 
+         plot = map2(data, edge, regPlot_fun), 
+         tidy = map(model, tidy),
+         pred = map2(data, model, pred_fun),
+         glance = map(model, glance))
+
+slopesPlot_fun <- function(df, Inventory){
+  df %>% 
+    mutate(edge1 = gsub('[[:digit:]]+', '', edge)) %>%
+    separate(edge1, into = c("from_edge", "to_edge"), remove = F) %>%
+    mutate(type = ifelse(from_edge == to_edge, "Within", "Between")) %>%
+    ggplot(aes(x = estimate, fill = type)) +
+    geom_histogram(aes(y = ..density..), color = "black", bins = 30) + 
+    labs(title = sprintf("Histogram of Slopes Over Time for %s", Inventory)) + 
+    facet_grid(.~type) + 
+    theme_classic()
+  ggsave(sprintf("%s/SAPA/photos/%s_slopes_distribution.png", data_path, Inventory),
+         width = 12, height = 5)
+}
+
+MTnet_reg %>% unnest(tidy) %>%
+  filter(term != "(Intercept)") %>% 
+  group_by(inventory) %>% 
+  nest() %>%
+  mutate(plot = map2(data, inventory, slopesPlot_fun))
+```
+
+## Single Trait
+```{r}
+pred_fun <- function(x,y){x %>% mutate(pred = predict(y, newdata=.))}
+reg_fun <- function(x){lm(x$weight ~ as.numeric(x$age), data = x)}
+
+MTnet_reg <- 
+  ST_net_nested %>% 
+  unnest(edges.df) %>% 
+  group_by(inventory, edge, Trait) %>% 
+  nest() %>% 
+  mutate(model = map(data, reg_fun), 
+         plot = map2(data, edge, regPlot_fun), 
+         tidy = map(model, tidy),
+         pred = map2(data, model, pred_fun),
+         glance = map(model, glance))
+
+MTnet_reg %>% unnest(tidy) %>%
+  filter(term != "(Intercept)") %>%
+  ggplot(aes(x = estimate, fill = Trait)) + 
+    geom_histogram(color = "black", bins = 30) + 
+    facet_wrap(~inventory + Trait, scales = "free", nrow = 3) + 
+    labs(x = "slope estimate", y = "Frequency", title = "Slope Distribution Single Trait") + 
+    theme_classic()
+```
+
+# Profile Correlations
+Next, we calculate profile correlations to test the stability of edges across all possible pairwise combinations of ages. A strong parallel correlation indicates that the weight of the edges is associated across two ages. We then map these profile correlations onto a heat map that displays the pairwise profile correlations. We would expect to see the strongest profile correlations cluster on the diagonal of heatmap -- that is between ages that are adjacent or near in age.  
+## Multi-Trait  
+```{r}
+wide_fun <- function(df){
+  df <- unclass(df) %>% data.frame %>% 
+    select(-from, -to) %>% spread(key = edge, value = weight)
+  rownames(df) <- df$age
+  df <- df %>% select(-age)
+  return(df)
+  }
+
+MT_procor <- MT_net_nested %>% 
+  unnest(edges.df) %>%
+  group_by(inventory) %>%
+  nest() %>%
+  mutate(wide = map(data, wide_fun),
+         procor = map(wide, ~cor(t(.), use = "pairwise.complete.obs")))
+
+
+edges.mat50bw <- MT_net_nested %>% 
+       filter(inventory == "IPIP50") %>% unnest(edges.df) %>%
+       separate(from, into = c("from_factor", "from_item"), 1) %>%
+       separate(to, into = c("to_factor", "to_item"), 1) %>%
+       filter(from_factor != to_factor) %>%
+       select(age, weight, edge) %>%
+       spread(key = edge, value = weight) %>%
+       unclass %>% data.frame
+
+edges.mat50wi <- MT_net_nested %>% 
+       filter(inventory == "IPIP50") %>% unnest(edges.df) %>%
+       separate(from, into = c("from_factor", "from_item"), 1) %>%
+       separate(to, into = c("to_factor", "to_item"), 1) %>%
+       filter(from_factor == to_factor) %>%
+       select(age, weight, edge) %>%
+       spread(key = edge, value = weight) %>%
+       unclass %>% data.frame
+       
+rownames(edges.mat50bw) <- edges.mat50bw$age
+rownames(edges.mat50wi) <- edges.mat50wi$age
+
+##############################################
+############ Profile Correlations ############
+##############################################
+
+# calculate profile correlations
+procor50bw <- cor(t(edges.mat50bw[,-1]), use = "pairwise.complete.obs")
+procor50wi <- cor(t(edges.mat50wi[,-1]), use = "pairwise.complete.obs")
+
+##############################################
+################## PLOTS #####################
+##############################################
+
+procor_plot_fun <- function(df, inv){
+  df[upper.tri(df, diag = T)] <- NA
+  p <- tbl_df(df) %>% 
+    mutate(age1 = colnames(.)) %>%
+    gather(key = age2, value = r, 1:(ncol(.) - 1)) %>%
+    filter(!is.na(r)) %>%
+    ggplot(aes(x = age2, y = age1, fill = r)) + 
+      geom_raster(aes(fill = r)) + 
+      scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+       midpoint = .5, limit = c(0,1), space = "Lab", 
+       name="Profile\nCorrelation") +
+      labs(x = "Age", y = "Age", title = sprintf("Profile Correlations for %s", inv)) + 
+      theme_classic() + 
+      theme(legend.position = c(.75,.25),
+            axis.text = element_text(face = "bold"),
+            axis.text.x = element_text(angle = 90, size = rel(.8)),
+            plot.title = element_text(hjust = .5))
+  ggsave(p, file = sprintf("%s/SAPA/photos/profile correlations/Big5_%s_profile_cors_heatmap.png", data_path, inv), width = 12, height = 8)
+  p
+}
+
+MT_procor <- MT_procor %>%
+  mutate(plot = map2(procor, inventory, procor_plot_fun))
+  
+# ipip50 cross-trait ------------------------------------------------------
+procor_plot_fun(procor50bw, "IPIP50 Cross-Trait Edges")
+# ipip50 within-trait -----------------------------------------------------
+procor_plot_fun(procor50wi, "IPIP50 Within-Trait Edges")
+```
+
+## Single Trait
+```{r}
+wide_fun <- function(df){
+  df <- unclass(df) %>% data.frame %>% 
+    select(-from, -to) %>% spread(key = edge, value = weight)
+  rownames(df) <- df$age
+  df <- df %>% select(-age)
+  return(df)
+  }
+
+ST_procor <- ST_net_nested %>% 
+  unnest(edges.df) %>%
+  group_by(inventory, Trait) %>%
+  nest() %>%
+  mutate(wide = map(data, wide_fun),
+         procor = map(wide, ~cor(t(.), use = "pairwise.complete.obs")))
+
+##############################################
+################## PLOTS #####################
+##############################################
+
+procor_plot_fun <- function(df, inv, trait){
+  df[upper.tri(df, diag = T)] <- NA
+  p <- tbl_df(df) %>% 
+    mutate(age1 = colnames(.)) %>%
+    gather(key = age2, value = r, 1:(ncol(.) - 1)) %>%
+    filter(!is.na(r)) %>%
+    ggplot(aes(x = age2, y = age1, fill = r)) + 
+      geom_raster(aes(fill = r)) + 
+      scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+       midpoint = .5, limit = c(0,1), space = "Lab", 
+       name="Profile\nCorrelation") +
+      labs(x = "Age", y = "Age", title = sprintf("Profile Correlations for %s %s", inv, trait)) + 
+      theme_classic() + 
+      theme(legend.position = c(.75,.25),
+            axis.text = element_text(face = "bold"),
+            axis.text.x = element_text(angle = 90, size = rel(.8)),
+            plot.title = element_text(hjust = .5))
+  ggsave(p, file = sprintf("%s/SAPA/photos/profile correlations/Big5_%s_%s_profile_cors_heatmap.png", data_path, inv, trait), width = 12, height = 8)
+  p
+}
+
+ST_procor <- ST_procor %>%
+  mutate(plot = pmap(list(procor, inventory, Trait), procor_plot_fun))
+
+procor.plots20  <- do.call("grid.arrange", (ST_procor %>% filter(inventory == "IPIP20"))$plot)
+procor.plots50  <- do.call("grid.arrange", (ST_procor %>% filter(inventory == "IPIP50"))$plot)
+procor.plots100 <- do.call("grid.arrange", (ST_procor %>% filter(inventory == "IPIP100"))$plot)
+
+layout <- rbind(c(1, 1, 2, 3, 4),
+                  c(1, 1, 5, 6, 7))
+
+t2 <- grid::textGrob("IPIP50")
+
+
+### NOT DONE ### 
+procor_plot50_all <- gridExtra::grid.arrange(
+  procor_plot50,  trait.edges.mat50$plot[[1]],  
+  trait.edges.mat50$plot[[2]],   trait.edges.mat50$plot[[3]], 
+  trait.edges.mat50$plot[[4]],  trait.edges.mat50$plot[[5]],  
+  t2, layout_matrix = layout
+  )
+ggsave(plot = procor_plot50_all, file = "~/Box/networks/SAPA/photos/ipip_procor50.png", width = 20, height = 9)
+```
+
+# Communities
+Next, we calculate the communities in each network using the Spin Glass algorithm. Although there is no widely accepted definition of communities (Baroncelli, 2012), communities are generally considered to be nodes that are more connected to each other than to other nodes. For demonstrative purposes, we separately collapse across the 20s and 60s and run the networks. Then we calculate their community structure and compare them. 
+## Multi-Trait
+### Run Communities  
+```{r, eval = F}
+communities_fun <-   function(g){    
+        g <- igraph::as.igraph(g)
+        V(g)$label <- all_cols50
+        g2 <- g
+        E(g2)$weight <- abs(E(g2)$weight)
+        #sgc <- igraph::spinglass.community(g)
+        #wtc <- igraph::cluster_walktrap(g)
+        lvc <- igraph::cluster_louvain(g2)
+        #ceb <- igraph::cluster_edge_betweenness(g2)
+        subgraphs <- list()
+        for (i in 1:length(unique(lvc$membership))){
+          subgraphs[[i]] <- igraph::induced_subgraph(g,
+            vids = which(lvc$membership == i),
+            impl = "copy_and_delete")}
+        #cl  <- igraph::cliques(g, min = 5)
+        results <- list(graph = g, 
+                        #spinglass = sgc, 
+                        #randomWalks = wtc,
+                        louvain = lvc,
+                        #betweeenness = ceb,
+                        subgraphs = subgraphs)
+                        #cliques = cl)
+        return(results)
+}
+
+communities20s <- communities_fun(corsNgraphs20s[[2]])
+communities60s <- communities_fun(corsNgraphs60s[[2]])
+
+membership_fun <- function(comm, cols){
+  comm <- comm$louvain$membership %>% setNames(cols)
+}
+
+MT_net_nested <- MT_net_nested %>%
+  mutate(communities = map(net, communities_fun),
+         membership = map2(communities, cols, membership_fun))
+
+corsNgraphsgr <- corsNgraphsgr %>%
+  mutate(communities = map(net, communities_fun),
+         membership = map2(communities, cols, membership_fun))
+
+communities38below <- MT_net_nested %>% unnest(membership) %>% filter(inventory == "IPIP50" & age <= 38)
+communities39above <- MT_net_nested %>% unnest(membership) %>% filter(inventory == "IPIP50" & age >= 39)
+```
+
+### Matching Across Communities  
+The code below is a little incomprehensible, but in this instance there isn't really a better alternative.  
+```{r}
+match_mat <- matrix(rep(NA, 50*50), nrow = 50)
+for(i in 1:50){
+  for(j in 1:50){
+    match <- 0L
+    for(k in 1:50){
+      match <- ifelse(all_communities.df[k,i+1] == all_communities.df[k,j+1], match + 1, match)
+    }
+    match_mat[i,j] <- match
+  }
+}
+
+match_mat38below <- matrix(rep(NA, 50*50), nrow = 50)
+match_mat39above <- matrix(rep(NA, 50*50), nrow = 50)
+for(i in 1:50){
+  for(j in 1:50){
+    match38below <- 0L
+    match39above <- 0L
+    for(k in 1:25){
+      match38below <- ifelse(communities38below[k,i+1] == communities38below[k,j+1], match38below + 1, match38below)
+      match39above <- ifelse(communities39above[k,i+1] == communities39above[k,j+1], match39above + 1, match39above)
+    }
+    match_mat38below[i,j] <- match38below
+    match_mat39above[i,j] <- match39above
+  }
+}
+community_plot_fun <- function(df, age, lim){
+  colnames(df) <- all_cols50; rownames(df) <- all_cols50
+  df[upper.tri(df, diag = T)] <- NA
+  tbl_df(df) %>%
+    mutate(Edge1 = factor(all_cols50, levels = all_cols50)) %>%
+    gather(key = Edge2, value = communities, 1:50) %>%
+    mutate(Edge2 = factor(Edge2, levels = all_cols50)) %>%
+    filter(!is.na(communities)) %>%
+    ggplot(aes(x = Edge2, y = Edge1, fill = communities)) + 
+      geom_raster() + 
+      scale_fill_gradient(
+        high = "orchid4", low = "white",
+        limit = c(0,lim), name="Shared\nCommunity\nSums") +
+        labs(x = NULL, y = NULL, 
+             title = sprintf("%s", age)) + 
+      theme_classic() + 
+      theme(axis.text.x = element_text(face = "bold", angle = 90),
+            axis.text.y = element_text(face = "bold"),
+            plot.title = element_text(hjust = .5, face = "bold"))
+}
+
+communityall     <- community_plot_fun(match_mat, "All", 50) + theme(legend.position = c(.9, .5))
+community38below <- community_plot_fun(match_mat38below, "38 & below", 25) + 
+  theme(legend.position = "none",
+        axis.text = element_text(size = rel(.3)))
+community39above <- community_plot_fun(match_mat39above, "39 & above", 25) + 
+  theme(legend.position = "none",
+        axis.text = element_text(size = rel(.3)))
+
+community_plot <-  grid.arrange(communityall, community38below, community39above, 
+             layout_matrix = rbind(c(1,1,3),
+                                   c(1,1,4)))
+ggsave(plot = community_plot, file = "~/Box/networks/SAPA/photos/shared_communities.png", width = 9, height = 6)
+```
+
+### Plots
+```{r}
+bordercolors20s <- mapvalues(communities20s$louvain$membership, from = seq(1, max(communities20s$louvain$membership),1), to = RColorBrewer::brewer.pal(max(communities20s$louvain$membership),"Set3"))
+bordercolors60s <- mapvalues(communities60s$louvain$membership, from = seq(1, max(communities60s$louvain$membership),1), to = RColorBrewer::brewer.pal(max(communities60s$louvain$membership),"Set3"))
+
+corsNgraphs20s[[2]] <- EDBqgraph_communities(corsNgraphs20s[[2]], bordercolors20s)
+corsNgraphs60s[[2]] <- EDBqgraph_communities(corsNgraphs60s[[2]], bordercolors60s)
+
+b_color_fun <- function(c){
+  mapvalues(c$louvain$membership, from = seq(1, max(c$louvain$membership),1), 
+            to = RColorBrewer::brewer.pal(max(c$louvain$membership),"Set3"))
+}
+
+corsNgraphsgr <- corsNgraphsgr %>%
+  mutate(bordercolors = map(communities, b_color_fun), 
+         net = map2(net, bordercolors, EDBqgraph_communities)) %>%
+  arrange(age_groups)
+
+par(mfrow = c(1,2))
+plot(corsNgraphs20s[[2]])
+title("20s")
+plot(corsNgraphs60s[[2]])
+title("60s")
+
+par(mfrow = c(2,4))
+lapply(1:7, function(x){ plot(corsNgraphsgr$net[[x]]); title(sprintf("%s0s", x))})
+```
+
+
+# Fit Centrality Linear Models  
+Centrality measures provide several quantitative indices of each node's relative importance in a network. Although centrality measures tend to be highly correlated (e.g. node's high in strength centrality also tend to be high in closeness -- that is, nodes with many strong connections also tend to be near other nodes.), each measure provides some unique information. Closeness and betweenness differently approximate how quickly nodes impact other nodes, while strength indicates how large such an impact is.  As with edges, we can use simple linear regressions to test how well a linear relationship approximates each node's developmental trajectory. Also as with edge weights, the null hypothesis would be zero change -- centrality would not change across ages.  
+
+## Multi-Trait
+```{r}
+centrality.df_fun <- function(x, col){
+  x$var <- col
+  y <- x %>%
+    gather(key = measure, value = value, 1:3) %>%
+    separate(var, into = c("factor","itemnum"), remove = F, sep = 1) 
+}
+
+MT_net_nested <- MT_net_nested %>% 
+  mutate(centrality.df = map(centrality, ~.$node.centrality),
+         centrality.df = map2(centrality.df, cols, centrality.df_fun))
+
+MT_centrality <- MT_net_nested %>% unnest(centrality.df) %>%
+  group_by(age, measure) %>% 
+  arrange(age, measure, value) %>% 
+  mutate(rank = min_rank(value)) %>% 
+  ungroup() %>%
+  group_by(inventory, measure, var) %>%
+  nest()
+```
+
+```{r}
+pred_fun <- function(x,y){x %>% mutate(pred = predict(y, newdata = .))}
+
+plot_fun <- function(x, var, measure, inv){
+  ggplot(x, aes(x = as.numeric(.id), y = value)) +
+    geom_smooth(method = "lm") + 
+    geom_line() + 
+    labs(x = "Age", y = measure, title = sprintf("%s %s %s", inv, var, measure)) + 
+    theme_classic() + 
+    theme(axis.text = element_text(face = "bold"),
+          axis.title = element_text(face = "bold"),
+          plot.title = element_text(hjust = .5, face = "bold"))
+}
+
+MT_centrality <- MT_centrality %>%
+  mutate(model = map(data, ~lm(value ~ as.numeric(age), data = .)),
+         tidy = map(model, tidy), 
+         pred = map2(data, model, pred_fun),
+         plot = pmap(list(data, var, measure, inventory), plot_fun),
+         glance = map(model, glance))
+```
+
+## Single Trait
+```{r}
+centrality.df_fun <- function(x, col){
+  x$var <- col
+  y <- x %>%
+    gather(key = measure, value = value, 1:3) %>%
+    separate(var, into = c("factor","itemnum"), remove = F, sep = 1) 
+}
+
+ST_net_nested <- ST_net_nested %>% 
+  mutate(centrality.df = map(centrality, ~.$node.centrality),
+         centrality.df = map2(centrality.df, cols, centrality.df_fun))
+
+ST_centrality <- ST_net_nested %>% unnest(centrality.df) %>%
+  group_by(inventory, Trait, age, measure) %>% 
+  arrange(inventory, Trait, age, measure, value) %>% 
+  mutate(rank = min_rank(value)) %>% 
+  ungroup() %>%
+  group_by(inventory, Trait, measure, var) %>%
+  nest()
+```
+
+```{r}
+pred_fun <- function(x,y){x %>% mutate(pred = predict(y, newdata = .))}
+
+plot_fun <- function(x, var, measure, inv){
+  ggplot(x, aes(x = as.numeric(.id), y = value)) +
+    geom_smooth(method = "lm") + 
+    geom_line() + 
+    labs(x = "Age", y = measure, title = sprintf("%s %s %s", inv, var, measure)) + 
+    theme_classic() + 
+    theme(axis.text = element_text(face = "bold"),
+          axis.title = element_text(face = "bold"),
+          plot.title = element_text(hjust = .5, face = "bold"))
+}
+
+ST_centrality <- ST_centrality %>%
+  mutate(model = map(data, ~lm(value ~ as.numeric(age), data = .)),
+         tidy = map(model, tidy), 
+         pred = map2(data, model, pred_fun),
+         plot = pmap(list(data, var, measure, inventory), plot_fun),
+         glance = map(model, glance))
+```
+
+# Centrality Rank Order Correlations  
+## Multi-Trait  
+```{r}
+rank_r_fun <- function(df){
+  rankcor <- cor(t(df[,-1]), use = "pairwise.complete.obs", method = "spearman")
+  rankcor[upper.tri(rankcor, diag = T)] <- NA
+  row.names(rankcor) <- df$age; colnames(rankcor) <- df$age
+  tbl_df(rankcor) %>% 
+    mutate(age1 = colnames(.)) %>%
+    gather(key = age2, value = r, 1:(ncol(.) - 1)) %>%
+    filter(!is.na(r))
+}
+
+rank_r_plot_fun <- function(df, inv) {
+  df %>%
+    ggplot(aes(x = age2, y = age1, fill = r)) + 
+      geom_raster() + 
+      geom_raster(aes(fill = r)) + 
+      scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+        midpoint = .25, limit = c(-.5,.5), space = "Lab", 
+        name="Profile\nCorrelation") +
+      labs(x = "Age", y = "Age", title = sprintf("Big 5 Centrality Rank-Order Correlations Across Ages for %s", inv)) + 
+      facet_wrap(~measure) + 
+      theme_classic() + 
+      theme(legend.position = c(.75,.25))
+}
+
+procor_fun <- function(x) {
+  ncol <- dim(x)[2]
+  procor <- cor(t(x[,c(2:(ncol-1))]),   use = "pairwise.complete.obs")
+  colnames(procor) <- x$.id
+  procor.df <- tbl_df(procor) %>% mutate(age2 = colnames(.))
+  return(procor.df)
+}
+
+rank_fun <- function(df){
+  df %>% select(var, age, rank) %>%
+    spread(key = var, value = rank)
+}
+
+MT_rank <- MT_centrality %>% 
+  unnest(data) %>% 
+  group_by(inventory, measure) %>%
+  nest() %>%
+  mutate(rank_data = map(data, rank_fun), 
+         rank_r = map(rank_data, rank_r_fun))
+
+MT_rank %>% unnest(rank_r) %>% filter(inventory == "IPIP20") %>% rank_r_plot_fun(., "IPIP20")
+ggsave("~/Box/networks/SAPA/photos/profile correlations/Big5_miniIPIP_profile_cors_heatmap.png", width = 12, height = 8)
+MT_rank %>% unnest(rank_r) %>% filter(inventory == "IPIP50") %>% rank_r_plot_fun(., "IPIP50")
+ggsave("~/Box/networks/SAPA/photos/profile correlations/Big5_ipip50_profile_cors_heatmap.png", width = 12, height = 8)
+MT_rank %>% unnest(rank_r) %>% filter(inventory == "IPIP100") %>% rank_r_plot_fun(., "IPIP100")
+ggsave("~/Box/networks/SAPA/photos/profile correlations/Big5_ipip100_profile_cors_heatmap.png", width = 12, height = 8)
+```
+
+## Single Trait
+```{r}
+rank_r_fun <- function(df){
+  rankcor <- cor(t(df[,-1]), use = "pairwise.complete.obs", method = "spearman")
+  rankcor[upper.tri(rankcor, diag = T)] <- NA
+  row.names(rankcor) <- df$age; colnames(rankcor) <- df$age
+  tbl_df(rankcor) %>% 
+    mutate(age1 = colnames(.)) %>%
+    gather(key = age2, value = r, 1:(ncol(.) - 1)) %>%
+    filter(!is.na(r))
+}
+
+rank_r_plot_fun <- function(df, inv) {
+  df %>%
+    ggplot(aes(x = age2, y = age1, fill = r)) + 
+      geom_raster() + 
+      geom_raster(aes(fill = r)) + 
+      scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+        midpoint = .25, limit = c(-.5,.5), space = "Lab", 
+        name="Profile\nCorrelation") +
+      labs(x = "Age", y = "Age", title = sprintf("Big 5 Centrality Rank-Order Correlations Across Ages for %s", inv)) + 
+      facet_grid(Trait~measure) + 
+      theme_classic() + 
+      theme(legend.position = c(.75,.25))
+}
+
+procor_fun <- function(x) {
+  ncol <- dim(x)[2]
+  procor <- cor(t(x[,c(2:(ncol-1))]),   use = "pairwise.complete.obs")
+  colnames(procor) <- x$.id
+  procor.df <- tbl_df(procor) %>% mutate(age2 = colnames(.))
+  return(procor.df)
+}
+
+rank_fun <- function(df){
+  df %>% select(var, age, rank) %>%
+    spread(key = var, value = rank)
+}
+
+ST_rank <- ST_centrality %>% 
+  unnest(data) %>% 
+  group_by(inventory, measure, Trait) %>%
+  nest() %>%
+  mutate(rank_data = map(data, rank_fun), 
+         rank_r = map(rank_data, rank_r_fun))
+
+ST_rank %>% unnest(rank_r) %>% filter(inventory == "IPIP20") %>% rank_r_plot_fun(., "IPIP20")
+ggsave("~/Box/networks/SAPA/photos/profile correlations/ST_ipip20_rank_r_heatmap.png", width = 12, height = 8)
+ST_rank %>% unnest(rank_r) %>% filter(inventory == "IPIP50") %>% rank_r_plot_fun(., "IPIP50")
+ggsave("~/Box/networks/SAPA/photos/profile correlations/ST_ipip50_rank_r_heatmap.png", width = 12, height = 8)
+ST_rank %>% unnest(rank_r) %>% filter(inventory == "IPIP100") %>% rank_r_plot_fun(., "IPIP100")
+ggsave("~/Box/networks/SAPA/photos/profile correlations/ST_ipip100_rank_r_heatmap.png", width = 12, height = 8)
+```
+
+
+# Old code
+
+```{r}
+ST_net_nested <- tibble(inventory = "IPIP20", Trait = "E", age = names(EgraphsNcors20), results = EgraphsNcors20, centrality = Ecentrality20) %>% mutate(cols = lapply(1:nrow(.), function(x) e_cols20)) %>%
+  bind_rows(tibble(inventory = "IPIP20", Trait = "A", age = names(AgraphsNcors20), results = AgraphsNcors20, centrality = Acentrality20) %>% mutate(cols = lapply(1:nrow(.), function(x) a_cols20))) %>%
+  bind_rows(tibble(inventory = "IPIP20", Trait = "C", age = names(CgraphsNcors20), results = CgraphsNcors20, centrality = Ccentrality20) %>% mutate(cols = lapply(1:nrow(.), function(x) c_cols20))) %>%
+bind_rows(tibble(inventory = "IPIP20", Trait = "N", age = names(NgraphsNcors20), results = NgraphsNcors20, centrality = Ncentrality20) %>% mutate(cols = lapply(1:nrow(.), function(x) n_cols20))) %>%
+bind_rows(tibble(inventory = "IPIP20", Trait = "O", age = names(OgraphsNcors20), results = OgraphsNcors20, centrality = Ocentrality20) %>% mutate(cols = lapply(1:nrow(.), function(x) o_cols20))) %>%
+
+bind_rows(tibble(inventory = "IPIP50", Trait = "E", age = names(EgraphsNcors50), results = EgraphsNcors50, centrality = Ecentrality50) %>% mutate(cols = lapply(1:nrow(.), function(x) e_cols50))) %>%
+  bind_rows(tibble(inventory = "IPIP50", Trait = "A", age = names(AgraphsNcors50), results = AgraphsNcors50, centrality = Acentrality50) %>% mutate(cols = lapply(1:nrow(.), function(x) a_cols50))) %>%
+  bind_rows(tibble(inventory = "IPIP50", Trait = "C", age = names(CgraphsNcors50), results = CgraphsNcors50, centrality = Ccentrality50) %>% mutate(cols = lapply(1:nrow(.), function(x) c_cols50))) %>%
+bind_rows(tibble(inventory = "IPIP50", Trait = "N", age = names(NgraphsNcors50), results = NgraphsNcors50, centrality = Ncentrality50) %>% mutate(cols = lapply(1:nrow(.), function(x) n_cols50))) %>%
+bind_rows(tibble(inventory = "IPIP50", Trait = "O", age = names(OgraphsNcors50), results = OgraphsNcors50, centrality = Ocentrality50) %>% mutate(cols = lapply(1:nrow(.), function(x) o_cols50))) %>%
+
+bind_rows(tibble(inventory = "IPIP100", Trait = "E", age = names(EgraphsNcors100), results = EgraphsNcors100, centrality = Ecentrality100) %>% mutate(cols = lapply(1:nrow(.), function(x) e_cols100))) %>%
+  bind_rows(tibble(inventory = "IPIP100", Trait = "A", age = names(AgraphsNcors100), results = AgraphsNcors100, centrality = Acentrality100) %>% mutate(cols = lapply(1:nrow(.), function(x) a_cols100))) %>%
+  bind_rows(tibble(inventory = "IPIP100", Trait = "C", age = names(CgraphsNcors100), results = CgraphsNcors100, centrality = Ccentrality100) %>% mutate(cols = lapply(1:nrow(.), function(x) c_cols100))) %>%
+bind_rows(tibble(inventory = "IPIP100", Trait = "N", age = names(NgraphsNcors100), results = NgraphsNcors100, centrality = Ncentrality100) %>% mutate(cols = lapply(1:nrow(.), function(x) n_cols100))) %>%
+bind_rows(tibble(inventory = "IPIP100", Trait = "O", age = names(OgraphsNcors100), results = OgraphsNcors100, centrality = Ocentrality100) %>% mutate(cols = lapply(1:nrow(.), function(x) o_cols100))) %>%
+  mutate(mat = map(results, ~.[[1]]),
+         net = map(results, ~.[[2]]))
+```
